@@ -1,0 +1,50 @@
+<div class="nf nf-comparison" [class.nf-comparison-inline]="!grid()" [class.nf-comparison-grid]="grid()" (click)="$event.stopPropagation()">
+    @if (grid()) {
+        <button [class]="options().cssClasses.buttonDefault(isNegated())" class="nf-code" [class.active]="isNegated()" (click)="_toggleType()">
+            {{options().texts.not}}
+        </button>
+    } @else if (isNegated()) {
+        <div class="nf-comparison-negated nf-code">
+            {{options().texts.not}}
+        </div>
+    }
+
+    <div class="nf-comparison-field">
+        <filter-dropdown 
+            [items]="context().fields"
+            [showSearch]="true"
+            [showDescription]="true"
+            [typeaheadLabel]="'NONE'"
+            [value]="comparison().field" 
+            (valueChange)="_changeField($event!)"
+            [options]="options()" />
+    </div>
+    <div class="nf-comparison-operator">
+        <filter-dropdown
+            [items]="context().operators" 
+            [value]="comparison().op"
+            (valueChange)="_changeOperator($event!)"
+            [options]="options()" />
+    </div>
+
+    @if (!isEmpty()) {
+        <div class="nf-comparison-value">
+            <ng-template #value></ng-template>
+        </div>
+    }
+
+    @if (grid()) {
+        <button [class]="options().cssClasses.buttonDelete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
+                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+            </svg>
+        </button>
+    } @else {
+        <button class="nf-button nf-button-default nf-comparison-delete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
+                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+            </svg>
+        </button>
+    }
+
+</div>

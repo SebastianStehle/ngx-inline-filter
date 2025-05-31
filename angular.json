@@ -1,0 +1,59 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ng-inline-filter": {
+      "projectType": "library",
+      "root": "projects/ng-inline-filter",
+      "sourceRoot": "projects/ng-inline-filter/src",
+      "prefix": "filter",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/ng-inline-filter/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-inline-filter/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-inline-filter/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ng-inline-filter/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/ng-inline-filter/.storybook",
+            "browserTarget": "ng-inline-filter:build",
+            "compodoc": false,
+            "port": 6006,
+            "styles": ["projects/ng-inline-filter/src/lib/styles.scss", "preview/style.css"]
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/ng-inline-filter/.storybook",
+            "browserTarget": "ng-inline-filter:build",
+            "compodoc": false,
+            "outputDir": "dist/storybook/ng-inline-filter"
+          }
+        }
+      }
+    }
+  }
+}

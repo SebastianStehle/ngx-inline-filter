@@ -1,0 +1,8 @@
+<input 
+    #input 
+    type="text"
+    class="{{options().cssClasses.inputDate}} nf-input-number-width"
+    [ngModel]="value()"
+    (ngModelChange)="onChange($event)"
+    [ngModelOptions]="{ standalone: true }"
+/>

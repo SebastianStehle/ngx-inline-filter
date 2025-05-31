@@ -1,0 +1,68 @@
+@if (grid()) {
+    <div class="nf-group-grid">
+        <div class="nf-group-header">
+            <div class="nf-group-types">
+                <button class="{{options().cssClasses.buttonSmall(isLogicalAnd())}} nf-code" (click)="_toggleType();">
+                    {{options().texts.and}}
+                </button>
+            
+                <button class="{{options().cssClasses.buttonSmall(isLogicalOr())}} nf-code" (click)="_toggleType();">
+                    {{options().texts.or}}
+                </button>
+            </div>
+    
+            @if (level() > 0) {
+                <button [class]="options().cssClasses.buttonDefault(false)" >
+                    <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
+                        <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+                    </svg>
+                </button>
+            }
+        </div>
+        
+        <div class="nf-group-children">
+            @for (node of children(); track $index) {
+                <div class="nf-group-child">
+                    <filter-node
+                        [container]="null"
+                        [context]="context()"
+                        [disabled]="disabled()"
+                        [grid]="true"
+                        [level]="level() + 1"
+                        [node]="node"
+                        (nodeChange)="_replaceNode($index, $event)"
+                        (nodeRemove)="_removeNode($index)"
+                        [options]="options()" />
+                </div>
+            }
+    
+            <div class="nf-group-add">
+                <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
+                    {{options().texts.addComparison}}
+                </button>
+                
+                @if (level() < 2) {
+                    <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
+                        {{options().texts.addGroup}}
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+} @else {
+    <div class="nf-group-inline">
+        <div class="nf-group-text">
+            @if (isLogicalAnd()) {
+                {{options().texts.and}}
+            } @else {
+                {{options().texts.or}}
+            }
+        </div>
+
+        <button class="{{options().cssClasses.buttonDefault(false)}} nf-comparison-delete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
+                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+            </svg>
+        </button>
+    </div>
+}

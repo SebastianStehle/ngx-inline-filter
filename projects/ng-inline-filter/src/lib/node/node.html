@@ -1,0 +1,26 @@
+@if (actualComparison()) {
+    <filter-comparison
+        #comparison
+        [container]="container()"
+        [context]="context()"
+        [disabled]="disabled()"
+        [grid]="grid()"
+        [node]="actualComparison()!"
+        (nodeChange)="nodeChange.emit($event)"
+        (nodeRemove)="nodeRemove.emit($event)"
+        [options]="options()" />
+}
+
+@if (actualGroup()) {
+    <filter-group
+        #group
+        [container]="container()"
+        [context]="context()"
+        [disabled]="disabled()"
+        [grid]="grid()"
+        [level]="level()"
+        [node]="actualGroup()!"
+        (nodeChange)="nodeChange.emit($event)"
+        (nodeRemove)="nodeRemove.emit($event)"
+        [options]="options()" />
+}
