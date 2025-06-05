@@ -1,17 +1,16 @@
 {
-  "name": "ng-filter",
+  "name": "ng-inline-filter",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "sb": "ng run ng-filter:storybook",
+    "sb": "ng run ng-inline-filter:storybook",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
-    "@angular/cdk": "^19.2.18",
     "@angular/common": "^19.2.14",
     "@angular/compiler": "^19.2.14",
     "@angular/core": "^19.2.14",
@@ -22,11 +21,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.14",
-    "@angular/platform-browser": "^19.2.14",
-    "@angular/platform-browser-dynamic": "^19.2.14",
     "@angular/build": "^19.2.14",
     "@angular/cli": "^19.2.14",
     "@angular/compiler-cli": "^19.2.14",
+    "@angular/platform-browser": "^19.2.14",
+    "@angular/platform-browser-dynamic": "^19.2.14",
     "@storybook/addon-actions": "^9.0.4",
     "@storybook/addon-docs": "^9.0.4",
     "@storybook/addon-onboarding": "^9.0.4",
@@ -39,6 +38,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^19.2.2",
+    "prettier": "3.5.3",
+    "squidex-prettier-plugin-organize-attributes": "^1.0.1",
     "storybook": "^9.0.4",
     "typescript": "~5.8.3"
   },

@@ -9,6 +9,7 @@
             class="nf-complex-filter-query"
             [disabled]="disabled()"
             (keydown)="_keyDown($event)"
+            (focus)="scrollIntoView()"
             [ngModel]="valueSource()"
             (ngModelChange)="_updateValue($event)"
             [ngModelOptions]="{ standalone: true }"

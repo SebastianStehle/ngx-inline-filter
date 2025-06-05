@@ -8,6 +8,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { Options } from '../options';
 import { Dropdown } from "../dropdown/dropdown";
 import { SameSize } from '../same-size';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, text: '', sorting: [] };
 
@@ -15,7 +16,7 @@ const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, text: '', sorting: []
     selector: 'filter-input',
     templateUrl: './input.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [Autocomplete, Details, Dropdown, Node, OverlayModule, Dropdown, SameSize],
+    imports: [Autocomplete, Details, Dropdown, Node, OverlayModule, Dropdown, SameSize, NgScrollbarModule],
 })
 export class Input {
     /**
@@ -42,6 +43,11 @@ export class Input {
      * Whether the details are expanded.
      */
     isExpanded = input(false);
+
+    /**
+     * Indicates if horizontal scrolling should be enabled.
+     */
+    scrollable = input(true);
 
     /**
      * Indicates if the current query is bookmarked.

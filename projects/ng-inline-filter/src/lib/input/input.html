@@ -1,9 +1,9 @@
-<div class="nf nf-complex-filter" (click2)="autocomplete.focus()" (keydown)="_handleKeyDown($event)" #root>
-    <div class="nf-scrollable" #scrollable>
-        <div class="nf-complex-filter-filters">
+<div class="nf nf-complex-filter" [class.nf-scrollable]="scrollable()" [class.ng-open]="isMenuOpen()" (click)="autocomplete.focus()" (keydown)="_handleKeyDown($event)" #root>
+    <ng-scrollbar orientation="horizontal" appearance="compact" #scrollContainer>
+        <div class="nf-scroll-container">
             @for (filter of filterItems(); track $index) {
                 <filter-node
-                    [container]="scrollable"
+                    [container]="scrollContainer"
                     [context]="context()"
                     [disabled]="disabled()"
                     [level]="0"
@@ -12,7 +12,7 @@
                     (nodeChange)="_changeFilterItem($index, $event)"
                     [options]="options()" />
             }
-
+    
             @if (context().fields.length > 0) {
                 <filter-dropdown
                     [asButton]="true"
@@ -24,19 +24,19 @@
                     (valueChange)="_addFilter($event || '', false)"
                     [options]="options()" />
             }
+    
+            <filter-autocomplete
+                #autocomplete
+                [container]="scrollContainer"
+                (delete)="_focusLastFilter()"
+                [disabled]="disabled()"
+                [fields]="context().fields"
+                (fieldSelect)="_addFilter($event, true)"
+                [options]="options()"
+                [value]="query().text"
+                (valueChange)="_changeQuery($event || '')" />
         </div>
-
-        <filter-autocomplete
-            #autocomplete
-            [container]="scrollable"
-            (delete)="_focusLastFilter()"
-            [disabled]="disabled()"
-            [fields]="context().fields"
-            (fieldSelect)="_addFilter($event, true)"
-            [options]="options()"
-            [value]="query().text"
-            (valueChange)="_changeQuery($event || '')" />
-    </div>
+    </ng-scrollbar>
 
     <div class="nf-complex-filter-buttons" (click)="$event.stopPropagation()">
         <button class="{{options().cssClasses.buttonDefault(isLogicalAnd())}} nf-code" (click)="_changeLogic();">
@@ -79,7 +79,7 @@
 <ng-template #menu
     cdkConnectedOverlay
     [cdkConnectedOverlayOrigin]="root"
-    [cdkConnectedOverlayOffsetY]="1"
+    [cdkConnectedOverlayOffsetY]="-1"
     [cdkConnectedOverlayOpen]="isMenuOpen()">
     <div [filterSameSize]="root">
         <filter-details

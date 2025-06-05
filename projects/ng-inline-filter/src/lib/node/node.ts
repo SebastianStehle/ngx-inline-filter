@@ -53,7 +53,7 @@ export class Node {
     /**
      * The container element.
      */
-    container = input<HTMLDivElement | null>();
+    container = input<any>();
 
     /**
      * To use a grid view.

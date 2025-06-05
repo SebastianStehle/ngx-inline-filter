@@ -6,13 +6,65 @@ import { BooleanValue } from '../values/boolean-value/boolean-value';
 import { DateValue } from '../values/date-value/date-value';
 import { SelectValue } from '../values/select-value/select-value';
 import { BootstrapClasses as BootstrapClasses, DefaultOptions } from '../options';
-import { FilterModel } from '../model';
+import { ComplexQuery, FilterModel } from '../model';
 
 const Operators = [
     'eq',
     'ne',
     'lt'
 ];
+
+const complexQuery: ComplexQuery = {
+    text: 'My Query',
+    filter: {
+        and: [{
+            field: 'string1',
+            op: 'eq',
+            value: 'Value1',
+        }, {
+            field: 'string2',
+            op: 'eq',
+            value: 'Value2',
+        }, {
+            field: 'number1',
+            op: 'eq',
+            value: 42,
+        }, {
+            field: 'number2',
+            op: 'eq',
+            value: 42,
+        }, {
+            field: 'enum',
+            op: 'eq',
+            value: 'Option1'
+        }, {
+            field: 'enum',
+            op: 'eq',
+            value: 'Option2'
+        }, {
+            or: [{
+                field: 'string1',
+                op: 'eq',
+                value: 'Value1',
+            }, {
+                field: 'number1',
+                op: 'eq',
+                value: 42,
+            }, {
+                field: 'enum',
+                op: 'eq',
+                value: 'Option1'
+            }]
+        }],
+    },
+    sorting: [{
+        field: 'string1',
+        mode: 'ascending',
+    }, {
+        field: 'string2',
+        mode: 'descending',
+    }],
+};
 
 const model: FilterModel = {
     operators: [{
@@ -175,47 +227,16 @@ export const Complex: Story = {
     }
 };
 
+export const AutoHeight: Story = {
+    args: {
+        query: complexQuery,
+        scrollable: false,
+    }
+};
+
 export const Expanded: Story = {
     args: {
-        query: {
-            text: 'My Query',
-            filter: {
-                and: [{
-                    field: 'string1',
-                    op: 'eq',
-                    value: 'Value1',
-                }, {
-                    field: 'number1',
-                    op: 'eq',
-                    value: 42,
-                }, {
-                    field: 'enum',
-                    op: 'eq',
-                    value: 'Option1'
-                }, {
-                    or: [{
-                        field: 'string1',
-                        op: 'eq',
-                        value: 'Value1',
-                    }, {
-                        field: 'number1',
-                        op: 'eq',
-                        value: 42,
-                    }, {
-                        field: 'enum',
-                        op: 'eq',
-                        value: 'Option1'
-                    }]
-                }],
-            },
-            sorting: [{
-                field: 'string1',
-                mode: 'ascending',
-            }, {
-                field: 'string2',
-                mode: 'descending',
-            }],
-        },
+        query: complexQuery,
         isExpanded: true,
     }
 };
@@ -226,45 +247,7 @@ export const Bootstrap: Story = {
             ...DefaultOptions,
             cssClasses: BootstrapClasses,
         },
-        query: {
-            text: 'My Query',
-            filter: {
-                and: [{
-                    field: 'string1',
-                    op: 'eq',
-                    value: 'Value1',
-                }, {
-                    field: 'number1',
-                    op: 'eq',
-                    value: 42,
-                }, {
-                    field: 'enum',
-                    op: 'eq',
-                    value: 'Option1'
-                }, {
-                    or: [{
-                        field: 'string1',
-                        op: 'eq',
-                        value: 'Value1',
-                    }, {
-                        field: 'number1',
-                        op: 'eq',
-                        value: 42,
-                    }, {
-                        field: 'enum',
-                        op: 'eq',
-                        value: 'Option1'
-                    }]
-                }],
-            },
-            sorting: [{
-                field: 'string1',
-                mode: 'ascending',
-            }, {
-                field: 'string2',
-                mode: 'descending',
-            }],
-        },
+        query: complexQuery,
         isExpanded: true,
     },
     render: args => ({

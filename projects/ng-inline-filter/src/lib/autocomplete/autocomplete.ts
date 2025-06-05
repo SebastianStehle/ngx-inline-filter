@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { debounce, DropdownOption } from '../utils';
 import { ManualMenuTrigger } from '../custom-menu-trigger';
 import { Options } from '../options';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
     selector: 'filter-autocomplete',
@@ -40,7 +41,7 @@ export class Autocomplete {
     /**
      * The container element.
      */
-    container = input.required<HTMLDivElement | null>();
+    container = input.required<any>();
                     
     /**
      * The options.
@@ -61,6 +62,12 @@ export class Autocomplete {
         effect(() => {
             this.valueSource.set(this.value() || '');
         });
+
+        effect(() => {
+            setTimeout(() => {
+                this.scrollIntoView();
+            });
+        });
         
         effect(() => {
             const trigger = this.trigger();
@@ -74,16 +81,19 @@ export class Autocomplete {
         });
     }
 
+    scrollIntoView() {
+        const container = this.container() as NgScrollbar;
+        const input = this.input();
+        if (!container || !input) {
+            return;
+        }
+
+        container.scrollToElement(input.nativeElement, { duration: 0 });
+    }
+
     focus() {
         this.input()?.nativeElement?.focus();
         this.scrollIntoView();
-    }
-
-    scrollIntoView() {
-        const container = this.container();
-        if (container) {
-            container.scrollLeft = container.scrollWidth;
-        }
     }
 
     _updateValue(value: string) {
