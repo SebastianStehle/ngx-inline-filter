@@ -1,5 +1,11 @@
-<div class="nf nf-complex-filter" [class.nf-scrollable]="scrollable()" [class.ng-open]="isMenuOpen()" (click)="autocomplete.focus()" (keydown)="_handleKeyDown($event)" #root>
-    <ng-scrollbar orientation="horizontal" appearance="compact" #scrollContainer>
+<div
+    class="nf nf-complex-filter"
+    #root
+    [class.nf-scrollable]="scrollable()"
+    [class.ng-open]="isMenuOpen()"
+    (click)="autocomplete.focus()"
+    (keydown)="_handleKeyDown($event)">
+    <ng-scrollbar #scrollContainer appearance="compact" orientation="horizontal">
         <div class="nf-scroll-container">
             @for (filter of filterItems(); track $index) {
                 <filter-node
@@ -8,23 +14,23 @@
                     [disabled]="disabled()"
                     [level]="0"
                     [node]="$any(filter)"
-                    (nodeRemove)="_removeFilter($index, $event.byButton)"
                     (nodeChange)="_changeFilterItem($index, $event)"
+                    (nodeRemove)="_removeFilter($index, $event.byButton)"
                     [options]="options()" />
             }
-    
+
             @if (context().fields.length > 0) {
                 <filter-dropdown
                     [asButton]="true"
                     [items]="context().fields"
-                    [showSearch]="true"
+                    [options]="options()"
                     [showDescription]="true"
+                    [showSearch]="true"
                     [typeaheadLabel]="'NONE'"
                     [value]="null"
-                    (valueChange)="_addFilter($event || '', false)"
-                    [options]="options()" />
+                    (valueChange)="_addFilter($event || '', false)" />
             }
-    
+
             <filter-autocomplete
                 #autocomplete
                 [container]="scrollContainer"
@@ -39,11 +45,11 @@
     </ng-scrollbar>
 
     <div class="nf-complex-filter-buttons" (click)="$event.stopPropagation()">
-        <button class="{{options().cssClasses.buttonDefault(isLogicalAnd())}} nf-code" (click)="_changeLogic();">
-            {{options().texts.and}}
+        <button class="{{ options().cssClasses.buttonDefault(isLogicalAnd()) }} nf-code" (click)="_changeLogic()">
+            {{ options().texts.and }}
         </button>
-        <button class="{{options().cssClasses.buttonDefault(isLogicalOr())}} nf-code" (click)="_changeLogic();">
-            {{options().texts.or}}
+        <button class="{{ options().cssClasses.buttonDefault(isLogicalOr()) }} nf-code" (click)="_changeLogic()">
+            {{ options().texts.or }}
         </button>
     </div>
 
@@ -51,12 +57,13 @@
         @if (isBookmarked() === true || isBookmarked() === false) {
             <button [class]="options().cssClasses.buttonDefault(false)" (click)="_toggleBookmark()">
                 @if (isBookmarked() === true) {
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960">
+                    <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
                         <path d="m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z" />
                     </svg>
                 } @else {
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960" >
-                        <path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z" />
+                    <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z" />
                     </svg>
                 }
             </button>
@@ -64,31 +71,27 @@
 
         <button [class]="options().cssClasses.buttonDefault(false)" (click)="_toggleMenu()">
             @if (isMenuOpen()) {
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/>
+                <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
                 </svg>
             } @else {
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/>
+                <svg height="24px" viewBox="0 -960 960 960" width="24px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                 </svg>
             }
         </button>
     </div>
 </div>
 
-<ng-template #menu
-    cdkConnectedOverlay
-    [cdkConnectedOverlayOrigin]="root"
-    [cdkConnectedOverlayOffsetY]="-1"
-    [cdkConnectedOverlayOpen]="isMenuOpen()">
+<ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOffsetY]="-1" [cdkConnectedOverlayOpen]="isMenuOpen()" [cdkConnectedOverlayOrigin]="root">
     <div [filterSameSize]="root">
         <filter-details
             [context]="context()"
             [disabled]="disabled()"
             [node]="query().filter"
             (nodeChange)="_changeFilter($event)"
+            [options]="options()"
             [sorting]="query().sorting"
-            (sortingChange)="_changeSorting($event)"
-            [options]="options()" />
+            (sortingChange)="_changeSorting($event)" />
     </div>
 </ng-template>

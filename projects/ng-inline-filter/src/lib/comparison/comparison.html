@@ -1,30 +1,26 @@
-<div class="nf nf-comparison" [class.nf-comparison-inline]="!grid()" [class.nf-comparison-grid]="grid()" (click)="$event.stopPropagation()">
+<div class="nf nf-comparison" [class.nf-comparison-grid]="grid()" [class.nf-comparison-inline]="!grid()" (click)="$event.stopPropagation()">
     @if (grid()) {
         <button [class]="options().cssClasses.buttonDefault(isNegated())" class="nf-code" [class.active]="isNegated()" (click)="_toggleType()">
-            {{options().texts.not}}
+            {{ options().texts.not }}
         </button>
     } @else if (isNegated()) {
         <div class="nf-comparison-negated nf-code">
-            {{options().texts.not}}
+            {{ options().texts.not }}
         </div>
     }
 
     <div class="nf-comparison-field">
-        <filter-dropdown 
+        <filter-dropdown
             [items]="context().fields"
-            [showSearch]="true"
+            [options]="options()"
             [showDescription]="true"
+            [showSearch]="true"
             [typeaheadLabel]="'NONE'"
-            [value]="comparison().field" 
-            (valueChange)="_changeField($event!)"
-            [options]="options()" />
+            [value]="comparison().field"
+            (valueChange)="_changeField($event!)" />
     </div>
     <div class="nf-comparison-operator">
-        <filter-dropdown
-            [items]="context().operators" 
-            [value]="comparison().op"
-            (valueChange)="_changeOperator($event!)"
-            [options]="options()" />
+        <filter-dropdown [items]="context().operators" [options]="options()" [value]="comparison().op" (valueChange)="_changeOperator($event!)" />
     </div>
 
     @if (!isEmpty()) {
@@ -34,17 +30,18 @@
     }
 
     @if (grid()) {
-        <button [class]="options().cssClasses.buttonDelete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
-            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
-                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+        <button [class]="options().cssClasses.buttonDelete" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
+            <svg height="12" version="1.1" viewBox="0 0 20 20" width="12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
             </svg>
         </button>
     } @else {
-        <button class="nf-button nf-button-default nf-comparison-delete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
-            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
-                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+        <button class="nf-button nf-button-default nf-comparison-delete" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
+            <svg height="12" version="1.1" viewBox="0 0 20 20" width="12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
             </svg>
         </button>
     }
-
 </div>

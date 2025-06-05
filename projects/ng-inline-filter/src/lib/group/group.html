@@ -2,24 +2,25 @@
     <div class="nf-group-grid">
         <div class="nf-group-header">
             <div class="nf-group-types">
-                <button class="{{options().cssClasses.buttonSmall(isLogicalAnd())}} nf-code" (click)="_toggleType();">
-                    {{options().texts.and}}
+                <button class="{{ options().cssClasses.buttonSmall(isLogicalAnd()) }} nf-code" (click)="_toggleType()">
+                    {{ options().texts.and }}
                 </button>
-            
-                <button class="{{options().cssClasses.buttonSmall(isLogicalOr())}} nf-code" (click)="_toggleType();">
-                    {{options().texts.or}}
+
+                <button class="{{ options().cssClasses.buttonSmall(isLogicalOr()) }} nf-code" (click)="_toggleType()">
+                    {{ options().texts.or }}
                 </button>
             </div>
-    
+
             @if (level() > 0) {
-                <button [class]="options().cssClasses.buttonDefault(false)" >
-                    <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
-                        <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+                <button [class]="options().cssClasses.buttonDefault(false)">
+                    <svg height="12" version="1.1" viewBox="0 0 20 20" width="12" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
                     </svg>
                 </button>
             }
         </div>
-        
+
         <div class="nf-group-children">
             @for (node of children(); track $index) {
                 <div class="nf-group-child">
@@ -35,15 +36,15 @@
                         [options]="options()" />
                 </div>
             }
-    
+
             <div class="nf-group-add">
                 <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
-                    {{options().texts.addComparison}}
+                    {{ options().texts.addComparison }}
                 </button>
-                
+
                 @if (level() < 2) {
                     <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
-                        {{options().texts.addGroup}}
+                        {{ options().texts.addGroup }}
                     </button>
                 }
             </div>
@@ -53,15 +54,20 @@
     <div class="nf-group-inline">
         <div class="nf-group-text">
             @if (isLogicalAnd()) {
-                {{options().texts.and}}
+                {{ options().texts.and }}
             } @else {
-                {{options().texts.or}}
+                {{ options().texts.or }}
             }
         </div>
 
-        <button class="{{options().cssClasses.buttonDefault(false)}} nf-comparison-delete" (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)" #remove>
-            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>
-                <path d='M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z'></path>
+        <button
+            class="{{ options().cssClasses.buttonDefault(false) }} nf-comparison-delete"
+            #remove
+            (click)="_handleRemove()"
+            (keydown)="_handleRemoveKeyDown($event)">
+            <svg height="12" version="1.1" viewBox="0 0 20 20" width="12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
             </svg>
         </button>
     </div>

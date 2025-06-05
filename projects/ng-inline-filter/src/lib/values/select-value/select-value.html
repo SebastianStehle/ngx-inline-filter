@@ -1,6 +1,6 @@
-<select 
-    #input 
-    class="{{options().cssClasses.inputDate}} nf-input-select-width"
+<select
+    class="{{ options().cssClasses.inputDate }} nf-input-select-width"
+    #input
     [ngModel]="value()"
     (ngModelChange)="onChange($event)"
     [ngModelOptions]="{ standalone: true }">
@@ -12,7 +12,6 @@
 
     @for (group of tree().groups; track $index) {
         <optgroup [label]="group.name">
-
             @for (option of group.children; track $index) {
                 <option [ngValue]="option.value">{{ option.label }}</option>
             }

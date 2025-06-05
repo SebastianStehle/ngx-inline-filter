@@ -1,15 +1,15 @@
 <div [filterManualMenuTriggerFor]="menu">
     <span class="nf-auto-size">
-        <div class="sizer" [style.visibility]="'hidden'" [style.height]="0">
-            {{valueSource()}}
+        <div class="sizer" [style.height]="0" [style.visibility]="'hidden'">
+            {{ valueSource() }}
         </div>
 
         <input
-            #input
             class="nf-complex-filter-query"
+            #input
             [disabled]="disabled()"
-            (keydown)="_keyDown($event)"
             (focus)="scrollIntoView()"
+            (keydown)="_keyDown($event)"
             [ngModel]="valueSource()"
             (ngModelChange)="_updateValue($event)"
             [ngModelOptions]="{ standalone: true }"
@@ -19,19 +19,23 @@
 
 <ng-template #menu>
     @if (searchResult().length > 0) {
-        <div class="{{options().cssClasses.dropdownMenu}} nf-dropdown-layout nf-dropdown-descriptive" cdkMenu closeOnSpacebarTrigger="false" (keydown)="_keyDown($event)">
+        <div
+            class="{{ options().cssClasses.dropdownMenu }} nf-dropdown-layout nf-dropdown-descriptive"
+            cdkMenu
+            closeOnSpacebarTrigger="false"
+            (keydown)="_keyDown($event)">
             <ul class="nf-dropdown-layout-items">
                 @for (item of searchResult(); track item.value) {
                     <li
-                        class="{{options().cssClasses.dropdownItem(false)}} nf-dropdown-layout-item nf-pointer" 
-                        cdkMenuItem 
-                        [cdkMenuItemDisabled]="disabled()" 
+                        class="{{ options().cssClasses.dropdownItem(false) }} nf-dropdown-layout-item nf-pointer"
+                        cdkMenuItem
+                        [cdkMenuItemDisabled]="disabled()"
                         (cdkMenuItemTriggered)="_handleSelect(item.value)">
                         <div class="nf-dropdown-text">
-                            {{item.label}}
+                            {{ item.label }}
                         </div>
                         <div class="nf-dropdown-description">
-                            {{item.description}}
+                            {{ item.description }}
                         </div>
                     </li>
                 }

@@ -1,8 +1,7 @@
-<input 
-    #input 
-    type="checkbox"
-    [class]="options().cssClasses.inputCheckbox" 
+<input
+    [class]="options().cssClasses.inputCheckbox"
+    #input
     [ngModel]="value()"
     (ngModelChange)="onChange($event)"
     [ngModelOptions]="{ standalone: true }"
-/>
+    type="checkbox" />

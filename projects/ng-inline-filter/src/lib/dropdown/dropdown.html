@@ -1,51 +1,55 @@
 @if (asButton()) {
-    <button [class]="options().cssClasses.buttonAdd" [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()" #button>
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <button [class]="options().cssClasses.buttonAdd" #button [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()">
+        <svg height="24" version="1.1" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z"></path>
         </svg>
-    </button>   
+    </button>
 } @else {
-    <button class="{{options().cssClasses.inputDropdown}} nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
-        {{selectedItem()?.label}}
+    <button class="{{ options().cssClasses.inputDropdown }} nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
+        {{ selectedItem()?.label }}
     </button>
 }
 
 <ng-template #menu>
-    <div class="{{options().cssClasses.dropdownMenu}} nf-dropdown-layout" [class.nf-dropdown-layout-descriptive]="showDescription()" filterMenu closeOnSpacebarTrigger="false">
+    <div
+        class="{{ options().cssClasses.dropdownMenu }} nf-dropdown-layout"
+        [class.nf-dropdown-layout-descriptive]="showDescription()"
+        closeOnSpacebarTrigger="false"
+        filterMenu>
         @if (showSearch()) {
-            <div class="{{options().cssClasses.dropdownSearch}} nf-dropdown-layout-search">
-                <input 
-                    #search 
+            <div class="{{ options().cssClasses.dropdownSearch }} nf-dropdown-layout-search">
+                <input
                     [class]="options().cssClasses.inputText"
+                    #search
                     [ngModel]="searchText()"
                     (ngModelChange)="searchText.set($event)"
                     [ngModelOptions]="{ standalone: true }"
                     [placeholder]="options().texts.searchPlaceholder" />
             </div>
         }
-    
+
         @if (searchItems().length === 0) {
-            <li class="{{options().cssClasses.dropdownSearch}}">
-                <div style="text-align: center;">
-                    {{options().texts.noResults}}
+            <li class="{{ options().cssClasses.dropdownSearch }}">
+                <div style="text-align: center">
+                    {{ options().texts.noResults }}
                 </div>
             </li>
         } @else {
             <ul class="nf-dropdown-layout-items">
                 @for (item of searchItems(); track $index) {
                     <li
-                        class="{{options().cssClasses.dropdownItem(item == selectedItem())}} nf-dropdown-layout-item nf-pointer" 
-                        cdkMenuItem 
-                        [cdkMenuItemDisabled]="disabled()" 
-                        [cdkMenuitemTypeaheadLabel]="typeaheadLabel()"
-                        (cdkMenuItemTriggered)="value.set(item.value)">
+                        class="{{ options().cssClasses.dropdownItem(item == selectedItem()) }} nf-dropdown-layout-item nf-pointer"
+                        cdkMenuItem
+                        [cdkMenuItemDisabled]="disabled()"
+                        (cdkMenuItemTriggered)="value.set(item.value)"
+                        [cdkMenuitemTypeaheadLabel]="typeaheadLabel()">
                         <div class="nf-dropdown-text">
-                            {{item.label}}
+                            {{ item.label }}
                         </div>
-    
+
                         @if (showDescription()) {
                             <div class="nf-dropdown-description">
-                                {{item.description}}
+                                {{ item.description }}
                             </div>
                         }
                     </li>

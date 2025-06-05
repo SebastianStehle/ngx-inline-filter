@@ -1,8 +1,7 @@
-<input 
-    #input 
-    type="text"
-    class="{{options().cssClasses.inputDate}} nf-input-date-width"
+<input
+    class="{{ options().cssClasses.inputDate }} nf-input-date-width"
+    #input
     [ngModel]="value()"
     (ngModelChange)="onChange($event)"
     [ngModelOptions]="{ standalone: true }"
-/>
+    type="text" />
