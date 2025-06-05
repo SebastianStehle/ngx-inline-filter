@@ -35,7 +35,7 @@ export const DefaultOptions = {
 
 export const BootstrapClasses: typeof DefaultOptions['cssClasses'] = {
     buttonAdd: 'btn',
-    buttonAddOutline: 'btn btn-outline-success btn-sm',
+    buttonAddOutline: 'btn btn-outline-success',
     buttonDefault: (active: boolean) => `btn ${active ? 'fw-bolder' : ''}`,
     buttonSmall: (active: boolean) => `btn btn-sm ${active ? 'fw-bolder' : ''}`,
     buttonDelete: 'btn text-muted',

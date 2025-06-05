@@ -2,7 +2,6 @@ $nf-border-radius: 4px !default;
 $nf-border-width:  1px !default;
 $nf-dropdown-height: 250px;
 $nf-dropdown-width: 16rem;
-$nf-inline-height: 2.5rem;
 $nf-text-small: 90%;
 $nf-color-add-background:  #008800;
 $nf-color-add-foreground:     #fff;
@@ -15,6 +14,9 @@ $nf-color-text:  rgba(0, 0, 0, .5) !default;
 $nf-color-text-dark:  rgba(0, 0, 0, 0.7) !default;
 $nf-color-filter-border: darken($nf-color-border, 10%);
 $nf-color-filter-background: #fcfcfc;
+$nf-inner-padding: .25rem;
+$nf-height-inner: 1.75rem;
+$nf-height-full: $nf-height-inner + 2 * $nf-inner-padding;
 $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5z'/></svg>");
 
 @mixin box-shadow-outer($x-axis: 0, $y-axis: 1px, $blur: 2px, $alpha: .1) {
@@ -64,7 +66,7 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
 
 .nf-auto-size {
     display: inline-block;
-    height: calc($nf-inline-height + 2px);
+    height: calc($nf-height-inner + 2px);
     padding-left: .5rem;
     padding-right: .5rem;
 
@@ -92,19 +94,21 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
 .nf-complex-filter {
     border: $nf-border-width solid $nf-color-border;
     border-radius: $nf-border-radius;
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    min-height: $nf-inline-height + 1rem;
-    overflow: hidden;
+
+    .nf-inner {
+        cursor: text;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        min-height: $nf-height-full;
+
+        & > ng-scrollbar {
+            flex-grow: 1;
+        }
+    }
 
     &.focused-none {
         box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%), 0 0 4px rgb(0 0 0 / 10%);
-    }
-
-    & > ng-scrollbar {
-        flex-grow: 1;
-
     }
 
     &.nf-open {
@@ -117,17 +121,38 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         flex-direction: row;
         flex-grow: 1;
         flex-wrap: wrap;
-        padding: .5rem;
-        padding-bottom: .25rem;;
+        padding: $nf-inner-padding;
+        padding-bottom: 0;
         user-select: none;
 
         & > filter-dropdown {
             width: auto;
         }
+
+        .nf-button-add-layout {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 0;
+            padding: $nf-inner-padding;
+
+            & {
+                height: $nf-height-inner;
+            }
+
+            svg {
+                width: 20px;
+            }
+        }
     }
 
     &.nf-scrollable {
-        height: $nf-inline-height + 1rem;
+        filter-node {
+            height: $nf-height-inner;
+        }
+
+        .nf-inner {
+            height: $nf-height-full;
+        }
 
         .nf-scroll-container {
             flex-wrap: nowrap;
@@ -147,9 +172,11 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
     }
 
     &-query {
+        background-color: transparent;
         border: 0;
+        border-radius: 0;
         box-shadow: none;
-        height: $nf-inline-height;
+        height: $nf-height-inner;
         min-width: 5rem;
 
         &:focus {
@@ -172,12 +199,24 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         display: flex;
         flex-direction: row;
         flex-shrink: 0;
-        gap: .5rem;
-        height: $nf-inline-height;
-        margin-top: .5rem;
-        padding-left: .5rem;
-        padding-right: .5rem;
+        gap: $nf-inner-padding;
+        height: $nf-height-inner;
+        margin-top: $nf-inner-padding;
+        padding-left: $nf-inner-padding;
+        padding-right: $nf-inner-padding;
+
+        button {
+            display: flex;
+        }
+
+        svg {
+            width: 18px;
+        }
     }
+}
+
+.nf-icon {
+    width: 14px;
 }
 
 //
@@ -185,14 +224,9 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
 //
 .nf-button {
     & {
-        align-items: center;
         border-radius: $nf-border-radius;
         border: 0;
-        display: flex;
-        direction: inherit;
-        height: $nf-inline-height;
-        justify-content: center;
-        padding: .25rem .5rem;
+        padding: .5rem .75rem;
     }
 
     &:focus {
@@ -297,7 +331,7 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         background: #fff;
         border: 1px solid $nf-color-border;
         border-radius: $nf-border-radius;
-        height: $nf-inline-height;
+        height: $nf-height-full;
         padding: .5rem .75rem;
         width: 100%;
     }
@@ -355,9 +389,9 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         border-radius: $nf-border-radius;
         border: 1px solid $nf-color-filter-border;
         display: inline-flex;
-        height: $nf-inline-height;
-        margin-right: .25rem;
-        margin-bottom: .25rem;
+        height: $nf-height-inner;
+        margin-bottom: $nf-inner-padding;
+        margin-right: $nf-inner-padding;
     }
 
     .nf-input-date,
@@ -368,7 +402,8 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         background-color: transparent;
         border: 0;
         border-radius: 0;
-        height: $nf-inline-height;
+        padding-bottom: $nf-inner-padding;
+        padding-top: $nf-inner-padding;
 
         &:focus {
             outline: 1px solid $nf-color-primary;
@@ -391,16 +426,16 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
             flex-grow: 1;
         }
 
-        .nf-input-date-width {
+        .nf-input-date-layout {
             width: 9rem;
         }
 
-        .nf-input-number-width {
+        .nf-input-number-layout {
             width: 4rem;
         }
 
-        .nf-input-select-width,
-        .nf-input-text-width {
+        .nf-input-select-layout,
+        .nf-input-text-layout {
             width: 8rem;
         }
 
@@ -421,6 +456,17 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         padding-left: .375rem;
         padding-right: .375rem;
         text-transform: uppercase;
+    }
+
+    .nf-icon {
+        width: 12px;
+    }
+
+    input, button, select {
+        height: $nf-height-inner;
+        padding-bottom: $nf-inner-padding;
+        padding-top: $nf-inner-padding * .75;
+        line-height: 1;
     }
 
     & *:focus {
@@ -452,7 +498,7 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         flex-direction: row;
         flex-grow: 0;
         gap: .5rem;
-        height: $nf-inline-height + 0.5rem;
+        margin-top: .5rem;
     }
 
     .nf-group-children {
@@ -465,11 +511,12 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         position: relative;
 
         &::before {
-            @include absolute(-1rem, null, 1.5rem, 1rem);
+            @include absolute(-.5rem, null, $nf-height-full * 0.5, 1.5rem);
             border-left: 2px dashed $nf-color-border;
             content: '';
-            height: auto;
             width: 2px;
+            margin-top: -1px;
+            margin-left: -1px;
         }
     }
 
@@ -480,27 +527,17 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         position: relative;
 
         &::before {
-            @include absolute(1.25rem, null, null, -2rem);
+            @include absolute($nf-height-full * 0.5, 100%, null, -1.5rem);
             border-bottom: 2px dashed $nf-color-border;
             content: '';
             height: 2px;
-            width: 2rem;
+            margin-top: -1px;
+            margin-left: -1px;
         }
     }
     
     .nf-group-add {
-        align-items: stretch;
-        border: 2px dashed $nf-color-border;
-        border-radius: $nf-border-radius;
-        padding: .5rem;
-
-        .nf-button {
-            padding: 0 .5rem;
-
-            & {
-                height: auto;
-            }
-        }
+        padding: 0 $nf-inner-padding * 2;
     }
 }
 
@@ -511,9 +548,9 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         border: 1px solid $nf-color-filter-border;
         border-radius: $nf-border-radius;
         display: inline-flex;
-        height: $nf-inline-height;
-        margin-right: .25rem;
-        margin-bottom: .25rem;
+        height: $nf-height-inner;
+        margin-bottom: $nf-inner-padding;
+        margin-right: $nf-inner-padding;
     }
 
     .nf-group-text{
@@ -522,6 +559,10 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
         padding-left: .75rem;
         padding-right: .375rem;
         text-transform: uppercase;
+    }
+
+    .nf-icon {
+        width: 12px;
     }
 }
 
@@ -651,6 +692,7 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
     border: 1px solid $nf-color-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    max-height: 350px;
     padding: 1.75rem
 }
 
@@ -676,16 +718,6 @@ $nf-caret: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.o
 
     &-mode {
         @include force-width(9rem);
-    }
-
-    &-add {
-        .nf-button {
-            padding: .25rem .5rem;
-
-            & {
-                height: auto;
-            }
-        }
     }
 }
 

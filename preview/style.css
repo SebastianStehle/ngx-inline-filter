@@ -136,7 +136,7 @@ body * {
 
 .nf-comparison-inline .form-control, 
 .nf-comparison-inline .form-select {
-    background: none;
+    background-color: transparent;
     border: 0;
     border-radius: 0;
 }

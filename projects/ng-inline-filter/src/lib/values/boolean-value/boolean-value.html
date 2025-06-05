@@ -1,5 +1,5 @@
 <input
-    [class]="options().cssClasses.inputCheckbox"
+    class="{{ options().cssClasses.inputCheckbox }} nf-input-date-layout"
     #input
     [ngModel]="value()"
     (ngModelChange)="onChange($event)"
