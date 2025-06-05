@@ -227,7 +227,7 @@ export const Complex: Story = {
     }
 };
 
-export const AutoHeight: Story = {
+export const NotScrollable: Story = {
     args: {
         query: complexQuery,
         scrollable: false,
