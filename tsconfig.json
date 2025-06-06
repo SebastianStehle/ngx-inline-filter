@@ -8,8 +8,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
-      "ng-inline-filter": [
-        "./dist/ng-inline-filter"
+      "ngx-inline-filter": [
+        "./dist/ngx-inline-filter"
       ]
     },
     "noFallthroughCasesInSwitch": true,
@@ -30,10 +30,10 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/ng-inline-filter/tsconfig.lib.json"
+      "path": "./projects/ngx-inline-filter/tsconfig.lib.json"
     },
     {
-      "path": "./projects/ng-inline-filter/tsconfig.spec.json"
+      "path": "./projects/ngx-inline-filter/tsconfig.spec.json"
     },
     {
       "path": "./projects/demo/tsconfig.app.json"

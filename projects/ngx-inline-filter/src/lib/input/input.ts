@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, viewChild, viewChildren } from '@angular/core';
-import { ComplexQuery, createComparison, FilterLogical, FilterModel, FilterNode, isLogicalAnd, isLogicalOr, SortField } from '../model';
+import { ComplexQuery, createComparison, FilterLogical, FilterModel, FilterNode, isLogical, isLogicalAnd, isLogicalOr, isNegation, SortField } from '../model';
 import { Autocomplete } from "../autocomplete/autocomplete";
 import { clone, getFieldOptions, getOperatorOptions, ModelContext } from '../utils';
 import { Details } from "../details/details";
@@ -77,10 +77,12 @@ export class Input {
 
     addButton = viewChild(Dropdown);
 
+    isMenuOpen = signal(false);
     isLogicalAnd = computed(() => isLogicalAnd(this.query().filter));
     isLogicalOr = computed(() => isLogicalOr(this.query().filter));
 
-    isMenuOpen = signal(false);
+    hasSorting = computed(() => this.query().sorting.length > 0);
+    hasLogical = computed(() => this.filterItems().find(x => isLogical(x) || isNegation(x)));
 
     filterNodes = viewChildren(Node);
     filterItems = computed(() => {

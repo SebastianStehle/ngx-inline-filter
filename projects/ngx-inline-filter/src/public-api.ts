@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-inline-filter
+ * Public API Surface of ngx-inline-filter
  */
 
 export * from './lib/values/boolean-value/boolean-value';

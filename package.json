@@ -1,11 +1,11 @@
 {
-  "name": "ng-inline-filter",
+  "name": "ngx-inline-filter",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "sb": "ng run ng-inline-filter:storybook",
+    "sb": "ng run ngx-inline-filter:storybook",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

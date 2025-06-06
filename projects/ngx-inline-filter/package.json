@@ -1,13 +1,13 @@
 {
-  "name": "ng-inline-filter",
-  "version": "0.0.1",
+  "name": "ngx-inline-filter",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/cdk": "^19.0.0",
     "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0"
+    "@angular/core": "^19.0.0",
+    "ngx-scrollbar": "^18.0.0"
   },
   "dependencies": {
-    "ngx-scrollbar": "^18.0.0",
     "tslib": "^2.3.0"
   },
   "sideEffects": false

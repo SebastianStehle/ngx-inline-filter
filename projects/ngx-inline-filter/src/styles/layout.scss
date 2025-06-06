@@ -57,6 +57,19 @@
     }
 }
 
+.nf-expand {
+    position: relative;
+
+    .nf-extended-indicator {
+        @include absolute(4px, 4px);
+        @include force-width(5px);
+        background-color: $nf-color-primary;
+        border: 0;
+        border-radius: 100%;
+        height: 5px;
+    }
+}
+
 .nf-complex-filter {
     border: $nf-border-width solid $nf-color-border;
     border-radius: $nf-border-radius;
