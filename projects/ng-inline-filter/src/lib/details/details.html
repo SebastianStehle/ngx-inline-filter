@@ -26,7 +26,7 @@
                 </div>
                 <div class="nf-sorting-mode">
                     <select
-                        [class]="options().cssClasses.select"
+                        class="{{ options().cssClasses.select }} nf-input-select"
                         [ngModel]="item.mode"
                         (ngModelChange)="_changeMode($index, $event)"
                         [ngModelOptions]="{ standalone: true }">
@@ -35,7 +35,7 @@
                     </select>
                 </div>
 
-                <button class="{{ options().cssClasses.buttonDefault(false) }} nf-sorting-delete" (click)="_removeSorting($index)">
+                <button class="{{ options().cssClasses.buttonDefault(false) }} nf-button nf-sorting-delete" (click)="_removeSorting($index)">
                     <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
@@ -46,7 +46,7 @@
 
         @if (context().fields.length > 0) {
             <div class="nf-sorting-add">
-                <button [class]="options().cssClasses.buttonAddOutline" (click)="_addSorting()">
+                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addSorting()">
                     {{ options().texts.addSorting }}
                 </button>
             </div>

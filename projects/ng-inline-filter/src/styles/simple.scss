@@ -1,0 +1,157 @@
+@import 'vars';
+
+//
+// BUTTON
+//
+.nf-simple-button {
+    & {
+        border-radius: $nf-border-radius;
+        border: 0;
+        padding: .5rem .75rem;
+    }
+
+    &:focus {
+        outline: 1px solid $nf-color-primary;
+    }
+
+    &.nf-simple-button-add-outline {
+        background-color: transparent;
+        border: 1px solid $nf-color-add-background;
+        border-radius: $nf-border-radius;
+        color: $nf-color-add-background;
+        
+        svg {
+            fill: $nf-color-add-foreground;
+        }
+
+        &:hover {
+            background-color: $nf-color-add-background;
+            color: $nf-color-add-foreground;
+            cursor: default;
+        }
+    }
+
+    &.nf-simple-button-add {
+        background-color: $nf-color-add-background;
+        
+        svg {
+            fill: $nf-color-add-foreground;
+        }
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    &.nf-simple-button-add {
+        background-color: transparent;
+        border: 1px solid $nf-color-border;
+        border-radius: $nf-border-radius;
+        
+        svg {
+            fill: $nf-color-text;
+        }
+
+        &:hover {
+            background-color: $nf-color-button-hover;
+
+            svg {
+                fill: $nf-color-text-dark;
+            }
+        }
+    }
+
+    &.nf-simple-button-delete,
+    &.nf-simple-button-default {
+        background-color: transparent;
+        
+        svg {
+            fill: $nf-color-text;
+        }
+
+        &:hover {
+            background-color: $nf-color-button-hover;
+
+            svg {
+                fill: $nf-color-text-dark;
+            }
+        }
+
+        &.active {
+            font-weight: bolder;
+        }
+    }
+
+    svg {
+        fill: white;
+    }
+}
+
+//
+// INPUTS
+//
+.nf-simple-input-date,
+.nf-simple-input-number,
+.nf-simple-input-dropdown,
+.nf-simple-input-select,
+.nf-simple-input-text {
+    & {
+        background: #fff;
+        border: 1px solid $nf-color-border;
+        border-radius: $nf-border-radius;
+        padding: .5rem .75rem;
+    }
+
+    &:focus {
+        outline: 1px solid $nf-color-primary;
+    }
+}
+
+//
+// DROPDOWN
+//
+.nf-simple-dropdown {
+    @include box-shadow-outer(0, 4px, 4px, 0.1);
+    background: white;
+    border: $nf-border-width solid $nf-color-border;
+    border-radius: $nf-border-radius;
+    padding: .5rem 0;
+
+    & * {
+        box-sizing: border-box;
+    }
+
+    &-search {
+        padding: .25rem .5rem 1rem .5rem;
+    }
+
+    &-item {
+        padding: .5rem .5rem;
+
+        &:hover, &.hover {
+            background: $nf-color-border;
+            color: inherit;
+            outline: none;
+        }
+
+        &:focus, &.focus {
+            background: $nf-color-primary;
+            color: #fff;
+            outline: none;
+        }
+
+        &:active, &.active {
+            background: $nf-color-primary-dark;
+            color: #fff;
+            outline: none;
+
+            &:hover {
+                background: $nf-color-primary-dark;
+            }
+
+            &:focus {
+                background: $nf-color-primary-dark;
+            }
+        }
+    }
+}

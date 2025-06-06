@@ -5,7 +5,7 @@ import { NumberValue } from '../values/number-value/number-value';
 import { BooleanValue } from '../values/boolean-value/boolean-value';
 import { DateValue } from '../values/date-value/date-value';
 import { SelectValue } from '../values/select-value/select-value';
-import { BootstrapClasses as BootstrapClasses, DefaultOptions } from '../options';
+import { BootstrapClasses as BootstrapClasses, DefaultOptions, NoopClasses } from '../options';
 import { ComplexQuery, FilterModel } from '../model';
 
 const Operators = [
@@ -239,6 +239,17 @@ export const Expanded: Story = {
         query: complexQuery,
         isExpanded: true,
     }
+};
+
+export const Unstyled: Story = {
+    args: {
+        options: {
+            ...DefaultOptions,
+            cssClasses: NoopClasses,
+        },
+        query: complexQuery,
+        isExpanded: true,
+    },
 };
 
 export const Bootstrap: Story = {

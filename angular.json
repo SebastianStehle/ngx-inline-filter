@@ -41,7 +41,7 @@
             "browserTarget": "ng-inline-filter:build",
             "compodoc": false,
             "port": 6006,
-            "styles": ["projects/ng-inline-filter/src/lib/styles.scss", "preview/style.css"]
+            "styles": ["projects/ng-inline-filter/src/styles/layout.scss", "projects/ng-inline-filter/src/styles/simple.scss", "preview/style.css"]
           }
         },
         "build-storybook": {

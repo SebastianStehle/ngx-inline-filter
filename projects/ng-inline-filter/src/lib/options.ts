@@ -15,23 +15,23 @@ export const DefaultOptions = {
         sorting: 'Sorting',
     },
     cssClasses: {
-        buttonAdd: 'nf-button nf-button-add2',
-        buttonAddOutline: 'nf-button nf-button-add-outline',
-        buttonDefault: (active: boolean) => `nf-button nf-button-default ${active ? 'active' : ''}`,
-        buttonSmall: (active: boolean) => `nf-button nf-button-default ${active ? 'active' : ''}`,
-        buttonDelete: 'nf-button nf-button-default nf-comparison-delete',
-        dropdown: 'nf-dropdown',
-        dropdownMenu: 'nf-dropdown',
-        dropdownItem: (selected: boolean) => `nf-dropdown-item ${selected ? 'active' : ''}`,
-        dropdownSearch: 'nf-dropdown-search',
-        inputCheckbox: 'nf-input-checkbox',
-        inputDate: 'nf-input-date',
-        inputDropdown: 'nf-input-dropdown',
-        inputNumber: 'nf-input-number',
-        inputText: 'nf-input-text',
-        select: 'nf-input-select'
+        buttonAdd: 'nf-simple-button nf-simple-button-add',
+        buttonAddOutline: 'nf-simple-button nf-simple-button-add-outline',
+        buttonDefault: (active: boolean) => `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonSmall: (active: boolean) => `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonDelete: 'nf-simple-button nf-simple-button-delete',
+        dropdown: 'nf-simple-dropdown',
+        dropdownMenu: 'nf-simple-dropdown',
+        dropdownItem: (selected: boolean) => `nf-simple-dropdown-item ${selected ? 'active' : ''}`,
+        dropdownSearch: 'nf-simple-dropdown-search',
+        inputCheckbox: 'nf-simple-input-checkbox',
+        inputDate: 'nf-simple-input-date',
+        inputDropdown: 'nf-simple-input-dropdown',
+        inputNumber: 'nf-simple-input-number',
+        inputText: 'nf-simple-input-text',
+        select: 'nf-simple-input-select'
     }
-}
+};
 
 export const BootstrapClasses: typeof DefaultOptions['cssClasses'] = {
     buttonAdd: 'btn',
@@ -49,6 +49,24 @@ export const BootstrapClasses: typeof DefaultOptions['cssClasses'] = {
     inputNumber: 'form-control',
     inputText: 'form-control',
     select: 'form-select text-start'
+};
+
+export const NoopClasses: typeof DefaultOptions['cssClasses'] = {
+    buttonAdd: '',
+    buttonAddOutline: '',
+    buttonDefault: () => '',
+    buttonSmall: () => '',
+    buttonDelete: '',
+    dropdown: '',
+    dropdownMenu: '',
+    dropdownItem: () => '',
+    dropdownSearch: '',
+    inputCheckbox: '',
+    inputDate: '',
+    inputDropdown: '',
+    inputNumber: '',
+    inputText: '',
+    select: ''
 };
 
 export type Options = typeof DefaultOptions;

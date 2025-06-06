@@ -1,11 +1,11 @@
 @if (asButton()) {
-    <button class="{{options().cssClasses.buttonAdd}} nf-button-add-layout" #button [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()">
+    <button class="{{options().cssClasses.buttonAdd}} nf-button" #button [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()">
         <svg class="nf-icon" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z"></path>
         </svg>
     </button>
 } @else {
-    <button class="{{ options().cssClasses.inputDropdown }} nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
+    <button class="{{ options().cssClasses.inputDropdown }} nf-button nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
         {{ selectedItem()?.label }}
     </button>
 }

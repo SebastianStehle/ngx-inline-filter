@@ -2,11 +2,11 @@
     <div class="nf-group-grid">
         <div class="nf-group-header">
             <div class="nf-group-types">
-                <button class="{{ options().cssClasses.buttonSmall(isLogicalAnd()) }} nf-code" (click)="_toggleType()">
+                <button class="{{ options().cssClasses.buttonSmall(isLogicalAnd()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.and }}
                 </button>
 
-                <button class="{{ options().cssClasses.buttonSmall(isLogicalOr()) }} nf-code" (click)="_toggleType()">
+                <button class="{{ options().cssClasses.buttonSmall(isLogicalOr()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.or }}
                 </button>
             </div>
@@ -38,12 +38,12 @@
             }
 
             <div class="nf-group-add">
-                <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
+                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addGroup()">
                     {{ options().texts.addComparison }}
                 </button>
 
                 @if (level() < 2) {
-                    <button [class]="options().cssClasses.buttonAddOutline" (click)="_addGroup()">
+                    <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addGroup()">
                         {{ options().texts.addGroup }}
                     </button>
                 }
@@ -52,7 +52,7 @@
     </div>
 } @else {
     <div class="nf-group-inline">
-        <div class="nf-group-text">
+        <div class="nf-operator-text">
             @if (isLogicalAnd()) {
                 {{ options().texts.and }}
             } @else {
@@ -61,7 +61,7 @@
         </div>
 
         <button
-            class="{{ options().cssClasses.buttonDefault(false) }} nf-comparison-delete"
+            class="{{ options().cssClasses.buttonDefault(false) }} nf-button nf-comparison-delete"
             #remove
             (click)="_handleRemove()"
             (keydown)="_handleRemoveKeyDown($event)">

@@ -1,10 +1,10 @@
 <div class="nf nf-comparison" [class.nf-comparison-grid]="grid()" [class.nf-comparison-inline]="!grid()" (click)="$event.stopPropagation()">
     @if (grid()) {
-        <button [class]="options().cssClasses.buttonDefault(isNegated())" class="nf-code" [class.active]="isNegated()" (click)="_toggleType()">
+        <button class="{{options().cssClasses.buttonDefault(isNegated())}} nf-button nf-code" [class.active]="isNegated()" (click)="_toggleType()">
             {{ options().texts.not }}
         </button>
     } @else if (isNegated()) {
-        <div class="nf-comparison-negated nf-code">
+        <div class="nf-operator-text nf-code">
             {{ options().texts.not }}
         </div>
     }
@@ -30,7 +30,7 @@
     }
 
     @if (grid()) {
-        <button [class]="options().cssClasses.buttonDelete" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
+        <button class="{{options().cssClasses.buttonDelete}} nf-button" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
             <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
