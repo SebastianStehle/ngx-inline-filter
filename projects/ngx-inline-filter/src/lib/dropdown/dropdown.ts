@@ -1,11 +1,8 @@
 import { CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
-import { CustomMenu } from '../custom-menu';
-import { Options } from '../options';
+import { FilterOptions } from '../options';
 import { FormsModule } from '@angular/forms';
-import { DropdownOption } from '../utils';
-
-const EMPTY_OPTIONS: DropdownOption[] = [];
+import { CustomMenu, DropdownOption } from '../_internal';
 
 @Component({
     selector: 'filter-dropdown',
@@ -47,7 +44,7 @@ export class Dropdown {
     /**
      * The options.
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     /**
      * The label that is used for type-ahead search.

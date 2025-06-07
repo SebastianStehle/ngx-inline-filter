@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, input, model, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, input, model, output, TemplateRef, viewChild } from '@angular/core';
 import { FilterLogical, FilterNode, isLogicalAnd, isLogicalOr } from '../model';
-import { Options } from '../options';
+import { FilterOptions } from '../options';
 import { Node } from "../node/node";
-import { clone, ModelContext } from '../utils';
+import { clone, ModelContext } from '../_internal';
+import { TemplateContext } from '../template';
 
 @Component({
     selector: 'filter-group',
@@ -24,7 +25,7 @@ export class Group {
     /**
      * The options.
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     /**
      * The level.
@@ -50,6 +51,11 @@ export class Group {
      * To use a grid view.
      */
     grid = input(false);
+
+    /**
+     * The template for value editors.
+     */
+    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
     removeButton = viewChild<ElementRef<HTMLButtonElement>>('remove');
 

@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model, TemplateRef } from '@angular/core';
 import { FilterLogical, SortField, SortMode } from '../model';
 import { Group } from "../group/group";
-import { Options } from '../options';
-import { ModelContext } from '../utils';
+import { FilterOptions } from '../options';
+import { ModelContext } from '../_internal';
 import { Dropdown } from "../dropdown/dropdown";
 import { FormsModule } from '@angular/forms';
+import { TemplateContext } from '../template';
 
 @Component({
     selector: 'filter-details',
@@ -26,7 +27,7 @@ export class Details {
     /**
      * The options
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     /**
      * The logical filter.
@@ -37,6 +38,11 @@ export class Details {
      * The sorting.
      */
     sorting = model.required<SortField[]>();
+
+    /**
+     * The template for value editors.
+     */
+    valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
 
     _changeField(index: number, field: string) {
         this._updateSorting(sorting => {

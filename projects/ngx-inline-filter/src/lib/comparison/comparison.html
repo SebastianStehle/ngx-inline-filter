@@ -25,7 +25,11 @@
 
     @if (!isEmpty()) {
         <div class="nf-comparison-value">
-            <ng-template #value></ng-template>
+            @if (field()?.component) {
+                <ng-template #value></ng-template>
+            } @else if (valueTemplate() && viewContext()) {
+                <ng-container *ngTemplateOutlet="valueTemplate()!; context: viewContext()"></ng-container>
+            }
         </div>
     }
 

@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild, ViewContainerRef } from '@angular/core';
-import { createComparison, FieldComponent, FilterComparison, FilterField, FilterModel, FilterNegation, FilterNode, FilterOperator, isEmptyOperator, isNegation } from '../model';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
+import {  FieldComponent, FilterComparison, FilterField, FilterModel, FilterNegation, FilterNode, FilterOperator, isEmptyOperator, isNegation } from '../model';
 import { FormsModule } from '@angular/forms';
 import { Dropdown } from "../dropdown/dropdown";
-import { Options } from '../options';
-import { clone, DropdownOption, ModelContext } from '../utils';
-import { O } from '@angular/cdk/keycodes';
+import { FilterOptions } from '../options';
+import { clone, ModelContext } from '../_internal';
+import { TemplateContext } from '../template';
+import { NgTemplateOutlet } from '@angular/common';
 
 type Node = FilterComparison | FilterNegation;
 
@@ -12,7 +13,7 @@ type Node = FilterComparison | FilterNegation;
     selector: 'filter-comparison',
     templateUrl: './comparison.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, Dropdown],
+    imports: [Dropdown, FormsModule, NgTemplateOutlet],
 })
 export class Comparison {
     /**
@@ -48,7 +49,12 @@ export class Comparison {
     /**
      * The options.
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
+
+    /**
+     * The template for value editors.
+     */
+    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
     comparison = computed(() => {
         const node = this.node();
@@ -74,6 +80,22 @@ export class Comparison {
 
     isNegated = computed(() => isNegation(this.node()));
     isEmpty = computed(() => isEmptyOperator(this.comparison().op, this.context().model));
+
+    viewContext = computed(() => {
+        const field = this.field();
+        if (!field) {
+            return null;
+        }
+
+        return { 
+            disabled: this.disabled(),
+            field,
+            model: this.context().model,
+            onBlur: () => {},
+            onChange: value => this._changeValue(value),
+            options: this.options(),
+        } as TemplateContext;
+    });
 
     constructor() {
         effect(onCleanup => {

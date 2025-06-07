@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, inject, signal } from "@angular/core";
 import { FieldComponent } from "../model";
-import { DefaultOptions, Options } from "../options";
+import { DefaultOptions, FilterOptions } from "../options";
 
 export abstract class ValueBase<TValue, TArgs = any> implements FieldComponent<TValue, TArgs> {
     args = signal<TArgs | undefined>(undefined);
@@ -14,7 +14,7 @@ export abstract class ValueBase<TValue, TArgs = any> implements FieldComponent<T
         this.args.set(args);
     }
 
-    updateOptions?(options: Options): void {
+    updateOptions?(options: FilterOptions): void {
         this.options.set(options);
     }
 

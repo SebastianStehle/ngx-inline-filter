@@ -17,7 +17,8 @@
                         [node]="$any(filter)"
                         (nodeChange)="_changeFilterItem($index, $event)"
                         (nodeRemove)="_removeFilter($index, $event.byButton)"
-                        [options]="options()" />
+                        [options]="options()"
+                        [valueTemplate]="valueTemplate()" />
                 }
 
                 @if (context().fields.length > 0) {
@@ -40,7 +41,7 @@
                     [fields]="context().fields"
                     (fieldSelect)="_addFilter($event, true)"
                     [options]="options()"
-                    [value]="query().text"
+                    [value]="query().fullText"
                     (valueChange)="_changeQuery($event || '')" />
             </div>
         </ng-scrollbar>
@@ -93,10 +94,11 @@
         <filter-details
             [context]="context()"
             [disabled]="disabled()"
-            [node]="query().filter"
+            [node]="cleanedQuery().filter"
             (nodeChange)="_changeFilter($event)"
             [options]="options()"
-            [sorting]="query().sorting"
-            (sortingChange)="_changeSorting($event)" />
+            [sorting]="cleanedQuery().sorting"
+            (sortingChange)="_changeSorting($event)"
+            [valueTemplate]="valueTemplate()" />
     </div>
 </ng-template>

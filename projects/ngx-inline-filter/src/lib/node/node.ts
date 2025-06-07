@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, TemplateRef, viewChild } from '@angular/core';
 import { FilterLogical, isLogical, FilterNode, FilterComparison, FilterNegation, FilterField, FilterOperator, FilterModel } from '../model';
-import { Options } from '../options';
+import { FilterOptions } from '../options';
 import { Comparison } from '../comparison/comparison';
 import { Group } from '../group/group';
-import { ModelContext } from '../utils';
+import { ModelContext } from '../_internal';
+import { TemplateContext } from '../template';
 
 @Component({
     selector: 'filter-node',
@@ -28,7 +29,7 @@ export class Node {
     /**
      * The options.
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     /**
      * The level.
@@ -49,6 +50,11 @@ export class Node {
      * Whenever the node is removed.
      */
     nodeRemove = output<{ byButton: boolean }>();
+
+    /**
+     * The template for value editors.
+     */
+    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
     /**
      * The container element.

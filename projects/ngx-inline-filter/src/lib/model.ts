@@ -1,7 +1,7 @@
 import { ControlValueAccessor } from "@angular/forms";
-import { clone, isUndefined } from "./utils";
+import { clone, isUndefined } from "./_internal";
 import { Type } from "@angular/core";
-import { Options } from "./options";
+import { FilterOptions } from "./options";
 
 export interface FieldComponent<TValue = any, TArgs = any> extends ControlValueAccessor  {
     focus?(): void;
@@ -10,7 +10,7 @@ export interface FieldComponent<TValue = any, TArgs = any> extends ControlValueA
     setDisabledState?(isDisabled: boolean): void;
     updateArgs?(args: TArgs): void;
     updateModel?(model: FilterModel): void;
-    updateOptions?(options: Options): void;
+    updateOptions?(options: FilterOptions): void;
     writeValue(value: TValue): void;
 }
 
@@ -34,7 +34,7 @@ export interface FilterField<TArgs = any> {
     defaultValue?: any;
 
     // The component type.
-    component: Type<FieldComponent<TArgs>>;
+    component?: Type<FieldComponent<TArgs>>;
 }
 
 export interface FilterOperator {
@@ -93,13 +93,13 @@ export type FilterOr =  {
 
 export interface ComplexQuery {
     // The actual part.
-    filter: FilterLogical;
+    filter?: FilterLogical;
 
     // The sorting.
-    sorting: SortField[];
+    sorting?: SortField[];
 
     // The query text.
-    text: string;
+    fullText?: string;
 }
 
 export function isNegation(input: FilterNode): input is FilterNegation {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { fn } from 'storybook/test';
 import { Autocomplete } from './autocomplete';
 import { DefaultOptions } from '../options';
-import { DropdownOption } from '../utils';
+import { DropdownOption } from '../_internal';
 
 function buildItems(count: number) {
     const result: DropdownOption[] = [];
@@ -19,6 +19,9 @@ const meta: Meta<Autocomplete> = {
     title: 'Autocomplete',
     component: Autocomplete,
     argTypes: {
+        delete: {
+            action: 'action'
+        }
     },
     args: {
         container: {} as any,

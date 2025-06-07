@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
 import { CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { FormsModule } from '@angular/forms';
-import { debounce, DropdownOption } from '../utils';
-import { ManualMenuTrigger } from '../custom-menu-trigger';
-import { Options } from '../options';
+import { debounce, DropdownOption, ManualMenuTrigger } from '../_internal';
+import { FilterOptions } from '../options';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
@@ -46,7 +45,7 @@ export class Autocomplete {
     /**
      * The options.
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     input = viewChild<ElementRef<HTMLInputElement>>('input');
 

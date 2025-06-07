@@ -1,5 +1,5 @@
 import { effect, signal, Signal } from "@angular/core";
-import { FilterModel } from "./model";
+import { FilterModel } from "../model";
 
 export type DropdownOption = Readonly<{ value: string, label: string; description?: string; searchText: string }>;
 

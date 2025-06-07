@@ -33,7 +33,8 @@
                         [node]="node"
                         (nodeChange)="_replaceNode($index, $event)"
                         (nodeRemove)="_removeNode($index)"
-                        [options]="options()" />
+                        [options]="options()"
+                        [valueTemplate]="valueTemplate()" />
                 </div>
             }
 

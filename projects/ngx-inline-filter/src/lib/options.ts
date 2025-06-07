@@ -69,4 +69,4 @@ export const NoopClasses: typeof DefaultOptions['cssClasses'] = {
     select: ''
 };
 
-export type Options = typeof DefaultOptions;
+export type FilterOptions = typeof DefaultOptions;

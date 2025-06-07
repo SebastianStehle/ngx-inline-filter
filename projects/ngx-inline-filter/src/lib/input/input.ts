@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, viewChild, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, TemplateRef, viewChild, viewChildren } from '@angular/core';
 import { ComplexQuery, createComparison, FilterLogical, FilterModel, FilterNode, isLogical, isLogicalAnd, isLogicalOr, isNegation, SortField } from '../model';
 import { Autocomplete } from "../autocomplete/autocomplete";
-import { clone, getFieldOptions, getOperatorOptions, ModelContext } from '../utils';
+import { clone, getFieldOptions, getOperatorOptions, ModelContext, SameSize } from '../_internal';
 import { Details } from "../details/details";
 import { Node } from "../node/node";
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Options } from '../options';
+import { FilterOptions } from '../options';
 import { Dropdown } from "../dropdown/dropdown";
-import { SameSize } from '../same-size';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { TemplateContext } from '../template';
 
-const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, text: '', sorting: [] };
+const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sorting: [] };
 
 @Component({
     selector: 'filter-input',
@@ -27,7 +27,7 @@ export class Input {
     /**
      * The options
      */
-    options = input.required<Options>();
+    options = input.required<FilterOptions>();
 
     /**
      * The actual query to edit.
@@ -63,6 +63,11 @@ export class Input {
      * A search is triggered.
      */
     search = output<ComplexQuery>();
+    
+    /**
+     * The template for value editors.
+     */
+    valueTemplate = input<TemplateRef<TemplateContext>>();
 
     context = computed(() => {
         const model = this.model();
@@ -73,20 +78,26 @@ export class Input {
         } as ModelContext;
     });
 
-    queryInput = viewChild(Autocomplete);
+    cleanedQuery = computed(() => {
+        const query = { ...this.query() };
 
-    addButton = viewChild(Dropdown);
+        return {
+            filter: query.filter || [],
+            fullText: query.fullText || '',
+            sorting: query.sorting || [],
+        } as Required<ComplexQuery>;
+    });
 
     isMenuOpen = signal(false);
-    isLogicalAnd = computed(() => isLogicalAnd(this.query().filter));
-    isLogicalOr = computed(() => isLogicalOr(this.query().filter));
+    isLogicalAnd = computed(() => isLogicalAnd(this.cleanedQuery().filter));
+    isLogicalOr = computed(() => isLogicalOr(this.cleanedQuery().filter));
 
-    hasSorting = computed(() => this.query().sorting.length > 0);
+    hasSorting = computed(() => this.cleanedQuery().sorting.length > 0);
     hasLogical = computed(() => this.filterItems().find(x => isLogical(x) || isNegation(x)));
 
     filterNodes = viewChildren(Node);
     filterItems = computed(() => {
-        const filter = this.query().filter;
+        const filter = this.cleanedQuery().filter;
         if (isLogicalAnd(filter)) {
             return filter.and;
         } else {
@@ -94,10 +105,18 @@ export class Input {
         }
     })
 
+    queryInput = viewChild(Autocomplete);
+
+    addButton = viewChild(Dropdown);
+
     constructor() {
         effect(() => {
             this.isMenuOpen.set(this.isExpanded());
         });
+    }
+
+    focus() {
+        this.queryInput()?.focus();
     }
 
     _focusLastFilter() {
@@ -120,7 +139,7 @@ export class Input {
     
     _changeQuery(text: string) {
         this._updateQuery(query => {
-            query.text = text;
+            query.fullText = text;
         });
     }
 
@@ -190,8 +209,8 @@ export class Input {
         }
     }
 
-    _updateQuery(update: (query: ComplexQuery) => void) {
-        const query = cleanupQuery(this.query());
+    _updateQuery(update: (query: Required<ComplexQuery>) => void) {
+        const query = clone(this.cleanedQuery());
 
         update(query);
         this.query.set(query);
@@ -202,18 +221,4 @@ export class Input {
             this.search.emit(this.query());
         }
     }
-}
-
-function cleanupQuery(filter: ComplexQuery) {
-    filter = clone(filter || {} as any);
-
-    if (!filter.text) {
-        filter.text = '';
-    }
-
-    if (!filter.filter) {
-        filter.filter = { and: [] };
-    }
-
-    return filter;
 }

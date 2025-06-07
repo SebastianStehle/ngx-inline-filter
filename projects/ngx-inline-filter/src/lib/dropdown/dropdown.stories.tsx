@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Dropdown } from './dropdown';
-import { DropdownOption } from '../utils';
+import { DropdownOption } from '../_internal';
 import { BootstrapClasses, DefaultOptions } from '../options';
 
 function buildItems(count: number) {

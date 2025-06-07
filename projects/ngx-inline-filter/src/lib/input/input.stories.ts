@@ -15,7 +15,7 @@ const Operators = [
 ];
 
 const complexQuery: ComplexQuery = {
-    text: 'My Query',
+    fullText: 'My Query',
     filter: {
         and: [{
             field: 'string1',
@@ -168,7 +168,7 @@ type Story = StoryObj<Input>;
 export const Primary: Story = {
     args: {
         query: {
-            text: 'My Query',
+            fullText: 'My Query',
             filter: {
                 and: []
             },
@@ -180,7 +180,7 @@ export const Primary: Story = {
 export const Bookmarked: Story = {
     args: {
         query: {
-            text: 'My Query',
+            fullText: 'My Query',
             filter: {
                 and: []
             },
@@ -193,7 +193,7 @@ export const Bookmarked: Story = {
 export const NoBookmark: Story = {
     args: {
         query: {
-            text: 'My Query',
+            fullText: 'My Query',
             filter: {
                 and: []
             },
@@ -206,7 +206,7 @@ export const NoBookmark: Story = {
 export const Complex: Story = {
     args: {
         query: {
-            text: 'My Query',
+            fullText: 'My Query',
             filter: {
                 and: [{
                     field: 'string1',
@@ -272,6 +272,52 @@ export const Bootstrap: Story = {
                 [query]="query"
                 (queryChange)="queryChange?.($event)"
                 [options]="options" />
+        `,
+    })
+};
+
+export const Template: Story = {
+    args: {
+        query: {
+            fullText: 'My Query',
+            filter: {
+                and: [
+                    { field: 'custom1', op: 'eq', value: 42 },
+                    { field: 'number1', op: 'eq', value: 42 },
+                ]
+            },
+            sorting: [],
+        },
+        isExpanded: true,
+        model: {
+            operators: model.operators,
+            fields: [
+                ...model.fields,
+                {
+                    name: 'custom1',
+                    label: 'Custom1',
+                    description: 'Lorem ipsum dolor sit amet',
+                    operators: Operators,
+                }
+            ]
+        }
+    },
+    render: args => ({
+        props: args,
+        template: `
+            <filter-input
+                [isExpanded]="isExpanded"
+                [model]="model"
+                [query]="query"
+                (queryChange)="queryChange?.($event)"
+                [options]="options"
+                [valueTemplate]="valueTemplate" />
+
+            <ng-template #valueTemplate>
+                <div class="nf-operator-text" style="line-height: 1.8em">
+                    CUSTOM
+                </div>
+            </ng-template>
         `,
     })
 };

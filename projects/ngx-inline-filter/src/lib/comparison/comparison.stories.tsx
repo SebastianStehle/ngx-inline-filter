@@ -6,7 +6,7 @@ import { BooleanValue } from '../values/boolean-value/boolean-value';
 import { DateValue } from '../values/date-value/date-value';
 import { SelectValue } from '../values/select-value/select-value';
 import { DefaultOptions } from '../options';
-import { getFieldOptions, getOperatorOptions } from '../utils';
+import { getFieldOptions, getOperatorOptions } from '../_internal';
 import { FilterModel } from '../model';
 
 const Operators = [
