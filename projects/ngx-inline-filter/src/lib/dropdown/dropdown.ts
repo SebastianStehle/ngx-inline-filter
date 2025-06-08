@@ -40,6 +40,11 @@ export class Dropdown {
      * Shows the option descriptions.
      */
     showDescription = input(false);
+    
+    /**
+     * The class name.
+     */
+    class = input<string>('');
                 
     /**
      * The options.

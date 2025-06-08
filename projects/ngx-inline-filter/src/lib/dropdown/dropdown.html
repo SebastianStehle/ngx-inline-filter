@@ -1,23 +1,23 @@
 @if (asButton()) {
-    <button class="{{options().cssClasses.buttonAdd}} nf-button" #button [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()">
+    <button class="{{ class() }}" #button [cdkMenuTriggerFor]="menu" (click)="$event.stopPropagation()" [disabled]="disabled()">
         <svg class="nf-icon" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z"></path>
         </svg>
     </button>
 } @else {
-    <button class="{{ options().cssClasses.inputDropdown }} nf-button nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
+    <button class="{{ options().cssClasses.inputDropdown }} nf-button nf-input-dropdown nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
         {{ selectedItem()?.label }}
     </button>
 }
 
 <ng-template #menu>
     <div
-        class="{{ options().cssClasses.dropdownMenu }} nf-dropdown-layout"
-        [class.nf-dropdown-layout-descriptive]="showDescription()"
+        class="{{ options().cssClasses.dropdownMenu }} nf nf-dropdown"
+        [class.nf-dropdown-descriptive]="showDescription()"
         closeOnSpacebarTrigger="false"
         filterMenu>
         @if (showSearch()) {
-            <div class="{{ options().cssClasses.dropdownSearch }} nf-dropdown-layout-search">
+            <div class="{{ options().cssClasses.dropdownSearch }} nf-dropdown-search">
                 <input
                     [class]="options().cssClasses.inputText"
                     #search
@@ -35,10 +35,10 @@
                 </div>
             </li>
         } @else {
-            <ul class="nf-dropdown-layout-items">
+            <ul class="nf-dropdown-items">
                 @for (item of searchItems(); track $index) {
                     <li
-                        class="{{ options().cssClasses.dropdownItem(item == selectedItem()) }} nf-dropdown-layout-item nf-pointer"
+                        class="{{ options().cssClasses.dropdownItem(item == selectedItem()) }} nf-dropdown-item nf-pointer"
                         cdkMenuItem
                         [cdkMenuItemDisabled]="disabled()"
                         (cdkMenuItemTriggered)="value.set(item.value)"

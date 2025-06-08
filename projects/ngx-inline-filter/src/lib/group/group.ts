@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, ElementRef, input, model, output, TemplateRef, viewChild } from '@angular/core';
-import { FilterLogical, FilterNode, isLogicalAnd, isLogicalOr } from '../model';
+import { createComparison, FilterLogical, FilterNode, isLogicalAnd, isLogicalOr } from '../model';
 import { FilterOptions } from '../options';
 import { Node } from "../node/node";
 import { clone, ModelContext } from '../_internal';
@@ -76,7 +76,7 @@ export class Group {
     }
 
     _addComparison() {
-        this._addNode({ and: [] });
+        this._addNode(createComparison(this.context().model.fields[0]));
     }
 
     _addGroup() {

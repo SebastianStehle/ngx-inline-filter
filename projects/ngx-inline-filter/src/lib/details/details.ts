@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, model, TemplateRef } from '@angular/core';
-import { FilterLogical, SortField, SortMode } from '../model';
+import { FilterLogical, SortField, SortOrder } from '../model';
 import { Group } from "../group/group";
 import { FilterOptions } from '../options';
 import { ModelContext } from '../_internal';
@@ -37,22 +37,22 @@ export class Details {
     /**
      * The sorting.
      */
-    sorting = model.required<SortField[]>();
+    sort = model.required<SortField[]>();
 
     /**
      * The template for value editors.
      */
     valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
 
-    _changeField(index: number, field: string) {
+    _changeField(index: number, path: string) {
         this._updateSorting(sorting => {
-            sorting[index] = { ...sorting[index], field };
+            sorting[index] = { ...sorting[index], path };
         });
     }
 
-    _changeMode(index: number, mode: SortMode) {
+    _changeMode(index: number, mode: SortOrder) {
         this._updateSorting(sorting => {
-            sorting[index] = { ...sorting[index], mode };
+            sorting[index] = { ...sorting[index], order: mode };
         });
     }
 
@@ -64,14 +64,14 @@ export class Details {
 
     _addSorting() {
         this._updateSorting(sorting => {
-            sorting.push({ field: this.context().fields[0].value, mode: 'ascending' });
+            sorting.push({ path: this.context().fields[0].value, order: 'ascending' });
         });
     }
 
     _updateSorting(update: (sorting: SortField[]) => void) {
-        const sorting = [...this.sorting()];
+        const sorting = [...this.sort()];
 
         update(sorting);
-        this.sorting.set(sorting);
+        this.sort.set(sorting);
     }
 }

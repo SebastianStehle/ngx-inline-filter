@@ -10,7 +10,7 @@ import { Dropdown } from "../dropdown/dropdown";
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
 
-const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sorting: [] };
+const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sort: [] };
 
 @Component({
     selector: 'filter-input',
@@ -60,6 +60,11 @@ export class Input {
     isBookmarkedChange = output<boolean>();
 
     /**
+     * Where to show the button to switch the logical positon.
+     */
+    logicalSwitchPosition = input<'start' | 'end' | 'none'>('end');
+
+    /**
      * A search is triggered.
      */
     search = output<ComplexQuery>();
@@ -84,7 +89,7 @@ export class Input {
         return {
             filter: query.filter || [],
             fullText: query.fullText || '',
-            sorting: query.sorting || [],
+            sort: query.sort || [],
         } as Required<ComplexQuery>;
     });
 
@@ -92,7 +97,7 @@ export class Input {
     isLogicalAnd = computed(() => isLogicalAnd(this.cleanedQuery().filter));
     isLogicalOr = computed(() => isLogicalOr(this.cleanedQuery().filter));
 
-    hasSorting = computed(() => this.cleanedQuery().sorting.length > 0);
+    hasSorting = computed(() => this.cleanedQuery().sort.length > 0);
     hasLogical = computed(() => this.filterItems().find(x => isLogical(x) || isNegation(x)));
 
     filterNodes = viewChildren(Node);
@@ -149,9 +154,9 @@ export class Input {
         });
     }
 
-    _changeSorting(sorting: SortField[]) {
+    _changeSort(sorting: SortField[]) {
         this._updateQuery(query => {
-            query.sorting = sorting;
+            query.sort = sorting;
         });
     }
 
@@ -191,8 +196,8 @@ export class Input {
         }
     }
     
-    _addFilter(fieldName: string, clearQuery: boolean) {
-        const field = this.model().fields.find(x => x.name === fieldName)!;
+    _addFilter(path: string, clearQuery: boolean) {
+        const field = this.model().fields.find(x => x.path === path)!;
         
         this._updateQuery(query => {
             if (isLogicalAnd(query.filter)) {

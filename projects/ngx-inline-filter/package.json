@@ -1,6 +1,6 @@
 {
   "name": "ngx-inline-filter",
-  "version": "0.0.4",
+  "version": "0.1.4",
   "peerDependencies": {
     "@angular/cdk": "^19.0.0",
     "@angular/common": "^19.0.0",

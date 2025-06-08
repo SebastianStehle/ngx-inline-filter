@@ -15,12 +15,12 @@
 }
 
 .nf-icon {
-    width: 14px;
+    width: 16px;
 }
 
 .nf-code {
     font-family: monospace;
-    font-size: inherit;
+    font-weight: normal;
     text-transform: uppercase;
 }
 
@@ -74,18 +74,6 @@
     border: $nf-border-width solid $nf-color-border;
     border-radius: $nf-border-radius;
 
-    .nf-inner {
-        cursor: text;
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-        min-height: $nf-height-full;
-
-        & > ng-scrollbar {
-            flex-grow: 1;
-        }
-    }
-
     &.nf-open {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -102,21 +90,6 @@
 
         & > filter-dropdown {
             width: auto;
-
-            & > .nf-button {
-                display: flex;
-                flex-direction: column;
-                flex-grow: 0;
-                padding: $nf-inner-padding;
-    
-                & {
-                    height: $nf-height-inner;
-                }
-    
-                svg {
-                    width: 20px;
-                }
-            }
         }
 
     }
@@ -168,10 +141,9 @@
         margin-right: 1rem;
     }
 
-    &-buttons {
-        @include box-shadow-outer(-1px, 0, 0, .1);
+    &-buttons-end,
+    &-buttons-start {
         align-items: center;
-        background-color: white;
         display: flex;
         flex-direction: row;
         flex-shrink: 0;
@@ -187,6 +159,71 @@
 
         svg {
             width: 18px;
+        }
+    }
+
+    &-buttons-end {
+        @include box-shadow-outer(-1px, 0, 0, .1);
+        margin-left: 0;
+    }
+
+    &-buttons-start {
+        @include box-shadow-outer(1px, 0, 0, .1);
+        margin-right: .25rem;
+    }
+}
+
+div.nf-complex-filter {
+    padding: 0;
+}
+
+.nf-inner {
+    cursor: text;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    min-height: $nf-height-full;
+
+    & > ng-scrollbar {
+        flex-grow: 1;
+    }
+    
+    & > .nf-button {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 0;
+        justify-content: center;
+        padding: $nf-inner-padding $nf-inner-padding * 1.5;
+
+        & {
+            height: $nf-height-inner;
+        }
+
+        svg {
+            width: 20px;
+        }
+    }
+
+    .nf-menu-button {
+        background-image: none;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 0;
+        justify-content: center;
+        padding: $nf-inner-padding $nf-inner-padding;
+
+        &-logical {
+            width: 2.5rem;
+        }
+
+        & {
+            height: $nf-height-inner;
+        }
+
+        svg {
+            width: 20px;
         }
     }
 }
@@ -209,6 +246,7 @@
 .nf-input-text {
     & {
         height: $nf-height-full;
+        position: static;
         padding: .5rem .75rem;
         width: 100%;
     }
@@ -250,11 +288,18 @@
         padding-top: $nf-inner-padding * .75;
     }
 
+    .nf-input-dropdown {
+        background-image: none;
+        padding-left: .75rem;
+        padding-right: .75rem;
+    }
+
     .nf-operator-text{
         align-items: center;
         display: flex;
         padding-left: .75rem;
         padding-right: .375rem;
+        padding-top: $nf-inner-padding * .75;
         text-transform: uppercase;
     }
 
@@ -262,8 +307,10 @@
         padding-right: 1rem;
     }
 
-    .nf-icon {
-        width: 12px;
+    .nf-button {
+        svg.nf-icon {
+            width: 12px;
+        }
     }
 }
 
@@ -307,6 +354,7 @@
     }
 
     .nf-input-checkbox {
+        margin-top: .5rem;
         margin-left: 1rem;
     }
 
@@ -335,6 +383,7 @@
     flex-direction: column;
     flex-grow: 0;
     gap: .5rem;
+    margin-top: .5rem;
 
     .nf-group-header {
         display: flex;
@@ -343,7 +392,6 @@
         justify-content: space-between;
     }
 
-    .nf-group-types,
     .nf-group-add {
         align-items: center;
         display: flex;
@@ -387,16 +435,18 @@
             margin-left: -1px;
         }
     }
-    
-    .nf-group-add {
-        padding: 0 $nf-inner-padding * 2;
+}
+
+.nf-dropdown {
+    & > filter-group > .nf-group-grid {
+        margin: 0;
     }
 }
 
 //
 // DROPDOWN
 //
-.nf-dropdown-layout {
+.nf-dropdown {
     width: $nf-dropdown-width;
 
     &-items {
@@ -415,14 +465,14 @@
     }
 
     &-descriptive {
-        width: 300px;
+        width: $nf-dropdown-width-lg;
         
         .nf-dropdown-text,
         .nf-dropdown-description {
             width: 50%;
         }
 
-        .nf-dropdown-layout-item {
+        .nf-dropdown-item {
             display: flex;
         }
     }
@@ -488,9 +538,5 @@ filter-dropdown {
 
     &, & > .nf-button {
         width: 100%;
-    }
-
-    & > .nf-button {
-        text-align: left;
     }
 }

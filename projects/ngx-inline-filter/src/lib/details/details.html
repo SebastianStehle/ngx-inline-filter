@@ -1,4 +1,4 @@
-<div class="nf-details nf-dropdown nf-dropdown-layout-items">
+<div class="{{ options().cssClasses.dropdown }} nf nf-details">
     <filter-group
         [container]="null"
         [context]="context()"
@@ -13,7 +13,7 @@
     <h3 class="nf-h3">{{ options().texts.sorting }}</h3>
 
     <div class="nf-sorting">
-        @for (item of sorting(); track $index) {
+        @for (item of sort(); track $index) {
             <div class="nf-sorting-row">
                 <div class="nf-sorting-field">
                     <filter-dropdown
@@ -22,13 +22,13 @@
                         [showDescription]="true"
                         [showSearch]="true"
                         [typeaheadLabel]="'NONE'"
-                        [value]="item.field"
+                        [value]="item.path"
                         (valueChange)="_changeField($index, $event!)" />
                 </div>
                 <div class="nf-sorting-mode">
                     <select
                         class="{{ options().cssClasses.select }} nf-input-select"
-                        [ngModel]="item.mode"
+                        [ngModel]="item.order"
                         (ngModelChange)="_changeMode($index, $event)"
                         [ngModelOptions]="{ standalone: true }">
                         <option [ngValue]="'ascending'">{{ options().texts.sortAsc }}</option>

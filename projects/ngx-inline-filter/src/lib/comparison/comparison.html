@@ -1,6 +1,6 @@
 <div class="nf nf-comparison" [class.nf-comparison-grid]="grid()" [class.nf-comparison-inline]="!grid()" (click)="$event.stopPropagation()">
     @if (grid()) {
-        <button class="{{options().cssClasses.buttonDefault(isNegated())}} nf-button nf-code" [class.active]="isNegated()" (click)="_toggleType()">
+        <button class="{{options().cssClasses.buttonDefault(isNegated())}} nf-button nf-code" (click)="_toggleType()">
             {{ options().texts.not }}
         </button>
     } @else if (isNegated()) {
@@ -16,8 +16,8 @@
             [showDescription]="true"
             [showSearch]="true"
             [typeaheadLabel]="'NONE'"
-            [value]="comparison().field"
-            (valueChange)="_changeField($event!)" />
+            [value]="comparison().path"
+            (valueChange)="_changePath($event!)" />
     </div>
     <div class="nf-comparison-operator">
         <filter-dropdown [items]="context().operators" [options]="options()" [value]="comparison().op" (valueChange)="_changeOperator($event!)" />

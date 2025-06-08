@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import 'vars';
 
 //
@@ -7,6 +8,7 @@
     & {
         border-radius: $nf-border-radius;
         border: 0;
+        color: $nf-color-text;
         padding: .5rem .75rem;
     }
 
@@ -39,25 +41,7 @@
         }
 
         &:hover {
-            opacity: .5;
-        }
-    }
-
-    &.nf-simple-button-add {
-        background-color: transparent;
-        border: 1px solid $nf-color-border;
-        border-radius: $nf-border-radius;
-        
-        svg {
-            fill: $nf-color-text;
-        }
-
-        &:hover {
-            background-color: $nf-color-button-hover;
-
-            svg {
-                fill: $nf-color-text-dark;
-            }
+            background-color: color.adjust($nf-color-add-background, $lightness: -10%);
         }
     }
 
@@ -87,6 +71,15 @@
     }
 }
 
+.nf-simple-button-group {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
 //
 // INPUTS
 //
@@ -96,7 +89,7 @@
 .nf-simple-input-select,
 .nf-simple-input-text {
     & {
-        background: #fff;
+        background-color: #fff;
         border: 1px solid $nf-color-border;
         border-radius: $nf-border-radius;
         padding: .5rem .75rem;
@@ -107,6 +100,10 @@
     }
 }
 
+.nf-simple-input-dropdown {
+    text-align: left;
+}
+
 //
 // DROPDOWN
 //
@@ -115,14 +112,15 @@
     background: white;
     border: $nf-border-width solid $nf-color-border;
     border-radius: $nf-border-radius;
-    padding: .5rem 0;
 
     & * {
         box-sizing: border-box;
     }
 
     &-search {
-        padding: .25rem .5rem 1rem .5rem;
+        border-top: 0;
+        border-bottom: 1px solid $nf-color-border;
+        padding: .5rem;
     }
 
     &-item {

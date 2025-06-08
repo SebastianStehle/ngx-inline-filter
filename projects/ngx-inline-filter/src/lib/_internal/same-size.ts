@@ -10,23 +10,29 @@ export class SameSize implements OnDestroy {
     public target = input.required<HTMLElement>({ alias: 'filterSameSize' });
 
     constructor(element: ElementRef<HTMLElement>, renderer: Renderer2) {
-        this.width.set(element.nativeElement.clientWidth);
+        renderer.setStyle(element.nativeElement, 'display', 'none');
         
-        this.observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-            this.width.set(entries[0].target.clientWidth);
+        this.observer = new ResizeObserver(() => {
+            this.width.set(this.target().offsetWidth);
         });
 
         effect(onCleanUp => {
             const target = this.target();
-            this.observer.observe(target);
+            
+            this.width.set(target.offsetWidth);
 
+            this.observer.observe(target);
             onCleanUp(() => {
                 this.observer.unobserve(target);
             });
         });
 
         effect(() => {
-            renderer.setStyle(element.nativeElement, 'width', `${this.width()}px`);
+            const width = this.width();
+            if (width > 0) {
+                renderer.setStyle(element.nativeElement, 'display', 'block');
+                renderer.setStyle(element.nativeElement, 'width', `${width}px`);
+            }
         });
     }
 

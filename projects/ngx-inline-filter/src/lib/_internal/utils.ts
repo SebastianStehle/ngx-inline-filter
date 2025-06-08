@@ -44,11 +44,11 @@ export type ModelContext = {
 }
 
 export function getFieldOptions(model: FilterModel): DropdownOption[] {
-    return model.fields.map(f => ({ value: f.name, label: f.label, searchText: f.label.toUpperCase(), description: f.description }));
+    return model.fields.map(f => ({ value: f.path, label: f.label, searchText: f.label.toUpperCase(), description: f.description }));
 }
 
 export function getOperatorOptions(model: FilterModel): DropdownOption[] {
-    return model.operators.map(o => ({ value: o.name, label: o.label, searchText: o.label.toUpperCase() }));
+    return model.operators.map(o => ({ value: o.value, label: o.label, searchText: o.label.toUpperCase() }));
 }
 
 export function scrollInViewY(parent: HTMLElement, target: HTMLElement, padding = 0) {

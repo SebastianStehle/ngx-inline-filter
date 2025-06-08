@@ -1,5 +1,5 @@
-$nf-border-radius:          4px !default;
-$nf-border-width:           1px !default;
+@use 'sass:color';
+
 $nf-caret:                  url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5z'/></svg>");
 $nf-color-add-background:   #008800;
 $nf-color-add-foreground:   #fff;
@@ -8,12 +8,15 @@ $nf-color-button-hover:     rgba(0, 0, 0, .08) !default;
 $nf-color-delete:           rgba(0, 0, 0, .5) !default;
 $nf-color-filter:           #fcfcfc;
 $nf-color-primary:          rgb(30, 167, 253) !default;
-$nf-color-primary-dark:     darken($nf-color-primary, 10%);
-$nf-color-text-dark:        rgba(0, 0, 0, 0.7) !default;
-$nf-color-text:             rgba(0, 0, 0, .5) !default;
+$nf-color-primary-dark:     color.adjust($nf-color-primary, $lightness: -10%);
+$nf-color-text-dark:        rgba(0, 0, 0, 0.9) !default;
+$nf-color-text:             rgba(0, 0, 0, .8) !default;
+$nf-border-radius:          4px !default;
+$nf-border-width:           1px !default;
 $nf-dropdown-height:        250px;
-$nf-dropdown-width:         16rem;
-$nf-inner-padding:          .25rem;
+$nf-dropdown-width:         20rem;
+$nf-dropdown-width-lg:      30rem;
+$nf-inner-padding:          0.25rem;
 $nf-height-inner:           1.75rem;
 $nf-height-full:            $nf-height-inner + 2 * $nf-inner-padding;
 $nf-text-small:             90%;

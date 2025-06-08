@@ -1,12 +1,12 @@
 @if (grid()) {
     <div class="nf-group-grid">
         <div class="nf-group-header">
-            <div class="nf-group-types">
-                <button class="{{ options().cssClasses.buttonSmall(isLogicalAnd()) }} nf-button nf-code" (click)="_toggleType()">
+            <div class="{{ options().cssClasses.buttonGroup }} nf-group-types">
+                <button class="{{ options().cssClasses.buttonLogical(isLogicalAnd()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.and }}
                 </button>
 
-                <button class="{{ options().cssClasses.buttonSmall(isLogicalOr()) }} nf-button nf-code" (click)="_toggleType()">
+                <button class="{{ options().cssClasses.buttonLogical(isLogicalOr()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.or }}
                 </button>
             </div>
@@ -39,7 +39,7 @@
             }
 
             <div class="nf-group-add">
-                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addGroup()">
+                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addComparison()">
                     {{ options().texts.addComparison }}
                 </button>
 

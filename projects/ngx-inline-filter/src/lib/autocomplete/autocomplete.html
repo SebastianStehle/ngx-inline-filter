@@ -20,14 +20,14 @@
 <ng-template #menu>
     @if (searchResult().length > 0) {
         <div
-            class="{{ options().cssClasses.dropdownMenu }} nf-dropdown-layout nf-dropdown-descriptive"
+            class="{{ options().cssClasses.dropdownMenu }} nf nf-dropdown nf-dropdown-descriptive"
             cdkMenu
             closeOnSpacebarTrigger="false"
             (keydown)="_keyDown($event)">
-            <ul class="nf-dropdown-layout-items">
+            <ul class="nf-dropdown-items">
                 @for (item of searchResult(); track item.value) {
                     <li
-                        class="{{ options().cssClasses.dropdownItem(false) }} nf-dropdown-layout-item nf-pointer"
+                        class="{{ options().cssClasses.dropdownItem(false) }} nf-dropdown-item nf-pointer"
                         cdkMenuItem
                         [cdkMenuItemDisabled]="disabled()"
                         (cdkMenuItemTriggered)="_handleSelect(item.value)">

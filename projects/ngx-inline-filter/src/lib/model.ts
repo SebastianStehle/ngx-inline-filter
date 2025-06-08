@@ -15,8 +15,8 @@ export interface FieldComponent<TValue = any, TArgs = any> extends ControlValueA
 }
 
 export interface FilterField<TArgs = any> {
-    // The name of the field.
-    name: string;
+    // The path of the field.
+    path: string;
 
     // The allowed operators.
     operators: string[];
@@ -38,8 +38,8 @@ export interface FilterField<TArgs = any> {
 }
 
 export interface FilterOperator {
-    // The name of the field.
-    name: string;
+    // The value of the operator.
+    value: string;
 
     // The name of the operator.
     label: string;
@@ -56,18 +56,17 @@ export interface FilterModel {
     operators: FilterOperator[];
 }
 
-export const EMPTY_FILTER_MODEL = Object.freeze({ fields: {}, operator: {} });
+export const EMPTY_FILTER_MODEL: FilterModel = Object.freeze({ fields: [], operators: [] });
 
-export type SortMode = 'ascending' | 'descending';
+export type SortOrder = 'ascending' | 'descending';
+export type SortField = { path: string; order: SortOrder };
 
 export type FilterNode = FilterComparison | FilterLogical | FilterNegation;
 export type FilterLogical = FilterAnd | FilterOr;
 
-export type SortField = { field: string; mode: SortMode };
-
 export type FilterComparison = {
     // The full path to the property.
-    field: string;
+    path: string;
 
     // The operator.
     op: string;
@@ -96,7 +95,7 @@ export interface ComplexQuery {
     filter?: FilterLogical;
 
     // The sorting.
-    sorting?: SortField[];
+    sort?: SortField[];
 
     // The query text.
     fullText?: string;
@@ -123,7 +122,7 @@ export function isComparison(input: FilterNode): input is FilterComparison {
 }
 
 export function createComparison(field: FilterField) {
-    return { field: field.name, op: field.operators[0], value: field.defaultValue };
+    return { path: field.path, op: field.operators[0], value: field.defaultValue };
 }
 
 export function createAnd() {
@@ -131,7 +130,7 @@ export function createAnd() {
 }
 
 export function isEmptyOperator(operator: string, model: FilterModel) {
-    return model.operators.find(x => x.name === operator)?.isEmpty === true;
+    return model.operators.find(x => x.value === operator)?.isEmpty === true;
 }
 
 export function isWellDefined(field: FilterComparison, model: FilterModel) {

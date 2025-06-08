@@ -18,112 +18,112 @@ const complexQuery: ComplexQuery = {
     fullText: 'My Query',
     filter: {
         and: [{
-            field: 'string1',
+            path: 'string1',
             op: 'eq',
             value: 'Value1',
         }, {
-            field: 'string2',
+            path: 'string2',
             op: 'eq',
             value: 'Value2',
         }, {
-            field: 'number1',
+            path: 'number1',
             op: 'eq',
             value: 42,
         }, {
-            field: 'number2',
+            path: 'number2',
             op: 'eq',
             value: 42,
         }, {
-            field: 'enum',
+            path: 'enum',
             op: 'eq',
             value: 'Option1'
         }, {
-            field: 'enum',
+            path: 'enum',
             op: 'eq',
             value: 'Option2'
         }, {
             or: [{
-                field: 'string1',
+                path: 'string1',
                 op: 'eq',
                 value: 'Value1',
             }, {
-                field: 'number1',
+                path: 'number1',
                 op: 'eq',
                 value: 42,
             }, {
-                field: 'enum',
+                path: 'enum',
                 op: 'eq',
                 value: 'Option1'
             }]
         }],
     },
-    sorting: [{
-        field: 'string1',
-        mode: 'ascending',
+    sort: [{
+        path: 'string1',
+        order: 'ascending',
     }, {
-        field: 'string2',
-        mode: 'descending',
+        path: 'string2',
+        order: 'descending',
     }],
 };
 
 const model: FilterModel = {
     operators: [{
-        name: 'eq',
+        value: 'eq',
         label: 'equal'
     }, {
-        name: 'eq',
+        value: 'eq',
         label: 'not equal'
     }],
     fields: [{
-        name: 'string1',
+        path: 'string1',
         label: 'String1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: StringValue
     }, {
-        name: 'string2',
+        path: 'string2',
         label: 'String2',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: StringValue
     }, {
-        name: 'number1',
+        path: 'number1',
         label: 'Number1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: NumberValue
     }, {
-        name: 'number2',
+        path: 'number2',
         label: 'Number2',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: NumberValue
     }, {
-        name: 'date1',
+        path: 'date1',
         label: 'Date1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: DateValue
     }, {
-        name: 'date2',
+        path: 'date2',
         label: 'Date1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: DateValue
     }, {
-        name: 'boolean1',
+        path: 'boolean1',
         label: 'Boolean1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: BooleanValue
     }, {
-        name: 'boolean2',
+        path: 'boolean2',
         label: 'Boolean2',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: BooleanValue
     }, {
-        name: 'enum',
+        path: 'enum',
         label: 'Enum',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
@@ -172,8 +172,40 @@ export const Primary: Story = {
             filter: {
                 and: []
             },
-            sorting: [],
+            sort: [],
         }
+    }
+};
+
+export const Empty: Story = {
+    args: {
+        model: { fields: [], operators: [] },
+    }
+};
+
+export const LogicalAtStart: Story = {
+    args: {
+        query: {
+            fullText: 'My Query',
+            filter: {
+                and: []
+            },
+            sort: [],
+        },
+        logicalSwitchPosition: 'start'
+    }
+};
+
+export const LogicalHidden: Story = {
+    args: {
+        query: {
+            fullText: 'My Query',
+            filter: {
+                and: []
+            },
+            sort: [],
+        },
+        logicalSwitchPosition: 'none'
     }
 };
 
@@ -184,7 +216,7 @@ export const Bookmarked: Story = {
             filter: {
                 and: []
             },
-            sorting: [],
+            sort: [],
         },
         isBookmarked: true,
     }
@@ -197,7 +229,7 @@ export const NoBookmark: Story = {
             filter: {
                 and: []
             },
-            sorting: [],
+            sort: [],
         },
         isBookmarked: null,
     }
@@ -209,20 +241,20 @@ export const Complex: Story = {
             fullText: 'My Query',
             filter: {
                 and: [{
-                    field: 'string1',
+                    path: 'string1',
                     op: 'eq',
                     value: 'Value1',
                 }, {
-                    field: 'number1',
+                    path: 'number1',
                     op: 'eq',
                     value: 42,
                 }, {
-                    field: 'enum',
+                    path: 'enum',
                     op: 'eq',
                     value: 'Option1'
                 }]
             },
-            sorting: [],
+            sort: [],
         }
     }
 };
@@ -282,11 +314,11 @@ export const Template: Story = {
             fullText: 'My Query',
             filter: {
                 and: [
-                    { field: 'custom1', op: 'eq', value: 42 },
-                    { field: 'number1', op: 'eq', value: 42 },
+                    { path: 'custom1', op: 'eq', value: 42 },
+                    { path: 'number1', op: 'eq', value: 42 },
                 ]
             },
-            sorting: [],
+            sort: [],
         },
         isExpanded: true,
         model: {
@@ -294,7 +326,7 @@ export const Template: Story = {
             fields: [
                 ...model.fields,
                 {
-                    name: 'custom1',
+                    path: 'custom1',
                     label: 'Custom1',
                     description: 'Lorem ipsum dolor sit amet',
                     operators: Operators,

@@ -66,8 +66,8 @@ export class Comparison {
     });
 
     field = computed(() => {
-        const fieldName = this.comparison().field;
-        return this.context().model.fields.find(x => x.name === fieldName) as FilterField | undefined;
+        const path = this.comparison().path;
+        return this.context().model.fields.find(x => x.path === path) as FilterField | undefined;
     });
 
     fieldArguments = computed(() => this.field()?.args);
@@ -174,12 +174,12 @@ export class Comparison {
         this.removeButton()?.nativeElement?.focus();
     }
 
-    _changeField(field: string) {
+    _changePath(path: string) {
         this._updateNode(node => {
             if (isNegation(node)) {
-                node.not.op = field;
+                node.not.path = path;
             } else {
-                node.op = field;
+                node.op = path;
             }
         });
     }
@@ -187,9 +187,9 @@ export class Comparison {
     _changeValue(value: any) {
         this._updateNode(node => {
             if (isNegation(node)) {
-                node.not.op = value;
+                node.not.value = value;
             } else {
-                node.op = value;
+                node.value = value;
             }
         });
     }
