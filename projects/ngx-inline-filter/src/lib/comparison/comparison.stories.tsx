@@ -4,6 +4,7 @@ import { StringValue } from '../values/string-value/string-value';
 import { NumberValue } from '../values/number-value/number-value';
 import { BooleanValue } from '../values/boolean-value/boolean-value';
 import { DateValue } from '../values/date-value/date-value';
+import { DateTimeValue } from '../values/datetime-value/datetime-value';
 import { SelectValue } from '../values/select-value/select-value';
 import { DefaultOptions } from '../options';
 import { getFieldOptions, getOperatorOptions } from '../_internal';
@@ -24,50 +25,32 @@ const model: FilterModel = {
         label: 'not equal'
     }],
     fields: [{
-        path: 'string1',
+        path: 'string',
         label: 'String1',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: StringValue
     }, {
-        path: 'string2',
-        label: 'String2',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: StringValue
-    }, {
-        path: 'number1',
-        label: 'Number1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: NumberValue
-    }, {
-        path: 'number2',
+        path: 'number',
         label: 'Number2',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: NumberValue
     }, {
-        path: 'date1',
-        label: 'Date1',
+        path: 'date',
+        label: 'Date',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: DateValue
     }, {
-        path: 'date2',
-        label: 'Date1',
+        path: 'dateTime',
+        label: 'DateTime',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
-        component: DateValue
+        component: DateTimeValue
     }, {
-        path: 'boolean1',
+        path: 'boolean',
         label: 'Boolean1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: BooleanValue
-    }, {
-        path: 'boolean2',
-        label: 'Boolean2',
         description: 'Lorem ipsum dolor sit amet',
         operators: Operators,
         component: BooleanValue
@@ -78,20 +61,20 @@ const model: FilterModel = {
         operators: Operators,
         component: SelectValue,
         args: [{
-            value: 'Option1',
+            value: 'option1',
             label: 'Option1'
         }, {
-            value: 'Option2',
+            value: 'option2',
             label: 'Option2'
         }, {
-            value: 'Option3',
+            value: 'option3',
             label: 'Option3'
         }, {
-            value: 'OptionG_1',
+            value: 'optionG_1',
             label: 'OptionG_1',
             group: 'G'
         },  {
-            value: 'OptionG_2',
+            value: 'optionG_2',
             label: 'OptionG_2',
             group: 'G'
         }]
@@ -119,28 +102,35 @@ type Story = StoryObj<Comparison>;
 
 export const InlineString: Story = {
     args: {
-        node: { path: 'string1', op: 'eq', value: 'Hello' },
+        node: { path: 'string', op: 'eq', value: 'Hello' },
         grid: false,
     }
 };
 
 export const InlineNumber: Story = {
     args: {
-        node: { path: 'string1', op: 'eq', value: 42 },
+        node: { path: 'string', op: 'eq', value: 42 },
         grid: false,
     }
 };
 
 export const InlineBoolean: Story = {
     args: {
-        node: { path: 'boolean1', op: 'eq', value: true },
+        node: { path: 'boolean', op: 'eq', value: true },
         grid: false,
     }
 };
 
 export const InlineDate: Story = {
     args: {
-        node: { path: 'date1', op: 'eq', value: '2025-01-02' },
+        node: { path: 'date', op: 'eq', value: '2025-01-02' },
+        grid: false,
+    }
+};
+
+export const InlineDateTime: Story = {
+    args: {
+        node: { path: 'dateTime', op: 'eq', value: '2025-01-02T12:11:10' },
         grid: false,
     }
 };
@@ -161,28 +151,35 @@ export const InlineNegated: Story = {
 
 export const GridString: Story = {
     args: {
-        node: { path: 'string1', op: 'eq', value: 'Hello' },
+        node: { path: 'string', op: 'eq', value: 'Hello' },
         grid: true,
     }
 };
 
 export const GridNumber: Story = {
     args: {
-        node: { path: 'string1', op: 'eq', value: 42 },
+        node: { path: 'string', op: 'eq', value: 42 },
         grid: true,
     }
 };
 
 export const GridBoolean: Story = {
     args: {
-        node: { path: 'boolean1', op: 'eq', value: true },
+        node: { path: 'boolean', op: 'eq', value: true },
         grid: true,
     }
 };
 
 export const GridDate: Story = {
     args: {
-        node: { path: 'date1', op: 'eq', value: '2025-01-02' },
+        node: { path: 'date', op: 'eq', value: '2025-01-02' },
+        grid: true,
+    }
+};
+
+export const GridDateTime: Story = {
+    args: {
+        node: { path: 'dateTime', op: 'eq', value: '2025-01-02T12:11:10' },
         grid: true,
     }
 };

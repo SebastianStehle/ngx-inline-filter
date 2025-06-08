@@ -1,7 +1,7 @@
 <input
-    class="{{ options().cssClasses.inputDate }} nf-input-date"
+    class="{{ options().cssClasses.inputDate }} nf-input-datetime"
     #input
     [ngModel]="value()"
     (ngModelChange)="onChange($event)"
     [ngModelOptions]="{ standalone: true }"
-    type="date" />
+    type="datetime-local" />

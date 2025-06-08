@@ -240,6 +240,7 @@ div.nf-complex-filter {
 // INPUTS
 //
 .nf-input-date,
+.nf-input-datetime,
 .nf-input-number,
 .nf-input-dropdown,
 .nf-input-select,
@@ -275,6 +276,7 @@ div.nf-complex-filter {
 
     .nf-button,
     .nf-input-date,
+    .nf-input-datetime,
     .nf-input-dropdown,
     .nf-input-number,
     .nf-input-select,
@@ -284,27 +286,21 @@ div.nf-complex-filter {
         border-radius: 0;
         height: $nf-height-inner;
         line-height: 1;
-        padding-bottom: $nf-inner-padding;
-        padding-top: $nf-inner-padding * .75;
+        padding: $nf-inner-padding $nf-inner-padding * 1.5;
+        padding-top: $nf-inner-padding * 0.75;
     }
 
     .nf-input-dropdown {
         background-image: none;
-        padding-left: .75rem;
-        padding-right: .75rem;
     }
 
     .nf-operator-text{
         align-items: center;
         display: flex;
-        padding-left: .75rem;
-        padding-right: .375rem;
-        padding-top: $nf-inner-padding * .75;
+        flex-direction: row;
+        padding: $nf-inner-padding $nf-inner-padding * 1.5;
+        text-align: left;
         text-transform: uppercase;
-    }
-
-    .nf-input-select {
-        padding-right: 1rem;
     }
 
     .nf-button {
@@ -342,6 +338,9 @@ div.nf-complex-filter {
 .nf-comparison-inline {
     .nf-input-date {
         width: 9rem;
+    }
+    .nf-input-datetime {
+        width: 14rem;
     }
 
     .nf-input-number {
