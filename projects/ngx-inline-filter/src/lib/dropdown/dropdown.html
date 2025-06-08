@@ -41,7 +41,7 @@
                         class="{{ options().cssClasses.dropdownItem(item == selectedItem()) }} nf-dropdown-item nf-pointer"
                         cdkMenuItem
                         [cdkMenuItemDisabled]="disabled()"
-                        (cdkMenuItemTriggered)="value.set(item.value)"
+                        (cdkMenuItemTriggered)="_handleValue(item)"
                         [cdkMenuitemTypeaheadLabel]="typeaheadLabel()">
                         <div class="nf-dropdown-text">
                             {{ item.label }}

@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { fn } from 'storybook/test';
+import { componentWrapperDecorator, type Meta, type StoryObj } from '@storybook/angular';
 import { Autocomplete } from './autocomplete';
 import { DefaultOptions } from '../options';
 import { DropdownOption } from '../_internal';
@@ -19,36 +18,33 @@ const meta: Meta<Autocomplete> = {
     title: 'Autocomplete',
     component: Autocomplete,
     argTypes: {
+        container: {
+            control: false,  
+        },
+        disabled: {
+            control: 'boolean'
+        },
         delete: {
-            action: 'action'
-        }
+            action: 'delete'
+        }, 
     },
     args: {
-        container: {} as any,
-        delete: fn(),
+        container: null!,
+        disabled: false,
         fields: buildItems(5),
-        fieldSelect: fn(),
         options: DefaultOptions,
         value: 'Value',
     },
-    render: args => ({
-        props: args,
-        template: `
-            <div [style.padding]="'20px'">
-                <div class="nf-complex-filter">
-                    <div [style.padding]="'5px 10px'">
-                        <filter-autocomplete
-                            [container]="container"
-                            [fields]="fields"
-                            (fieldSelected)="fieldSelected?.($event)"
-                            [options]="options"
-                            [value]="value"
-                            (valueChange)="valueChange?.($event)" />
+    decorators: [
+        componentWrapperDecorator(
+            story => `
+                <div [style.padding]="'20px'">
+                    <div class="nf-complex-filter">
+                        ${story}
                     </div>
-                </div>
-            </div>
-        `,
-    })
+                </div>`
+        )
+    ],
 };
 
 export default meta;

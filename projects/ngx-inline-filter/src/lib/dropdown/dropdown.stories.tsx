@@ -24,6 +24,12 @@ const meta: Meta<Dropdown> = {
     title: 'Dropdown',
     component: Dropdown,
     argTypes: {
+        disabled: {
+            control: 'boolean',
+        },
+        valueChange: {
+            action: 'valueChange'
+        }
     },
     args: {
         items: buildItems(5),

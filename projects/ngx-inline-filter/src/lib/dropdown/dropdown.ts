@@ -19,7 +19,12 @@ export class Dropdown {
     /**
      * The selected value.
      */
-    value = model<string | undefined | null>();
+    value = input<string | undefined | null>();
+
+    /**
+     * Whenever the value has changed.
+     */
+    valueChange = output<string>();
 
     /**
      * To show as a button.
@@ -56,38 +61,55 @@ export class Dropdown {
      */
     typeaheadLabel = input('label');
 
-    menu = viewChild(CustomMenu);
+    valueSource = signal<string | null | undefined>(null);
+
+    viewMenu = viewChild(CustomMenu);
+    viewButton = viewChild<ElementRef<HTMLButtonElement>>('button');
 
     searchInput = viewChild<ElementRef<HTMLInputElement>>('search');
     searchText = signal('');
     searchUpper = computed(() => this.searchText().toUpperCase());
     searchItems = computed(() => filterItems(this.items(), this.searchUpper()));
 
-    button = viewChild<ElementRef<HTMLButtonElement>>('button');
-
     selectedItem = computed(() => {
+        if (this.asButton()) {
+            return null;
+        }
+
         const items = this.items();
-        const value = this.value();
+        const value = this.valueSource();
 
         return value ? items.find(x => x.value === value) : undefined;
     });
 
     selectedIndex = computed(() => {
+        if (this.asButton()) {
+            return -1;
+        }
+
         const items = this.items();
-        const value = this.value();
+        const value = this.valueSource();
 
         return value ? items.findIndex(x => x.value === value) : -1;
     });
 
     constructor() {
         effect(() => {
-            const menu = this.menu();
+            this.valueSource.set(this.value());
+        });
+
+        effect(() => {
+            const menu = this.viewMenu();
             if (!menu) {
                 return;
             }
 
             untracked(() => {
-                menu.focusItem(this.selectedIndex(), 'keyboard');
+                if (this.asButton()) {
+                    menu.focusItem(this.selectedIndex(), 'keyboard');
+                } else {
+                    menu.focusItem(-1);
+                }
             });
         });
 
@@ -104,7 +126,12 @@ export class Dropdown {
     }
 
     focus() {
-        this.button()?.nativeElement?.focus();
+        this.viewButton()?.nativeElement?.focus();
+    }
+    
+    _handleValue(option: DropdownOption) {
+        this.valueSource.set(option.value);
+        this.valueChange.emit(option.value);
     }
 }
 

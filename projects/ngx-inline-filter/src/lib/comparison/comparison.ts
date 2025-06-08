@@ -73,15 +73,18 @@ export class Comparison {
     fieldArguments = computed(() => this.field()?.args);
     fieldComponent = computed(() => this.field()?.component);
 
-    removeButton = viewChild<ElementRef<HTMLButtonElement>>('remove');
+    viewRemove = viewChild<ElementRef<HTMLButtonElement>>('remove');
+    viewValueColumn = viewChild<ElementRef<HTMLDivElement>>('valueColumn');
+    viewCalueContainer = viewChild<ViewContainerRef, ViewContainerRef>('value', { read: ViewContainerRef });
 
-    valueContainer = viewChild<ViewContainerRef, ViewContainerRef>('value', { read: ViewContainerRef });
     valueComponent = signal<FieldComponent | null>(null);
 
     isNegated = computed(() => isNegation(this.node()));
     isEmpty = computed(() => isEmptyOperator(this.comparison().op, this.context().model));
 
     viewContext = computed(() => {
+        const comparison = this.comparison();
+    
         const field = this.field();
         if (!field) {
             return null;
@@ -94,12 +97,13 @@ export class Comparison {
             onBlur: () => {},
             onChange: value => this._changeValue(value),
             options: this.options(),
+            value: comparison.value,
         } as TemplateContext;
     });
 
     constructor() {
         effect(onCleanup => {
-            const valueContainer = this.valueContainer();
+            const valueContainer = this.viewCalueContainer();
             if (!valueContainer) {
                 return;
             }
@@ -171,7 +175,16 @@ export class Comparison {
     }
 
     focusRemove() {
-        this.removeButton()?.nativeElement?.focus();
+        this.viewRemove()?.nativeElement?.focus();
+    }
+
+    focusValue() {
+        const component = this.valueComponent();
+        if (component) {
+            this.valueComponent()?.focus?.();
+        } else {
+            this.viewValueColumn()?.nativeElement?.querySelector('input')?.focus();
+        }
     }
 
     _changePath(path: string) {

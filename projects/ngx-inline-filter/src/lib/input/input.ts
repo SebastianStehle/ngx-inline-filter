@@ -124,11 +124,21 @@ export class Input {
         this.queryInput()?.focus();
     }
 
-    _focusLastFilter() {
+    _focusLastRemove() {
         const filter = this.filterNodes();
         
         if (filter.length > 0) {
             filter[filter.length - 1]?.focusRemove();
+        } else {
+            this.queryInput()?.focus();
+        }
+    }
+
+    _focusLastValue() {
+        const filter = this.filterNodes();
+        
+        if (filter.length > 0) {
+            filter[filter.length - 1]?.focusValue();
         } else {
             this.queryInput()?.focus();
         }
@@ -191,12 +201,12 @@ export class Input {
 
         if (byButton) {
             setTimeout(() => {
-                this._focusLastFilter();
+                this._focusLastRemove();
             }, 50);
         }
     }
     
-    _addFilter(path: string, clearQuery: boolean) {
+    _addFilter(path: string, focus: boolean) {
         const field = this.model().fields.find(x => x.path === path)!;
         
         this._updateQuery(query => {
@@ -207,9 +217,9 @@ export class Input {
             }
         });
         
-        if (!clearQuery) {
+        if (focus) {
             setTimeout(() => {
-                this.queryInput()?.focus();
+                this._focusLastValue();
             }, 50);
         }
     }

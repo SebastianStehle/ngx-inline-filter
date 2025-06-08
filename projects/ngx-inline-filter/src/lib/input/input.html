@@ -43,18 +43,18 @@
                         [showSearch]="true"
                         [typeaheadLabel]="'NONE'"
                         [value]="null"
-                        (valueChange)="_addFilter($event || '', false)" />
+                        (valueChange)="_addFilter($event!, true)" />
                 }
 
                 <filter-autocomplete
                     #autocomplete
                     [container]="scrollContainer"
-                    (delete)="_focusLastFilter()"
+                    (delete)="_focusLastRemove()"
                     [disabled]="disabled()"
                     [fields]="context().fields"
                     (fieldSelect)="_addFilter($event, true)"
                     [options]="options()"
-                    [value]="query().fullText"
+                    [value]="cleanedQuery().fullText"
                     (valueChange)="_changeQuery($event || '')" />
             </div>
         </ng-scrollbar>

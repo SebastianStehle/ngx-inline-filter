@@ -24,7 +24,7 @@
     </div>
 
     @if (!isEmpty()) {
-        <div class="nf-comparison-value">
+        <div class="nf-comparison-value" #valueColumn>
             @if (field()?.component) {
                 <ng-template #value></ng-template>
             } @else if (valueTemplate() && viewContext()) {

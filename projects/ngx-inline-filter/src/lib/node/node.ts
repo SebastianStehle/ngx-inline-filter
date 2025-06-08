@@ -87,6 +87,10 @@ export class Node {
     elementComparison = viewChild<any>('comparison');
     elementGroup = viewChild<any>('group');
 
+    focusValue() {
+        this.elementComparison()?.focusValue();
+    }
+
     focusRemove() {
         this.elementComparison()?.focusRemove();
         this.elementGroup()?.focusRemove();

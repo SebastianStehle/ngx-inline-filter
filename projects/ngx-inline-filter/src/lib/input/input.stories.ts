@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { Input } from './input';
 import { StringValue } from '../values/string-value/string-value';
 import { NumberValue } from '../values/number-value/number-value';
@@ -7,6 +7,7 @@ import { DateValue } from '../values/date-value/date-value';
 import { SelectValue } from '../values/select-value/select-value';
 import { BootstrapClasses as BootstrapClasses, DefaultOptions, NoopClasses } from '../options';
 import { ComplexQuery, FilterModel } from '../model';
+import { FormsModule } from '@angular/forms';
 
 const Operators = [
     'eq',
@@ -149,17 +150,47 @@ const model: FilterModel = {
     }]
 };
 
-const meta: Meta<Input> = {
+const meta: Meta<Input & { queryChange: () => void }> = {
     title: 'Input',
     component: Input,
     argTypes: {
+        disabled: {
+            control: 'boolean'
+        },
+        isBookmarked: {
+            control: 'boolean'
+        },
+        isExpanded: {
+            control: 'boolean'
+        },
+        logicalSwitchPosition: {
+            control: 'inline-radio',
+            options: ['start', 'end', 'none']
+        },
+        isBookmarkedChange: {
+            action: 'isBookmarkedChange',
+        },
+        search: {
+            action: 'search',
+        },
+        queryChange: {
+            action: 'queryChange',
+        }
     },
     args: {
-        model,
-        query: undefined,
-        options: DefaultOptions,
+        disabled: false,
         isBookmarked: false,
+        isExpanded: false,
+        logicalSwitchPosition: 'end',
+        model,
+        options: DefaultOptions,
+        query: undefined,
     },
+    decorators: [
+        moduleMetadata({
+            imports: [FormsModule]
+        }),
+    ],
 };
 
 export default meta;
@@ -293,19 +324,13 @@ export const Bootstrap: Story = {
         query: complexQuery,
         isExpanded: true,
     },
-    render: args => ({
-        props: args,
-        template: `
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
-            <filter-input
-                [isExpanded]="isExpanded"
-                [model]="model"
-                [query]="query"
-                (queryChange)="queryChange?.($event)"
-                [options]="options" />
-        `,
-    })
+    decorators: [
+        componentWrapperDecorator(
+            story => `
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+                ${story}`
+        ),
+    ],
 };
 
 export const Template: Story = {
@@ -345,10 +370,8 @@ export const Template: Story = {
                 [options]="options"
                 [valueTemplate]="valueTemplate" />
 
-            <ng-template #valueTemplate>
-                <div class="nf-operator-text" style="line-height: 1.8em">
-                    CUSTOM
-                </div>
+            <ng-template #valueTemplate let-onChange="onChange" let-value="value">
+                <input type="text" [ngModel]="value" (ngModelChange)="valueChange" />
             </ng-template>
         `,
     })

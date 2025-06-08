@@ -47,15 +47,14 @@ export class Autocomplete {
      */
     options = input.required<FilterOptions>();
 
-    input = viewChild<ElementRef<HTMLInputElement>>('input');
-
     valueSource = signal('');
+
+    viewInput = viewChild<ElementRef<HTMLInputElement>>('input');
+    viewMenu = viewChild(ManualMenuTrigger);
 
     searchText = computed(() => this.valueSource().toUpperCase());
     searchItems = computed(() => filterItems(this.fields(), this.searchText()));
     searchResult = debounce(this.searchItems);
-
-    trigger = viewChild(ManualMenuTrigger);
     
     constructor() {
         effect(() => {
@@ -69,7 +68,7 @@ export class Autocomplete {
         });
         
         effect(() => {
-            const trigger = this.trigger();
+            const trigger = this.viewMenu();
             const fields = this.searchItems();
 
             untracked(() => {
@@ -82,7 +81,7 @@ export class Autocomplete {
 
     scrollIntoView() {
         const container = this.container() as NgScrollbar;
-        const input = this.input();
+        const input = this.viewInput();
         if (!container || !input) {
             return;
         }
@@ -91,17 +90,13 @@ export class Autocomplete {
     }
 
     focus() {
-        this.input()?.nativeElement?.focus();
+        this.viewInput()?.nativeElement?.focus();
         this.scrollIntoView();
     }
 
     _updateValue(value: string) {
         this.valueSource.set(value);
         this.value.set(value);
-    }
-
-    _handleClosed() {
-        this.focus();
     }
 
     _handleSelect(field: string) {
@@ -120,10 +115,14 @@ export class Autocomplete {
 
         if (event.key === 'Escape') {
             this.focus();
-            this.trigger()?.close();
+            this.viewMenu()?.close();
         }
 
         return true;
+    }
+
+    _handleClosed() {
+        this.focus();
     }
 }
 

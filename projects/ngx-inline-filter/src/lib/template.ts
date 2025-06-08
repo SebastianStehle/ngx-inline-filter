@@ -13,6 +13,9 @@ export interface TemplateContext {
 
     // Disables the field.
     disabled: boolean;
+
+    // The actual value of the field.
+    value?: any;
     
     // Whenever the values has changed.
     onChange: (value: any) => void;
