@@ -9,6 +9,7 @@ import { FilterOptions } from '../options';
 import { Dropdown } from "../dropdown/dropdown";
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
+import { AddButton } from "../add-button/add-button";
 
 const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sort: [] };
 
@@ -16,7 +17,7 @@ const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sort: [
     selector: 'filter-input',
     templateUrl: './input.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [Autocomplete, Details, Dropdown, Node, OverlayModule, Dropdown, SameSize, NgScrollbarModule],
+    imports: [AddButton, Autocomplete, Details, Node, OverlayModule, SameSize, NgScrollbarModule],
 })
 export class Input {
     /**

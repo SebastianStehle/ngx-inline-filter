@@ -19,27 +19,6 @@
 
 <ng-template #menu>
     @if (searchResult().length > 0) {
-        <div
-            class="{{ options().cssClasses.dropdownMenu }} nf nf-dropdown nf-dropdown-descriptive"
-            cdkMenu
-            closeOnSpacebarTrigger="false"
-            (keydown)="_keyDown($event)">
-            <ul class="nf-dropdown-items">
-                @for (item of searchResult(); track item.value) {
-                    <li
-                        class="{{ options().cssClasses.dropdownItem(false) }} nf-dropdown-item nf-pointer"
-                        cdkMenuItem
-                        [cdkMenuItemDisabled]="disabled()"
-                        (cdkMenuItemTriggered)="_handleSelect(item.value)">
-                        <div class="nf-dropdown-text">
-                            {{ item.label }}
-                        </div>
-                        <div class="nf-dropdown-description">
-                            {{ item.description }}
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
+        <filter-menu [items]="searchResult()" [options]="options()" (selected)="_handleSelect($event)" [showDescription]="true" [showSearch]="false" />
     }
 </ng-template>

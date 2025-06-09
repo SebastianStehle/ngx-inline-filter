@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
-import {  FieldComponent, FilterComparison, FilterField, FilterModel, FilterNegation, FilterNode, FilterOperator, isEmptyOperator, isNegation } from '../model';
+import {  createComparison, FieldComponent, FilterComparison, FilterField, FilterModel, FilterNegation, FilterNode, FilterOperator, isEmptyOperator, isNegation } from '../model';
 import { FormsModule } from '@angular/forms';
 import { Dropdown } from "../dropdown/dropdown";
 import { FilterOptions } from '../options';
@@ -84,7 +84,7 @@ export class Comparison {
 
     viewContext = computed(() => {
         const comparison = this.comparison();
-    
+        const grid = this.grid();
         const field = this.field();
         if (!field) {
             return null;
@@ -93,6 +93,7 @@ export class Comparison {
         return { 
             disabled: this.disabled(),
             field,
+            grid,
             model: this.context().model,
             onBlur: () => {},
             onChange: value => this._changeValue(value),
@@ -189,10 +190,11 @@ export class Comparison {
 
     _changePath(path: string) {
         this._updateNode(node => {
+            const field = this.context().model.fields.find(x => x.path === path)!;
             if (isNegation(node)) {
-                node.not.path = path;
+                return { not: createComparison(field) };
             } else {
-                node.op = path;
+                return createComparison(field);
             }
         });
     }

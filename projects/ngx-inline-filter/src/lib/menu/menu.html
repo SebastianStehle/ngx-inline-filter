@@ -1,0 +1,43 @@
+<div
+    class="{{ options().cssClasses.dropdownMenu }} nf nf-dropdown"
+    [class.nf-dropdown-descriptive]="showDescription()"
+    closeOnSpacebarTrigger="false"
+    filterMenu>
+    @if (showSearch()) {
+        <div class="{{ options().cssClasses.dropdownSearch }} nf-dropdown-search">
+            <input
+                [class]="options().cssClasses.inputText"
+                #search
+                [ngModel]="searchText()"
+                (ngModelChange)="searchText.set($event)"
+                [ngModelOptions]="{ standalone: true }"
+                [placeholder]="options().texts.searchPlaceholder" />
+        </div>
+    }
+
+    @if (searchItems().length === 0) {
+        <li class="{{ options().cssClasses.dropdownItem(false) }} nf-dropdown-item nf-dropdown-empty nf-pointer">
+            {{ options().texts.noResults }}
+        </li>
+    } @else {
+        <ul class="nf-dropdown-items">
+            @for (item of searchItems(); track $index) {
+                <li
+                    class="{{ options().cssClasses.dropdownItem(item == selectedItem()) }} nf-dropdown-item nf-pointer"
+                    cdkMenuItem
+                    (cdkMenuItemTriggered)="_handleValue(item)"
+                    [cdkMenuitemTypeaheadLabel]="typeaheadLabel()">
+                    <div class="nf-dropdown-text">
+                        {{ item.label }}
+                    </div>
+
+                    @if (showDescription()) {
+                        <div class="nf-dropdown-description">
+                            {{ item.description }}
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</div>

@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
-import { CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { FormsModule } from '@angular/forms';
 import { debounce, DropdownOption, ManualMenuTrigger } from '../_internal';
 import { FilterOptions } from '../options';
 import { NgScrollbar } from 'ngx-scrollbar';
+import { Menu } from '../menu/menu';
 
 @Component({
     selector: 'filter-autocomplete',
     templateUrl: './autocomplete.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CdkMenu, CdkMenuItem, ManualMenuTrigger, FormsModule],
+    imports: [FormsModule, ManualMenuTrigger, Menu],
 })
 export class Autocomplete {
     /**
@@ -28,9 +28,9 @@ export class Autocomplete {
     disabled = input(false);
 
     /**
-     * When a field is selected.
+     * When a value is selected.
      */
-    fieldSelect = output<string>();
+    valueSelect = output<string>();
 
     /**
      * When the delete button is pressed, but there is nothing to delete anymore.
@@ -99,9 +99,9 @@ export class Autocomplete {
         this.value.set(value);
     }
 
-    _handleSelect(field: string) {
+    _handleSelect(item: DropdownOption) {
         this.valueSource.set('');
-        this.fieldSelect.emit(field);
+        this.valueSelect.emit(item.value);
         this.focus();
     }
 

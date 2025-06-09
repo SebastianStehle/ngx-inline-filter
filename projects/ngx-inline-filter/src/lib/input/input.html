@@ -34,16 +34,7 @@
                 }
 
                 @if (context().fields.length > 0) {
-                    <filter-dropdown
-                        class="{{ options().cssClasses.buttonAdd }} nf-menu-button"
-                        [asButton]="true"
-                        [items]="context().fields"
-                        [options]="options()"
-                        [showDescription]="true"
-                        [showSearch]="true"
-                        [typeaheadLabel]="'NONE'"
-                        [value]="null"
-                        (valueChange)="_addFilter($event!, true)" />
+                    <filter-add-button [items]="context().fields" [options]="options()" (selected)="_addFilter($event!, true)" />
                 }
 
                 <filter-autocomplete
@@ -52,10 +43,10 @@
                     (delete)="_focusLastRemove()"
                     [disabled]="disabled()"
                     [fields]="context().fields"
-                    (fieldSelect)="_addFilter($event, true)"
                     [options]="options()"
                     [value]="cleanedQuery().fullText"
-                    (valueChange)="_changeQuery($event || '')" />
+                    (valueChange)="_changeQuery($event || '')"
+                    (valueSelect)="_addFilter($event, true)" />
             </div>
         </ng-scrollbar>
 

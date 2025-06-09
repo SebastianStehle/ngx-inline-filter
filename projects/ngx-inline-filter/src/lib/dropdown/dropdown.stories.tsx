@@ -55,13 +55,6 @@ export const ShowSearch: Story = {
     }
 };
 
-export const Button: Story = {
-    args: {
-        asButton: true,
-        value: 'field1',
-    }
-};
-
 export const LongShowSearch: Story = {
     args: {
         items: buildItems(20),

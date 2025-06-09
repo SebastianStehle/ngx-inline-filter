@@ -11,6 +11,9 @@ export interface TemplateContext {
     // The field context.
     field: FilterField;
 
+    // Indicates if runninng in grid mode.
+    grid: boolean;
+
     // Disables the field.
     disabled: boolean;
 

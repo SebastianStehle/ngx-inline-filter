@@ -22,11 +22,14 @@ const meta: Meta<Autocomplete> = {
             control: false,  
         },
         disabled: {
-            control: 'boolean'
+            control: 'boolean',
         },
         delete: {
-            action: 'delete'
-        }, 
+            action: 'delete',
+        },
+        valueSelect: {
+            action: 'fieldSelect',
+        },
     },
     args: {
         container: null!,
