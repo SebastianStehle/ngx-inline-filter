@@ -34,7 +34,7 @@
                 }
 
                 @if (context().fields.length > 0) {
-                    <filter-add-button [items]="context().fields" [options]="options()" (selected)="_addFilter($event!, true)" />
+                    <filter-add-button [items]="context().fields" [options]="options()" (selected)="_addFilter($event!, true, false)" />
                 }
 
                 <filter-autocomplete
@@ -42,11 +42,11 @@
                     [container]="scrollContainer"
                     (delete)="_focusLastRemove()"
                     [disabled]="disabled()"
-                    [fields]="context().fields"
+                    [items]="context().fields"
+                    (itemSelect)="_addFilter($event, true, true)"
                     [options]="options()"
-                    [value]="cleanedQuery().fullText"
-                    (valueChange)="_changeQuery($event || '')"
-                    (valueSelect)="_addFilter($event, true)" />
+                    [value]="querySource().fullText"
+                    (valueChange)="_changeQuery($event || '')" />
             </div>
         </ng-scrollbar>
 
@@ -103,10 +103,10 @@
         <filter-details
             [context]="context()"
             [disabled]="disabled()"
-            [node]="cleanedQuery().filter"
+            [node]="querySource().filter"
             (nodeChange)="_changeFilter($event)"
             [options]="options()"
-            [sort]="cleanedQuery().sort"
+            [sort]="querySource().sort"
             (sortChange)="_changeSort($event)"
             [valueTemplate]="valueTemplate()" />
     </div>

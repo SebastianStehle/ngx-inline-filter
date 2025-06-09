@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, output, signal, untracked, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounce, DropdownOption, ManualMenuTrigger } from '../_internal';
 import { FilterOptions } from '../options';
@@ -13,24 +13,29 @@ import { Menu } from '../menu/menu';
 })
 export class Autocomplete {
     /**
-     * The sorted available fields.
+     * The items.
      */
-    fields = input<ReadonlyArray<DropdownOption>>([]);
+    items = input<ReadonlyArray<DropdownOption>>([]);
+
+    /**
+     * Whenever an item has been selected selected.
+     */
+    itemSelect = output<string>();
     
     /**
      * The value.
      */
-    value = model<string>();
+    value = input<string | undefined | null>();
+    
+    /**
+     * Whenever the value has been changed.
+     */
+    valueChange = output<string>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
     disabled = input(false);
-
-    /**
-     * When a value is selected.
-     */
-    valueSelect = output<string>();
 
     /**
      * When the delete button is pressed, but there is nothing to delete anymore.
@@ -53,7 +58,7 @@ export class Autocomplete {
     viewMenu = viewChild(ManualMenuTrigger);
 
     searchText = computed(() => this.valueSource().toUpperCase());
-    searchItems = computed(() => filterItems(this.fields(), this.searchText()));
+    searchItems = computed(() => filterItems(this.items(), this.searchText()));
     searchResult = debounce(this.searchItems);
     
     constructor() {
@@ -96,12 +101,13 @@ export class Autocomplete {
 
     _updateValue(value: string) {
         this.valueSource.set(value);
-        this.value.set(value);
+        this.valueChange.emit(value);
     }
 
     _handleSelect(item: DropdownOption) {
         this.valueSource.set('');
-        this.valueSelect.emit(item.value);
+        this.valueChange.emit('');
+        this.itemSelect.emit(item.value);
         this.focus();
     }
 

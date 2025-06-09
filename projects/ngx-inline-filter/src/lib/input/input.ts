@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, TemplateRef, viewChild, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, TemplateRef, viewChild, viewChildren } from '@angular/core';
 import { ComplexQuery, createComparison, FilterLogical, FilterModel, FilterNode, isLogical, isLogicalAnd, isLogicalOr, isNegation, SortField } from '../model';
 import { Autocomplete } from "../autocomplete/autocomplete";
 import { clone, getFieldOptions, getOperatorOptions, ModelContext, SameSize } from '../_internal';
@@ -11,7 +11,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
 import { AddButton } from "../add-button/add-button";
 
-const DEFAULT_QUERY: ComplexQuery = { filter: { and: [] }, fullText: '', sort: [] };
+const DEFAULT_QUERY: Required<ComplexQuery> = { filter: { and: [] }, fullText: '', sort: [] };
 
 @Component({
     selector: 'filter-input',
@@ -33,7 +33,12 @@ export class Input {
     /**
      * The actual query to edit.
      */
-    query = model<ComplexQuery>(DEFAULT_QUERY);
+    query = input<ComplexQuery | undefined | null>();
+
+    /**
+     * Whenever the query has been changed..
+     */
+    queryChange = output<ComplexQuery>();
 
     /**
      * Whether the autocomplete input is disabled.
@@ -84,26 +89,18 @@ export class Input {
         } as ModelContext;
     });
 
-    cleanedQuery = computed(() => {
-        const query = { ...this.query() };
-
-        return {
-            filter: query.filter || [],
-            fullText: query.fullText || '',
-            sort: query.sort || [],
-        } as Required<ComplexQuery>;
-    });
+    querySource = signal<Required<ComplexQuery>>(DEFAULT_QUERY);
 
     isMenuOpen = signal(false);
-    isLogicalAnd = computed(() => isLogicalAnd(this.cleanedQuery().filter));
-    isLogicalOr = computed(() => isLogicalOr(this.cleanedQuery().filter));
+    isLogicalAnd = computed(() => isLogicalAnd(this.querySource().filter));
+    isLogicalOr = computed(() => isLogicalOr(this.querySource().filter));
 
-    hasSorting = computed(() => this.cleanedQuery().sort.length > 0);
+    hasSorting = computed(() => this.querySource().sort.length > 0);
     hasLogical = computed(() => this.filterItems().find(x => isLogical(x) || isNegation(x)));
 
     filterNodes = viewChildren(Node);
     filterItems = computed(() => {
-        const filter = this.cleanedQuery().filter;
+        const filter = this.querySource().filter;
         if (isLogicalAnd(filter)) {
             return filter.and;
         } else {
@@ -111,18 +108,27 @@ export class Input {
         }
     })
 
-    queryInput = viewChild(Autocomplete);
-
-    addButton = viewChild(Dropdown);
+    viewInput = viewChild(Autocomplete);
+    viewButton = viewChild(Dropdown);
 
     constructor() {
+        effect(() => {
+            const query = { ...this.query() };
+
+            this.querySource.set({
+                filter: query.filter || { and: [] },
+                fullText: query.fullText || '',
+                sort: query.sort || [],
+            });
+        });
+
         effect(() => {
             this.isMenuOpen.set(this.isExpanded());
         });
     }
 
     focus() {
-        this.queryInput()?.focus();
+        this.viewInput()?.focus();
     }
 
     _focusLastRemove() {
@@ -131,7 +137,7 @@ export class Input {
         if (filter.length > 0) {
             filter[filter.length - 1]?.focusRemove();
         } else {
-            this.queryInput()?.focus();
+            this.viewInput()?.focus();
         }
     }
 
@@ -141,7 +147,7 @@ export class Input {
         if (filter.length > 0) {
             filter[filter.length - 1]?.focusValue();
         } else {
-            this.queryInput()?.focus();
+            this.viewInput()?.focus();
         }
     }
 
@@ -207,7 +213,7 @@ export class Input {
         }
     }
     
-    _addFilter(path: string, focus: boolean) {
+    _addFilter(path: string, focus: boolean, clearQuery: boolean) {
         const field = this.model().fields.find(x => x.path === path)!;
         
         this._updateQuery(query => {
@@ -215,6 +221,10 @@ export class Input {
                 query.filter.and.push(createComparison(field));
             } else {
                 query.filter.or.push(createComparison(field));
+            }
+
+            if (clearQuery) {
+                query.fullText = '';
             }
         });
         
@@ -226,15 +236,16 @@ export class Input {
     }
 
     _updateQuery(update: (query: Required<ComplexQuery>) => void) {
-        const query = clone(this.cleanedQuery());
+        const query = clone(this.querySource());
 
         update(query);
-        this.query.set(query);
+        this.querySource.set(query);
+        this.queryChange.emit(query);
     }
 
     _handleKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-            this.search.emit(this.query());
+            this.search.emit(this.querySource());
         }
     }
 }

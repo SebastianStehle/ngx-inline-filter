@@ -11,6 +11,7 @@ $nf-color-primary:          rgb(30, 167, 253) !default;
 $nf-color-primary-dark:     color.adjust($nf-color-primary, $lightness: -10%);
 $nf-color-text-dark:        rgba(0, 0, 0, 0.9) !default;
 $nf-color-text:             rgba(0, 0, 0, .8) !default;
+$nf-color-icon:             $nf-color-text;
 $nf-border-radius:          4px !default;
 $nf-border-width:           1px !default;
 $nf-dropdown-height:        250px;

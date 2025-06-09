@@ -19,6 +19,12 @@
 
 <ng-template #menu>
     @if (searchResult().length > 0) {
-        <filter-menu [items]="searchResult()" [options]="options()" (selected)="_handleSelect($event)" [showDescription]="true" [showSearch]="false" />
+        <filter-menu
+            [items]="searchResult()"
+            [options]="options()"
+            (selected)="_handleSelect($event)"
+            [showDescription]="true"
+            [showSearch]="false"
+            typeaheadLabel="NONE" />
     }
 </ng-template>

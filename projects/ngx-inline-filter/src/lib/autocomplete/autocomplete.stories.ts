@@ -21,20 +21,23 @@ const meta: Meta<Autocomplete> = {
         container: {
             control: false,  
         },
-        disabled: {
-            control: 'boolean',
-        },
         delete: {
             action: 'delete',
         },
-        valueSelect: {
+        disabled: {
+            control: 'boolean',
+        },
+        itemSelect: {
             action: 'fieldSelect',
+        },
+        valueChange: {
+            action: 'valueChange',
         },
     },
     args: {
         container: null!,
         disabled: false,
-        fields: buildItems(5),
+        items: buildItems(5),
         options: DefaultOptions,
         value: 'Value',
     },

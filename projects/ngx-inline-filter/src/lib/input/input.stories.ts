@@ -150,7 +150,7 @@ const model: FilterModel = {
     }]
 };
 
-const meta: Meta<Input & { queryChange: () => void }> = {
+const meta: Meta<Input> = {
     title: 'Input',
     component: Input,
     argTypes: {
