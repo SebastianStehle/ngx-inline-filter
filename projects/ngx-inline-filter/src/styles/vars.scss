@@ -21,6 +21,8 @@ $nf-inner-padding:          0.25rem;
 $nf-height-inner:           1.75rem;
 $nf-height-full:            $nf-height-inner + 2 * $nf-inner-padding;
 $nf-text-small:             90%;
+$nf-details-width:          550px;
+$nf-details-height:         350px;
 
 @mixin box-shadow-outer($x-axis: 0, $y-axis: 1px, $blur: 2px, $alpha: .1) {
     box-shadow: $x-axis $y-axis $blur rgba(0, 0, 0, $alpha);

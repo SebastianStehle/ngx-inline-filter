@@ -304,6 +304,21 @@ export const Expanded: Story = {
     }
 };
 
+export const ExpandedScrolled: Story = {
+    args: {
+        query: complexQuery,
+        isExpanded: true,
+    },
+    decorators: [
+        componentWrapperDecorator(
+            story => `
+                <div style="width: 400px">
+                    ${story}
+                </div>`
+        ),
+    ],
+};
+
 export const Unstyled: Story = {
     args: {
         options: {

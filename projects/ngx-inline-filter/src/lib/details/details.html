@@ -1,56 +1,58 @@
 <div class="{{ options().cssClasses.dropdown }} nf nf-details">
-    <filter-group
-        [container]="null"
-        [context]="context()"
-        [disabled]="disabled()"
-        [grid]="true"
-        [level]="0"
-        [node]="node()"
-        (nodeChange)="node.set($event)"
-        [options]="options()"
-        [valueTemplate]="valueTemplate()" />
+    <div class="nf-details-content">
+        <filter-group
+            [container]="null"
+            [context]="context()"
+            [disabled]="disabled()"
+            [grid]="true"
+            [level]="0"
+            [node]="node()"
+            (nodeChange)="node.set($event)"
+            [options]="options()"
+            [valueTemplate]="valueTemplate()" />
 
-    <h3 class="nf-h3">{{ options().texts.sorting }}</h3>
+        <h3 class="nf-h3">{{ options().texts.sorting }}</h3>
 
-    <div class="nf-sorting">
-        @for (item of sort(); track $index) {
-            <div class="nf-sorting-row">
-                <div class="nf-sorting-field">
-                    <filter-dropdown
-                        [items]="context().fields"
-                        [options]="options()"
-                        [showDescription]="true"
-                        [showSearch]="true"
-                        [typeaheadLabel]="'NONE'"
-                        [value]="item.path"
-                        (valueChange)="_changeField($index, $event!)" />
+        <div class="nf-sorting">
+            @for (item of sort(); track $index) {
+                <div class="nf-sorting-row">
+                    <div class="nf-sorting-field">
+                        <filter-dropdown
+                            [items]="context().fields"
+                            [options]="options()"
+                            [showDescription]="true"
+                            [showSearch]="true"
+                            [typeaheadLabel]="'NONE'"
+                            [value]="item.path"
+                            (valueChange)="_changeField($index, $event!)" />
+                    </div>
+                    <div class="nf-sorting-mode">
+                        <select
+                            class="{{ options().cssClasses.select }} nf-input-select"
+                            [ngModel]="item.order"
+                            (ngModelChange)="_changeMode($index, $event)"
+                            [ngModelOptions]="{ standalone: true }">
+                            <option [ngValue]="'ascending'">{{ options().texts.sortAsc }}</option>
+                            <option [ngValue]="'descending'">{{ options().texts.sortDesc }}</option>
+                        </select>
+                    </div>
+
+                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-button nf-sorting-delete" (click)="_removeSorting($index)">
+                        <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
+                        </svg>
+                    </button>
                 </div>
-                <div class="nf-sorting-mode">
-                    <select
-                        class="{{ options().cssClasses.select }} nf-input-select"
-                        [ngModel]="item.order"
-                        (ngModelChange)="_changeMode($index, $event)"
-                        [ngModelOptions]="{ standalone: true }">
-                        <option [ngValue]="'ascending'">{{ options().texts.sortAsc }}</option>
-                        <option [ngValue]="'descending'">{{ options().texts.sortDesc }}</option>
-                    </select>
+            }
+
+            @if (context().fields.length > 0) {
+                <div class="nf-sorting-add">
+                    <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addSorting()">
+                        {{ options().texts.addSorting }}
+                    </button>
                 </div>
-
-                <button class="{{ options().cssClasses.buttonDefault(false) }} nf-button nf-sorting-delete" (click)="_removeSorting($index)">
-                    <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
-                    </svg>
-                </button>
-            </div>
-        }
-
-        @if (context().fields.length > 0) {
-            <div class="nf-sorting-add">
-                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addSorting()">
-                    {{ options().texts.addSorting }}
-                </button>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
