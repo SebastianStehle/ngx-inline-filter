@@ -1,5 +1,7 @@
 <button class="{{ options().cssClasses.inputDropdown }} nf-button nf-input-dropdown nf-pointer nf-noselect" [cdkMenuTriggerFor]="menu">
-    {{ selectedItem()?.label }}
+    <div class="nf-input-dropdown-content">
+        {{ selectedItem()?.label }}
+    </div>
 </button>
 
 <ng-template #menu>

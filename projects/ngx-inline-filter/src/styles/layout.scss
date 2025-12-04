@@ -246,6 +246,16 @@ div.nf-complex-filter {
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10px 10px;
+
+    &-content {
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+button.nf-input-dropdown {
     padding-right: 1.5rem;
 }
 
@@ -451,17 +461,15 @@ div.nf-complex-filter {
     }
 }
 
-.nf-dropdown {
-    & > filter-group > .nf-group-grid {
-        margin: 0;
-    }
-}
-
 //
 // DROPDOWN
 //
 .nf-dropdown {
     width: $nf-dropdown-width;
+
+    & > filter-group > .nf-group-grid {
+        margin: 0;
+    }
 
     &-items {
         list-style: none;

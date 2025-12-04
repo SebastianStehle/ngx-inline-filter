@@ -290,6 +290,13 @@ export const Complex: Story = {
     }
 };
 
+export const VeryLong: Story = {
+    args: {
+        query: complexQuery,
+        scrollable: true,
+    }
+};
+
 export const NotScrollable: Story = {
     args: {
         query: complexQuery,

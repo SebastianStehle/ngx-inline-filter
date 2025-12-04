@@ -8,7 +8,7 @@
     <div class="nf-inner">
         @if (context().fields.length > 0 && logicalSwitchPosition() === "start") {
             <div class="nf-complex-filter-buttons-start">
-                <button class="{{ options().cssClasses.buttonDefault(true) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
+                <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
                     @if (isLogicalAnd()) {
                         {{ options().texts.and }}
                     } @else {
@@ -53,7 +53,7 @@
         @if (context().fields.length > 0 || isBookmarked() === true || isBookmarked() === false) {
             <div class="nf-complex-filter-buttons-end" (click)="$event.stopPropagation()">
                 @if (context().fields.length > 0 && logicalSwitchPosition() === "end") {
-                    <button class="{{ options().cssClasses.buttonDefault(true) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
+                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
                         @if (isLogicalAnd()) {
                             {{ options().texts.and }}
                         } @else {
@@ -63,7 +63,7 @@
                 }
 
                 @if (isBookmarked() === true || isBookmarked() === false) {
-                    <button class="{{ options().cssClasses.buttonDefault(true) }} nf-menu-button" (click)="_toggleBookmark()">
+                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button" (click)="_toggleBookmark()">
                         @if (isBookmarked() === true) {
                             <svg class="nf-icon" viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
                                 <path d="m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z" />

@@ -6,7 +6,11 @@ import { BootstrapClasses, DefaultOptions } from '../options';
 function buildItems(count: number) {
     const result: DropdownOption[] = [];
     for (var i = 1; i <= count; i++) {
-        if (i % 2 === 1) {
+        if (i % 3 === 0) {
+            const label = `Long Field ${i}`;
+
+            result.push({ label, value: label.toLocaleLowerCase(), searchText: label.toLocaleUpperCase(), description: 'Lorem ipsum dolor sit amet' });
+        } else if (i % 2 === 1) {
             const label = `Field${i}`;
     
             result.push({ label, value: label.toLocaleLowerCase(), searchText: label.toLocaleUpperCase(), description: 'Lorem ipsum dolor sit amet' });
@@ -99,6 +103,62 @@ export const Bootstrap: Story = {
                 [typeaheadLabel]="typeaheadLabel"
                 [value]="value"
                 (valueChange)="valueChange?.($event)" />
+        `,
+    })
+};
+
+export const Truncated: Story = {
+    args: {
+        items: buildItems(20),
+        showSearch: true,
+        showDescription: true,
+        typeaheadLabel: 'NONE',
+        value: 'longfield2',
+        options: {
+            ...DefaultOptions,
+        },
+    },
+    render: args => ({
+        props: args,
+        template: `
+            <div style="width: 100px;">
+                <filter-dropdown
+                    [items]="items"
+                    [options]="options"
+                    [showSearch]="showSearch"
+                    [showDescription]="showDescription"
+                    [typeaheadLabel]="typeaheadLabel"
+                    [value]="value"
+                    (valueChange)="valueChange?.($event)" />
+            </div>
+        `,
+    })
+};
+
+export const TruncatedWithWhitespace: Story = {
+    args: {
+        items: buildItems(20),
+        showSearch: true,
+        showDescription: true,
+        typeaheadLabel: 'NONE',
+        value: 'long field 3',
+        options: {
+            ...DefaultOptions,
+        },
+    },
+    render: args => ({
+        props: args,
+        template: `
+            <div style="width: 100px;">
+                <filter-dropdown
+                    [items]="items"
+                    [options]="options"
+                    [showSearch]="showSearch"
+                    [showDescription]="showDescription"
+                    [typeaheadLabel]="typeaheadLabel"
+                    [value]="value"
+                    (valueChange)="valueChange?.($event)" />
+            </div>
         `,
     })
 };
