@@ -41,7 +41,7 @@
             "browserTarget": "ngx-inline-filter:build",
             "compodoc": false,
             "port": 6006,
-            "styles": ["projects/ngx-inline-filter/src/styles/layout.scss", "projects/ngx-inline-filter/src/styles/simple.scss", "preview/style.css"]
+            "open": false
           }
         },
         "build-storybook": {

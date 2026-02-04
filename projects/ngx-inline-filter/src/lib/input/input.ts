@@ -7,7 +7,7 @@ import { Node } from "../node/node";
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FilterOptions } from '../options';
 import { Dropdown } from "../dropdown/dropdown";
-import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgScrollbarModule  } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
 import { AddButton } from "../add-button/add-button";
 

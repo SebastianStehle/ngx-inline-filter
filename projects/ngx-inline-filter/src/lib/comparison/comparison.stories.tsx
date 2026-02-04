@@ -21,7 +21,7 @@ const model: FilterModel = {
         value: 'eq',
         label: 'equal'
     }, {
-        value: 'eq',
+        value: 'ne',
         label: 'not equal'
     }],
     fields: [{
@@ -102,7 +102,7 @@ type Story = StoryObj<Comparison>;
 
 export const InlineString: Story = {
     args: {
-        node: { path: 'string', op: 'eq', value: 'Hello' },
+        node: { path: 'string', op: 'ne', value: 'Hello' },
         grid: false,
     }
 };
