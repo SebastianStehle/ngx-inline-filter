@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, viewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ValueBase } from '../value-base';
 
-type Option = { value: any, label: string, group: string };
+type Option = { value: any; label: string; group: string };
 
 @Component({
     selector: 'filter-select-value',
@@ -21,7 +27,7 @@ export class SelectValue extends ValueBase<number, Option[]> {
 
         for (const option of options) {
             if (option.group) {
-                let group = treeGroups.find(x => x.name === option.group);
+                let group = treeGroups.find((x) => x.name === option.group);
 
                 if (!group) {
                     group = { name: option.group, children: [] };

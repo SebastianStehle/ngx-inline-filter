@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, input, model, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    input,
+    model,
+    TemplateRef,
+} from '@angular/core';
 import { FilterLogical, SortField, SortOrder } from '../model';
-import { Group } from "../group/group";
+import { Group } from '../group/group';
 import { FilterOptions } from '../options';
 import { ModelContext } from '../_internal';
-import { Dropdown } from "../dropdown/dropdown";
+import { Dropdown } from '../dropdown/dropdown';
 import { FormsModule } from '@angular/forms';
 import { TemplateContext } from '../template';
 
@@ -23,7 +29,7 @@ export class Details {
      * Whether the autocomplete input is disabled.
      */
     disabled = input.required<boolean>();
-    
+
     /**
      * The options
      */
@@ -45,26 +51,29 @@ export class Details {
     valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
 
     _changeField(index: number, path: string) {
-        this._updateSorting(sorting => {
+        this._updateSorting((sorting) => {
             sorting[index] = { ...sorting[index], path };
         });
     }
 
     _changeMode(index: number, mode: SortOrder) {
-        this._updateSorting(sorting => {
+        this._updateSorting((sorting) => {
             sorting[index] = { ...sorting[index], order: mode };
         });
     }
 
     _removeSorting(index: number) {
-        this._updateSorting(sorting => {
+        this._updateSorting((sorting) => {
             sorting.splice(index, 1);
         });
     }
 
     _addSorting() {
-        this._updateSorting(sorting => {
-            sorting.push({ path: this.context().fields[0].value, order: 'ascending' });
+        this._updateSorting((sorting) => {
+            sorting.push({
+                path: this.context().fields[0].value,
+                order: 'ascending',
+            });
         });
     }
 

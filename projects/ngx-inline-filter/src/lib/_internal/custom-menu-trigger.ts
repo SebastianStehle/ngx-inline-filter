@@ -1,16 +1,35 @@
-import { Directionality } from "@angular/cdk/bidi";
-import { hasModifierKey, DOWN_ARROW, UP_ARROW } from "@angular/cdk/keycodes";
-import { MENU_TRIGGER, PARENT_OR_NEW_MENU_STACK_PROVIDER, CdkMenuTriggerBase, Menu } from "@angular/cdk/menu";
-import { OverlayConfig, FlexibleConnectedPositionStrategy, STANDARD_DROPDOWN_BELOW_POSITIONS, Overlay } from "@angular/cdk/overlay";
-import { _getEventTarget } from "@angular/cdk/platform";
-import { Directive, OnChanges, OnDestroy, ElementRef, inject, ChangeDetectorRef, Injector, SimpleChanges } from "@angular/core";
-import { takeUntil } from "rxjs";
+import { Directionality } from '@angular/cdk/bidi';
+import { hasModifierKey, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import {
+    MENU_TRIGGER,
+    PARENT_OR_NEW_MENU_STACK_PROVIDER,
+    CdkMenuTriggerBase,
+    Menu,
+} from '@angular/cdk/menu';
+import {
+    OverlayConfig,
+    FlexibleConnectedPositionStrategy,
+    STANDARD_DROPDOWN_BELOW_POSITIONS,
+    Overlay,
+} from '@angular/cdk/overlay';
+import { _getEventTarget } from '@angular/cdk/platform';
+import {
+    Directive,
+    OnChanges,
+    OnDestroy,
+    ElementRef,
+    inject,
+    ChangeDetectorRef,
+    Injector,
+    SimpleChanges,
+} from '@angular/core';
+import { takeUntil } from 'rxjs';
 
 @Directive({
     selector: '[filterManualMenuTriggerFor]',
     exportAs: 'filterManualMenuTriggerFor',
     host: {
-        'class': 'cdk-menu-trigger',
+        class: 'cdk-menu-trigger',
         '(focusin)': '_setHasFocus(true)',
         '(focusout)': '_setHasFocus(false)',
         '(keydown)': '_toggleOnKeydown($event)',
@@ -26,11 +45,16 @@ import { takeUntil } from "rxjs";
         PARENT_OR_NEW_MENU_STACK_PROVIDER,
     ],
 })
-export class ManualMenuTrigger extends CdkMenuTriggerBase implements OnChanges, OnDestroy {
+export class ManualMenuTrigger
+    extends CdkMenuTriggerBase
+    implements OnChanges, OnDestroy
+{
     private readonly _elementRef: ElementRef<HTMLElement> = inject(ElementRef);
     private readonly _overlay = inject(Overlay);
-    private readonly _changeDetectorRef = inject(ChangeDetectorRef);;
-    private readonly _directionality = inject(Directionality, { optional: true });
+    private readonly _changeDetectorRef = inject(ChangeDetectorRef);
+    private readonly _directionality = inject(Directionality, {
+        optional: true,
+    });
     private readonly _injector = inject(Injector);
 
     constructor() {
@@ -41,7 +65,9 @@ export class ManualMenuTrigger extends CdkMenuTriggerBase implements OnChanges, 
     open() {
         if (!this.isOpen() && this.menuTemplateRef != null) {
             this.opened.next();
-            this.overlayRef = this.overlayRef || this._overlay.create(this._getOverlayConfig());
+            this.overlayRef =
+                this.overlayRef ||
+                this._overlay.create(this._getOverlayConfig());
             this.overlayRef.attach(this.getMenuContentPortal());
             this._subscribeToOutsideClicks();
             this._changeDetectorRef.markForCheck();
@@ -62,7 +88,9 @@ export class ManualMenuTrigger extends CdkMenuTriggerBase implements OnChanges, 
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['menuPosition'] && this.overlayRef) {
-            this.overlayRef.updatePositionStrategy(this._getOverlayPositionStrategy());
+            this.overlayRef.updatePositionStrategy(
+                this._getOverlayPositionStrategy(),
+            );
         }
     }
 
@@ -99,15 +127,19 @@ export class ManualMenuTrigger extends CdkMenuTriggerBase implements OnChanges, 
             .flexibleConnectedTo(this._elementRef)
             .withLockedPosition()
             .withFlexibleDimensions(false)
-            .withPositions(this.menuPosition ?? STANDARD_DROPDOWN_BELOW_POSITIONS);
+            .withPositions(
+                this.menuPosition ?? STANDARD_DROPDOWN_BELOW_POSITIONS,
+            );
     }
 
     private _registerCloseHandler() {
-        this.menuStack.closed.pipe(takeUntil(this.destroyed)).subscribe(({ item }) => {
-            if (item === this.childMenu) {
-                this.close();
-            }
-        });
+        this.menuStack.closed
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(({ item }) => {
+                if (item === this.childMenu) {
+                    this.close();
+                }
+            });
     }
 
     private _subscribeToOutsideClicks() {
@@ -115,7 +147,7 @@ export class ManualMenuTrigger extends CdkMenuTriggerBase implements OnChanges, 
             this.overlayRef
                 .outsidePointerEvents()
                 .pipe(takeUntil(this.stopOutsideClicksListener))
-                .subscribe(event => {
+                .subscribe((event) => {
                     const target = _getEventTarget(event) as Element;
                     const element = this._elementRef.nativeElement;
 

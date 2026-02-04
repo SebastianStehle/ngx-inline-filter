@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, output, signal, untracked, viewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    ElementRef,
+    input,
+    output,
+    signal,
+    untracked,
+    viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounce, DropdownOption, ManualMenuTrigger } from '../_internal';
 import { FilterOptions } from '../options';
@@ -21,12 +32,12 @@ export class Autocomplete {
      * Whenever an item has been selected selected.
      */
     itemSelect = output<string>();
-    
+
     /**
      * The value.
      */
     value = input<string | undefined | null>();
-    
+
     /**
      * Whenever the value has been changed.
      */
@@ -46,7 +57,7 @@ export class Autocomplete {
      * The container element.
      */
     container = input.required<any>();
-                    
+
     /**
      * The options.
      */
@@ -60,7 +71,7 @@ export class Autocomplete {
     searchText = computed(() => this.valueSource().toUpperCase());
     searchItems = computed(() => filterItems(this.items(), this.searchText()));
     searchResult = debounce(this.searchItems);
-    
+
     constructor() {
         effect(() => {
             this.valueSource.set(this.value() || '');
@@ -71,7 +82,7 @@ export class Autocomplete {
                 this.scrollIntoView();
             });
         });
-        
+
         effect(() => {
             const trigger = this.viewMenu();
             const fields = this.searchItems();
@@ -113,7 +124,7 @@ export class Autocomplete {
 
     _keyDown(event: KeyboardEvent) {
         this.scrollIntoView();
-    
+
         const target: HTMLInputElement = event.currentTarget as any;
         if (event.key === 'Backspace' && target.value === '') {
             this.delete.emit();
@@ -138,7 +149,7 @@ function filterItems(fields: ReadonlyArray<DropdownOption>, query: string) {
         return EMPTY_ITEMS;
     }
 
-    const result = fields.filter(x => x.searchText.indexOf(query) >= 0);
+    const result = fields.filter((x) => x.searchText.indexOf(query) >= 0);
     if (result.length === 0) {
         return EMPTY_ITEMS;
     }

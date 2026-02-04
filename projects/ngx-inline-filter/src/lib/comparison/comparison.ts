@@ -1,7 +1,32 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, TemplateRef, untracked, viewChild, ViewContainerRef } from '@angular/core';
-import {  createComparison, FieldComponent, FilterComparison, FilterField, FilterModel, FilterNegation, FilterNode, FilterOperator, isEmptyOperator, isNegation } from '../model';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    ElementRef,
+    input,
+    model,
+    output,
+    signal,
+    TemplateRef,
+    untracked,
+    viewChild,
+    ViewContainerRef,
+} from '@angular/core';
+import {
+    createComparison,
+    FieldComponent,
+    FilterComparison,
+    FilterField,
+    FilterModel,
+    FilterNegation,
+    FilterNode,
+    FilterOperator,
+    isEmptyOperator,
+    isNegation,
+} from '../model';
 import { FormsModule } from '@angular/forms';
-import { Dropdown } from "../dropdown/dropdown";
+import { Dropdown } from '../dropdown/dropdown';
 import { FilterOptions } from '../options';
 import { clone, ModelContext } from '../_internal';
 import { TemplateContext } from '../template';
@@ -45,7 +70,7 @@ export class Comparison {
      * To use a grid view.
      */
     grid = input(false);
-            
+
     /**
      * The options.
      */
@@ -67,7 +92,9 @@ export class Comparison {
 
     field = computed(() => {
         const path = this.comparison().path;
-        return this.context().model.fields.find(x => x.path === path) as FilterField | undefined;
+        return this.context().model.fields.find((x) => x.path === path) as
+            | FilterField
+            | undefined;
     });
 
     fieldArguments = computed(() => this.field()?.args);
@@ -75,12 +102,17 @@ export class Comparison {
 
     viewRemove = viewChild<ElementRef<HTMLButtonElement>>('remove');
     viewValueColumn = viewChild<ElementRef<HTMLDivElement>>('valueColumn');
-    viewCalueContainer = viewChild<ViewContainerRef, ViewContainerRef>('value', { read: ViewContainerRef });
+    viewCalueContainer = viewChild<ViewContainerRef, ViewContainerRef>(
+        'value',
+        { read: ViewContainerRef },
+    );
 
     valueComponent = signal<FieldComponent | null>(null);
 
     isNegated = computed(() => isNegation(this.node()));
-    isEmpty = computed(() => isEmptyOperator(this.comparison().op, this.context().model));
+    isEmpty = computed(() =>
+        isEmptyOperator(this.comparison().op, this.context().model),
+    );
 
     viewContext = computed(() => {
         const comparison = this.comparison();
@@ -90,20 +122,20 @@ export class Comparison {
             return null;
         }
 
-        return { 
+        return {
             disabled: this.disabled(),
             field,
             grid,
             model: this.context().model,
             onBlur: () => {},
-            onChange: value => this._changeValue(value),
+            onChange: (value) => this._changeValue(value),
             options: this.options(),
             value: comparison.value,
         } as TemplateContext;
     });
 
     constructor() {
-        effect(onCleanup => {
+        effect((onCleanup) => {
             const valueContainer = this.viewCalueContainer();
             if (!valueContainer) {
                 return;
@@ -115,17 +147,17 @@ export class Comparison {
             }
 
             const component = valueContainer.createComponent(componentType);
-            
+
             this.valueComponent.set(component.instance);
             onCleanup(() => component.destroy());
         });
-        
+
         effect(() => {
             const component = this.valueComponent();
             const args = this.fieldArguments();
             untracked(() => component?.updateArgs?.(args));
         });
-        
+
         effect(() => {
             const component = this.valueComponent();
             const options = this.options();
@@ -136,14 +168,14 @@ export class Comparison {
             const component = this.valueComponent();
             const model = this.context().model;
             untracked(() => component?.updateModel?.(model));
-        })
-        
+        });
+
         effect(() => {
             const component = this.valueComponent();
             const value = this.comparison()?.value;
             untracked(() => component?.writeValue?.(value));
         });
-        
+
         effect(() => {
             const component = this.valueComponent();
             const disabled = this.disabled();
@@ -156,7 +188,7 @@ export class Comparison {
             }
         });
 
-        effect(onCleanup => {
+        effect((onCleanup) => {
             const component = this.valueComponent();
             if (!component) {
                 return;
@@ -184,13 +216,17 @@ export class Comparison {
         if (component) {
             this.valueComponent()?.focus?.();
         } else {
-            this.viewValueColumn()?.nativeElement?.querySelector('input')?.focus();
+            this.viewValueColumn()
+                ?.nativeElement?.querySelector('input')
+                ?.focus();
         }
     }
 
     _changePath(path: string) {
-        this._updateNode(node => {
-            const field = this.context().model.fields.find(x => x.path === path)!;
+        this._updateNode((node) => {
+            const field = this.context().model.fields.find(
+                (x) => x.path === path,
+            )!;
             if (isNegation(node)) {
                 return { not: createComparison(field) };
             } else {
@@ -200,7 +236,7 @@ export class Comparison {
     }
 
     _changeValue(value: any) {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isNegation(node)) {
                 node.not.value = value;
             } else {
@@ -210,7 +246,7 @@ export class Comparison {
     }
 
     _changeOperator(op: string) {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isNegation(node)) {
                 node.not.op = op;
             } else {
@@ -220,7 +256,7 @@ export class Comparison {
     }
 
     _toggleType() {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isNegation(node)) {
                 return node.not;
             } else {
@@ -228,14 +264,14 @@ export class Comparison {
             }
         });
     }
-        
+
     _updateNode(update: ((query: Node) => Node) | ((query: Node) => void)) {
         let node = clone(this.node());
 
         node = update(node) || node;
         this.node.set(node);
     }
-    
+
     _handleRemove() {
         this.nodeRemove.emit({ byButton: false });
     }

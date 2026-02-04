@@ -1,4 +1,4 @@
-@import 'vars';
+@import "vars";
 
 .nf *,
 .nf-dropdown,
@@ -9,7 +9,7 @@
 .nf-pointer {
     cursor: default;
 }
-    
+
 .nf-noselect {
     user-select: none;
 }
@@ -27,14 +27,14 @@
 .nf-h3 {
     font-size: 130%;
     font-weight: normal;
-    margin: 2rem 0 1rem
+    margin: 2rem 0 1rem;
 }
 
 .nf-auto-size {
     display: inline-block;
     height: calc($nf-height-inner + 2px);
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
     .sizer {
         height: 0;
@@ -91,7 +91,6 @@
         & > filter-dropdown {
             width: auto;
         }
-
     }
 
     &.nf-scrollable {
@@ -106,7 +105,7 @@
         .nf-scroll-container {
             flex-wrap: nowrap;
         }
-        
+
         .nf-group-inline {
             margin-bottom: 0;
         }
@@ -115,7 +114,7 @@
             margin-bottom: 0;
         }
 
-        .nf-complex-filter-filters { 
+        .nf-complex-filter-filters {
             flex-wrap: nowrap;
         }
     }
@@ -163,13 +162,13 @@
     }
 
     &-buttons-end {
-        @include box-shadow-outer(-1px, 0, 0, .1);
+        @include box-shadow-outer(-1px, 0, 0, 0.1);
         margin-left: 0;
     }
 
     &-buttons-start {
-        @include box-shadow-outer(1px, 0, 0, .1);
-        margin-right: .25rem;
+        @include box-shadow-outer(1px, 0, 0, 0.1);
+        margin-right: 0.25rem;
     }
 }
 
@@ -187,7 +186,7 @@ div.nf-complex-filter {
     & > ng-scrollbar {
         flex-grow: 1;
     }
-    
+
     & > .nf-button {
         align-items: center;
         display: flex;
@@ -291,7 +290,7 @@ button.nf-input-dropdown {
         background-image: none;
     }
 
-    .nf-operator-text{
+    .nf-operator-text {
         align-items: center;
         display: flex;
         flex-direction: row;
@@ -316,7 +315,7 @@ button.nf-input-dropdown {
         display: flex;
         flex-direction: row;
         flex-grow: 1;
-        gap: .5rem;
+        gap: 0.5rem;
     }
 
     .nf-comparison-field {
@@ -350,7 +349,7 @@ button.nf-input-dropdown {
     }
 
     .nf-input-checkbox {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
         margin-left: 1rem;
     }
 
@@ -378,8 +377,8 @@ button.nf-input-dropdown {
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    gap: .5rem;
-    margin-top: .5rem;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 
     .nf-group-header {
         display: flex;
@@ -393,23 +392,23 @@ button.nf-input-dropdown {
         display: flex;
         flex-direction: row;
         flex-grow: 0;
-        gap: .5rem;
-        margin-top: .5rem;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
     }
 
     .nf-group-children {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        gap: .5rem;
+        gap: 0.5rem;
         padding-left: 1rem;
         padding-right: 0;
         position: relative;
 
         &::before {
-            @include absolute(-.5rem, null, $nf-height-full * 0.5, 1.5rem);
+            @include absolute(-0.5rem, null, $nf-height-full * 0.5, 1.5rem);
             border-left: 2px dashed $nf-color-border;
-            content: '';
+            content: "";
             width: 2px;
             margin-top: -1px;
             margin-left: -1px;
@@ -422,13 +421,13 @@ button.nf-input-dropdown {
         &::before {
             @include absolute(50%, 100%, null, -1.5rem);
             border-bottom: 2px dashed $nf-color-border;
-            content: '';
+            content: "";
             height: 2px;
             margin-top: -1px;
             margin-left: -1px;
         }
     }
-    
+
     .nf-group-add,
     .nf-group-children .nf-group-types {
         position: relative;
@@ -436,7 +435,7 @@ button.nf-input-dropdown {
         &::before {
             @include absolute(50%, 100%, null, -1.5rem);
             border-bottom: 2px dashed $nf-color-border;
-            content: '';
+            content: "";
             height: 2px;
             margin-top: -1px;
             margin-left: -1px;
@@ -488,7 +487,7 @@ button.nf-input-dropdown {
 
     &-descriptive {
         width: $nf-dropdown-width-lg;
-        
+
         .nf-dropdown-text,
         .nf-dropdown-description {
             width: 50%;
@@ -520,7 +519,7 @@ button.nf-input-dropdown {
         .nf-dropdown-description {
             font-size: $nf-text-small;
             font-weight: normal;
-            opacity: .7;
+            opacity: 0.7;
             text-align: right;
         }
     }
@@ -536,7 +535,7 @@ button.nf-input-dropdown {
     &-content {
         min-width: $nf-details-width;
         padding: 1.5rem;
-        padding-top: .5rem;
+        padding-top: 0.5rem;
         overflow: hidden;
     }
 }
@@ -548,13 +547,13 @@ button.nf-input-dropdown {
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    gap: .5rem;
+    gap: 0.5rem;
 
     &-row {
         display: flex;
         flex-direction: row;
         flex-grow: 1;
-        gap: .5rem;
+        gap: 0.5rem;
     }
 
     &-field {
@@ -569,7 +568,8 @@ button.nf-input-dropdown {
 filter-dropdown {
     display: block;
 
-    &, & > .nf-button {
+    &,
+    & > .nf-button {
         width: 100%;
     }
 }

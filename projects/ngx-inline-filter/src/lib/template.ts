@@ -1,5 +1,5 @@
-import { FilterField, FilterModel } from "./model";
-import { FilterOptions } from "./options";
+import { FilterField, FilterModel } from './model';
+import { FilterOptions } from './options';
 
 export interface TemplateContext {
     // The model.
@@ -19,7 +19,7 @@ export interface TemplateContext {
 
     // The actual value of the field.
     value?: any;
-    
+
     // Whenever the values has changed.
     onChange: (value: any) => void;
 

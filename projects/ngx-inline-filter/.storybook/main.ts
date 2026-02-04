@@ -14,15 +14,15 @@ const config: StorybookConfig = {
         options: {},
     },
     async viteFinal(config) {
-    config.optimizeDeps = config.optimizeDeps || {};
-    config.optimizeDeps.include = config.optimizeDeps.include || [];
-    config.optimizeDeps.include.push('ngx-scrollbar');
+        config.optimizeDeps = config.optimizeDeps || {};
+        config.optimizeDeps.include = config.optimizeDeps.include || [];
+        config.optimizeDeps.include.push('ngx-scrollbar');
 
-    // Set the correct resolve conditions
-    config.resolve = config.resolve || {};
-    config.resolve.conditions = ['import', 'module', 'browser', 'default'];
+        // Set the correct resolve conditions
+        config.resolve = config.resolve || {};
+        config.resolve.conditions = ['import', 'module', 'browser', 'default'];
 
-    return config;
+        return config;
     },
 };
 export default config;

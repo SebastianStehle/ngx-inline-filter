@@ -1,7 +1,12 @@
-import { effect, signal, Signal } from "@angular/core";
-import { FilterModel } from "../model";
+import { effect, signal, Signal } from '@angular/core';
+import { FilterModel } from '../model';
 
-export type DropdownOption = Readonly<{ value: string, label: string; description?: string; searchText: string }>;
+export type DropdownOption = Readonly<{
+    value: string;
+    label: string;
+    description?: string;
+    searchText: string;
+}>;
 
 export function clone<T>(lhs: T): T {
     const any: any = lhs;
@@ -41,17 +46,30 @@ export type ModelContext = {
     fields: ReadonlyArray<DropdownOption>;
     model: FilterModel;
     operators: ReadonlyArray<DropdownOption>;
-}
+};
 
 export function getFieldOptions(model: FilterModel): DropdownOption[] {
-    return model.fields.map(f => ({ value: f.path, label: f.label, searchText: f.label.toUpperCase(), description: f.description }));
+    return model.fields.map((f) => ({
+        value: f.path,
+        label: f.label,
+        searchText: f.label.toUpperCase(),
+        description: f.description,
+    }));
 }
 
 export function getOperatorOptions(model: FilterModel): DropdownOption[] {
-    return model.operators.map(o => ({ value: o.value, label: o.label, searchText: o.label.toUpperCase() }));
+    return model.operators.map((o) => ({
+        value: o.value,
+        label: o.label,
+        searchText: o.label.toUpperCase(),
+    }));
 }
 
-export function scrollInViewY(parent: HTMLElement, target: HTMLElement, padding = 0) {
+export function scrollInViewY(
+    parent: HTMLElement,
+    target: HTMLElement,
+    padding = 0,
+) {
     if (!parent || !target) {
         return;
     }
@@ -61,7 +79,8 @@ export function scrollInViewY(parent: HTMLElement, target: HTMLElement, padding 
 
     const body = document.body;
 
-    const scrollOffset = (targetRect.top + body.scrollTop) - (parentRect.top + body.scrollTop);
+    const scrollOffset =
+        targetRect.top + body.scrollTop - (parentRect.top + body.scrollTop);
     const scrollParent = parent.scrollTop;
 
     if (scrollOffset < 0) {
@@ -70,13 +89,18 @@ export function scrollInViewY(parent: HTMLElement, target: HTMLElement, padding 
         const targetHeight = targetRect.height;
         const parentHeight = parentRect.height;
 
-        if ((scrollOffset + targetHeight) > parentHeight) {
-            parent.scrollTop = scrollParent + scrollOffset - parentHeight + targetHeight;
+        if (scrollOffset + targetHeight > parentHeight) {
+            parent.scrollTop =
+                scrollParent + scrollOffset - parentHeight + targetHeight;
         }
     }
 }
 
-export function scrollInViewX(parent: HTMLElement, target: HTMLElement, padding = 0) {
+export function scrollInViewX(
+    parent: HTMLElement,
+    target: HTMLElement,
+    padding = 0,
+) {
     if (!parent || !target) {
         return;
     }
@@ -86,7 +110,8 @@ export function scrollInViewX(parent: HTMLElement, target: HTMLElement, padding 
 
     const body = document.body;
 
-    const scrollOffset = (targetRect.left + body.scrollLeft) - (parentRect.left + body.scrollLeft);
+    const scrollOffset =
+        targetRect.left + body.scrollLeft - (parentRect.left + body.scrollLeft);
     const scrollParent = parent.scrollLeft;
 
     if (scrollOffset < 0) {
@@ -95,8 +120,9 @@ export function scrollInViewX(parent: HTMLElement, target: HTMLElement, padding 
         const targetWidth = targetRect.width;
         const parentWidth = parentRect.width;
 
-        if ((scrollOffset + targetWidth) > parentWidth) {
-            parent.scrollLeft = scrollParent + scrollOffset - parentWidth + targetWidth;
+        if (scrollOffset + targetWidth > parentWidth) {
+            parent.scrollLeft =
+                scrollParent + scrollOffset - parentWidth + targetWidth;
         }
     }
 }
@@ -104,7 +130,7 @@ export function scrollInViewX(parent: HTMLElement, target: HTMLElement, padding 
 export function debounce<T>(source: Signal<T>, delay = 300): Signal<T> {
     const result = signal<T>(source());
 
-    effect(onCleanUp => {
+    effect((onCleanUp) => {
         const value = source();
         const timer = setTimeout(() => {
             result.set(value);

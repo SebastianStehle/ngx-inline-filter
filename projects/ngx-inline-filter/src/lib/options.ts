@@ -9,7 +9,7 @@ export const DefaultOptions = {
         or: 'Or',
         save: 'Save',
         searchPlaceholder: 'Search',
-        searchShortcut: 'Search (\'q\')',
+        searchShortcut: "Search ('q')",
         sortAsc: 'Ascending',
         sortDesc: 'Descending',
         sorting: 'Sorting',
@@ -17,13 +17,17 @@ export const DefaultOptions = {
     cssClasses: {
         buttonAdd: 'nf-simple-button nf-simple-button-add',
         buttonAddOutline: 'nf-simple-button nf-simple-button-add-outline',
-        buttonDefault: (active: boolean) => `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonDefault: (active: boolean) =>
+            `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
         buttonDelete: 'nf-simple-button nf-simple-button-delete',
         buttonGroup: 'nf-simple-button-group',
-        buttonLogical: (active: boolean) => `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
-        buttonNegate: (active: boolean) => `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonLogical: (active: boolean) =>
+            `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonNegate: (active: boolean) =>
+            `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
         dropdown: 'nf-simple-dropdown',
-        dropdownItem: (selected: boolean) => `nf-simple-dropdown-item ${selected ? 'active' : ''}`,
+        dropdownItem: (selected: boolean) =>
+            `nf-simple-dropdown-item ${selected ? 'active' : ''}`,
         dropdownMenu: 'nf-simple-dropdown',
         dropdownSearch: 'nf-simple-dropdown-search',
         inputCheckbox: 'nf-simple-input-checkbox',
@@ -32,20 +36,22 @@ export const DefaultOptions = {
         inputNumber: 'nf-simple-input-number',
         inputText: 'nf-simple-input-text',
         root: '',
-        select: 'nf-simple-input-select'
-    }
+        select: 'nf-simple-input-select',
+    },
 };
 
-export const BootstrapClasses: typeof DefaultOptions['cssClasses'] = {
+export const BootstrapClasses: (typeof DefaultOptions)['cssClasses'] = {
     buttonAdd: 'btn',
     buttonAddOutline: 'btn btn-outline-success',
     buttonDefault: (active: boolean) => `btn ${active ? 'fw-bolder' : ''}`,
     buttonDelete: 'btn text-muted',
     buttonGroup: 'btn-group',
-    buttonLogical: (active: boolean) => `btn btn-sm ${active ? 'btn-secondary' : ''}`,
+    buttonLogical: (active: boolean) =>
+        `btn btn-sm ${active ? 'btn-secondary' : ''}`,
     buttonNegate: (active: boolean) => `btn ${active ? 'btn-secondary' : ''}`,
     dropdown: 'dropdown',
-    dropdownItem: (selected: boolean) => `dropdown-item ${selected ? 'active' : ''}`,
+    dropdownItem: (selected: boolean) =>
+        `dropdown-item ${selected ? 'active' : ''}`,
     dropdownMenu: 'dropdown dropdown-menu d-block mt-1',
     dropdownSearch: 'dropdown-header mb-2',
     inputCheckbox: 'input',
@@ -54,10 +60,10 @@ export const BootstrapClasses: typeof DefaultOptions['cssClasses'] = {
     inputNumber: 'form-control',
     inputText: 'form-control',
     root: 'form-control',
-    select: 'form-select text-start'
+    select: 'form-select text-start',
 };
 
-export const NoopClasses: typeof DefaultOptions['cssClasses'] = {
+export const NoopClasses: (typeof DefaultOptions)['cssClasses'] = {
     buttonAdd: '',
     buttonAddOutline: '',
     buttonDefault: () => '',
@@ -75,7 +81,7 @@ export const NoopClasses: typeof DefaultOptions['cssClasses'] = {
     inputNumber: '',
     inputText: '',
     root: '',
-    select: ''
+    select: '',
 };
 
 export type FilterOptions = typeof DefaultOptions;

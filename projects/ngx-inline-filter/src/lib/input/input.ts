@@ -1,23 +1,63 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, TemplateRef, viewChild, viewChildren } from '@angular/core';
-import { ComplexQuery, createComparison, FilterLogical, FilterModel, FilterNode, isLogical, isLogicalAnd, isLogicalOr, isNegation, SortField } from '../model';
-import { Autocomplete } from "../autocomplete/autocomplete";
-import { clone, getFieldOptions, getOperatorOptions, ModelContext, SameSize } from '../_internal';
-import { Details } from "../details/details";
-import { Node } from "../node/node";
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    input,
+    output,
+    signal,
+    TemplateRef,
+    viewChild,
+    viewChildren,
+} from '@angular/core';
+import {
+    ComplexQuery,
+    createComparison,
+    FilterLogical,
+    FilterModel,
+    FilterNode,
+    isLogical,
+    isLogicalAnd,
+    isLogicalOr,
+    isNegation,
+    SortField,
+} from '../model';
+import { Autocomplete } from '../autocomplete/autocomplete';
+import {
+    clone,
+    getFieldOptions,
+    getOperatorOptions,
+    ModelContext,
+    SameSize,
+} from '../_internal';
+import { Details } from '../details/details';
+import { Node } from '../node/node';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FilterOptions } from '../options';
-import { Dropdown } from "../dropdown/dropdown";
-import { NgScrollbarModule  } from 'ngx-scrollbar';
+import { Dropdown } from '../dropdown/dropdown';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
-import { AddButton } from "../add-button/add-button";
+import { AddButton } from '../add-button/add-button';
 
-const DEFAULT_QUERY: Required<ComplexQuery> = { filter: { and: [] }, fullText: '', sort: [] };
+const DEFAULT_QUERY: Required<ComplexQuery> = {
+    filter: { and: [] },
+    fullText: '',
+    sort: [],
+};
 
 @Component({
     selector: 'filter-input',
     templateUrl: './input.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [AddButton, Autocomplete, Details, Node, OverlayModule, SameSize, NgScrollbarModule],
+    imports: [
+        AddButton,
+        Autocomplete,
+        Details,
+        Node,
+        OverlayModule,
+        SameSize,
+        NgScrollbarModule,
+    ],
 })
 export class Input {
     /**
@@ -74,7 +114,7 @@ export class Input {
      * A search is triggered.
      */
     search = output<ComplexQuery>();
-    
+
     /**
      * The template for value editors.
      */
@@ -96,7 +136,9 @@ export class Input {
     isLogicalOr = computed(() => isLogicalOr(this.querySource().filter));
 
     hasSorting = computed(() => this.querySource().sort.length > 0);
-    hasLogical = computed(() => this.filterItems().find(x => isLogical(x) || isNegation(x)));
+    hasLogical = computed(() =>
+        this.filterItems().find((x) => isLogical(x) || isNegation(x)),
+    );
 
     filterNodes = viewChildren(Node);
     filterItems = computed(() => {
@@ -106,7 +148,7 @@ export class Input {
         } else {
             return filter.or;
         }
-    })
+    });
 
     viewInput = viewChild(Autocomplete);
     viewButton = viewChild(Dropdown);
@@ -133,7 +175,7 @@ export class Input {
 
     _focusLastRemove() {
         const filter = this.filterNodes();
-        
+
         if (filter.length > 0) {
             filter[filter.length - 1]?.focusRemove();
         } else {
@@ -143,7 +185,7 @@ export class Input {
 
     _focusLastValue() {
         const filter = this.filterNodes();
-        
+
         if (filter.length > 0) {
             filter[filter.length - 1]?.focusValue();
         } else {
@@ -152,33 +194,33 @@ export class Input {
     }
 
     _toggleMenu() {
-        this.isMenuOpen.update(x => !x);
+        this.isMenuOpen.update((x) => !x);
     }
 
     _toggleBookmark() {
         this.isBookmarkedChange.emit(!this.isBookmarked());
     }
-    
+
     _changeQuery(text: string) {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             query.fullText = text;
         });
     }
 
     _changeFilter(filter: FilterLogical) {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             query.filter = filter;
         });
     }
 
     _changeSort(sorting: SortField[]) {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             query.sort = sorting;
         });
     }
 
     _changeLogic() {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             if (isLogicalAnd(query.filter)) {
                 query.filter = { or: query.filter.and };
             } else {
@@ -186,9 +228,9 @@ export class Input {
             }
         });
     }
-    
+
     _changeFilterItem(index: number, filter: FilterNode) {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             if (isLogicalAnd(query.filter)) {
                 query.filter.and[index] = filter;
             } else {
@@ -198,7 +240,7 @@ export class Input {
     }
 
     _removeFilter(index: number, byButton: boolean) {
-        this._updateQuery(query => {
+        this._updateQuery((query) => {
             if (isLogicalAnd(query.filter)) {
                 query.filter.and.splice(index, 1);
             } else {
@@ -212,11 +254,11 @@ export class Input {
             }, 50);
         }
     }
-    
+
     _addFilter(path: string, focus: boolean, clearQuery: boolean) {
-        const field = this.model().fields.find(x => x.path === path)!;
-        
-        this._updateQuery(query => {
+        const field = this.model().fields.find((x) => x.path === path)!;
+
+        this._updateQuery((query) => {
             if (isLogicalAnd(query.filter)) {
                 query.filter.and.push(createComparison(field));
             } else {
@@ -227,7 +269,7 @@ export class Input {
                 query.fullText = '';
             }
         });
-        
+
         if (focus) {
             setTimeout(() => {
                 this._focusLastValue();

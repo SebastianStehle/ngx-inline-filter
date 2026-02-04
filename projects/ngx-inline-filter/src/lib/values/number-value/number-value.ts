@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, viewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ValueBase } from '../value-base';
 

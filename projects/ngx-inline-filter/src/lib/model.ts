@@ -1,12 +1,13 @@
-import { ControlValueAccessor } from "@angular/forms";
-import { clone, isUndefined } from "./_internal";
-import { Type } from "@angular/core";
-import { FilterOptions } from "./options";
+import { ControlValueAccessor } from '@angular/forms';
+import { clone, isUndefined } from './_internal';
+import { Type } from '@angular/core';
+import { FilterOptions } from './options';
 
-export interface FieldComponent<TValue = any, TArgs = any> extends ControlValueAccessor  {
+export interface FieldComponent<TValue = any, TArgs = any>
+    extends ControlValueAccessor {
     focus?(): void;
     registerOnChange(fn: ((value: TValue) => void) | null | undefined): void;
-    registerOnTouched(fn:(() => void) | null | undefined): void;
+    registerOnTouched(fn: (() => void) | null | undefined): void;
     setDisabledState?(isDisabled: boolean): void;
     updateArgs?(args: TArgs): void;
     updateModel?(model: FilterModel): void;
@@ -56,7 +57,10 @@ export interface FilterModel {
     operators: FilterOperator[];
 }
 
-export const EMPTY_FILTER_MODEL: FilterModel = Object.freeze({ fields: [], operators: [] });
+export const EMPTY_FILTER_MODEL: FilterModel = Object.freeze({
+    fields: [],
+    operators: [],
+});
 
 export type SortOrder = 'ascending' | 'descending';
 export type SortField = { path: string; order: SortOrder };
@@ -80,12 +84,12 @@ export type FilterNegation = {
     not: FilterComparison;
 };
 
-export type FilterAnd =  {
+export type FilterAnd = {
     // The child filters if the logical filter is a conjunction (AND).
     and: FilterNode[];
 };
 
-export type FilterOr =  {
+export type FilterOr = {
     // The child filters if the logical filter is a disjunction (OR).
     or: FilterNode[];
 };
@@ -122,7 +126,11 @@ export function isComparison(input: FilterNode): input is FilterComparison {
 }
 
 export function createComparison(field: FilterField) {
-    return { path: field.path, op: field.operators[0], value: field.defaultValue };
+    return {
+        path: field.path,
+        op: field.operators[0],
+        value: field.defaultValue,
+    };
 }
 
 export function createAnd() {
@@ -130,9 +138,12 @@ export function createAnd() {
 }
 
 export function isEmptyOperator(operator: string, model: FilterModel) {
-    return model.operators.find(x => x.value === operator)?.isEmpty === true;
+    return model.operators.find((x) => x.value === operator)?.isEmpty === true;
 }
 
 export function isWellDefined(field: FilterComparison, model: FilterModel) {
-    return isEmptyOperator(field.op, model) || (!isUndefined(field.value) && field.value !== '');
+    return (
+        isEmptyOperator(field.op, model) ||
+        (!isUndefined(field.value) && field.value !== '')
+    );
 }

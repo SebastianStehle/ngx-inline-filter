@@ -1,7 +1,15 @@
-import { Directive, effect, ElementRef, input, OnDestroy, Renderer2, signal } from '@angular/core';
+import {
+    Directive,
+    effect,
+    ElementRef,
+    input,
+    OnDestroy,
+    Renderer2,
+    signal,
+} from '@angular/core';
 
 @Directive({
-    selector: '[filterSameSize]'
+    selector: '[filterSameSize]',
 })
 export class SameSize implements OnDestroy {
     private readonly observer: ResizeObserver;
@@ -11,14 +19,14 @@ export class SameSize implements OnDestroy {
 
     constructor(element: ElementRef<HTMLElement>, renderer: Renderer2) {
         renderer.setStyle(element.nativeElement, 'display', 'none');
-        
+
         this.observer = new ResizeObserver(() => {
             this.width.set(this.target().offsetWidth);
         });
 
-        effect(onCleanUp => {
+        effect((onCleanUp) => {
             const target = this.target();
-            
+
             this.width.set(target.offsetWidth);
 
             this.observer.observe(target);

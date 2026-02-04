@@ -1,7 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, input, model, output, TemplateRef, viewChild } from '@angular/core';
-import { createComparison, FilterLogical, FilterNode, isLogicalAnd, isLogicalOr } from '../model';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    input,
+    model,
+    output,
+    TemplateRef,
+    viewChild,
+} from '@angular/core';
+import {
+    createComparison,
+    FilterLogical,
+    FilterNode,
+    isLogicalAnd,
+    isLogicalOr,
+} from '../model';
 import { FilterOptions } from '../options';
-import { Node } from "../node/node";
+import { Node } from '../node/node';
 import { clone, ModelContext } from '../_internal';
 import { TemplateContext } from '../template';
 
@@ -84,7 +100,7 @@ export class Group {
     }
 
     _addNode(child: FilterNode) {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isLogicalAnd(node)) {
                 node.and.push(child);
             } else {
@@ -94,7 +110,7 @@ export class Group {
     }
 
     _replaceNode(index: number, child: FilterNode) {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isLogicalAnd(node)) {
                 node.and[index] = child;
             } else {
@@ -104,7 +120,7 @@ export class Group {
     }
 
     _removeNode(index: number) {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isLogicalAnd(node)) {
                 node.and.splice(index, 1);
             } else {
@@ -114,7 +130,7 @@ export class Group {
     }
 
     _toggleType() {
-        this._updateNode(node => {
+        this._updateNode((node) => {
             if (isLogicalAnd(node)) {
                 return { or: node.and };
             } else {
@@ -122,14 +138,18 @@ export class Group {
             }
         });
     }
-    
-    _updateNode(update: ((query: FilterLogical) => FilterLogical) | ((query: FilterLogical) => void)) {
+
+    _updateNode(
+        update:
+            | ((query: FilterLogical) => FilterLogical)
+            | ((query: FilterLogical) => void),
+    ) {
         let node = clone(this.node());
 
         node = update(node) || node;
         this.node.set(node);
     }
-    
+
     _handleRemove() {
         this.nodeRemove.emit({ byButton: false });
     }

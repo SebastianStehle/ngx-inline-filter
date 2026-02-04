@@ -1,5 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, TemplateRef, viewChild } from '@angular/core';
-import { FilterLogical, isLogical, FilterNode, FilterComparison, FilterNegation, FilterField, FilterOperator, FilterModel } from '../model';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    forwardRef,
+    input,
+    output,
+    TemplateRef,
+    viewChild,
+} from '@angular/core';
+import {
+    FilterLogical,
+    isLogical,
+    FilterNode,
+    FilterComparison,
+    FilterNegation,
+    FilterField,
+    FilterOperator,
+    FilterModel,
+} from '../model';
 import { FilterOptions } from '../options';
 import { Comparison } from '../comparison/comparison';
 import { Group } from '../group/group';
@@ -10,10 +28,7 @@ import { TemplateContext } from '../template';
     selector: 'filter-node',
     templateUrl: './node.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        forwardRef(() => Comparison),
-        forwardRef(() => Group),
-    ],
+    imports: [forwardRef(() => Comparison), forwardRef(() => Group)],
 })
 export class Node {
     /**
@@ -75,14 +90,16 @@ export class Node {
         return null;
     });
 
-    actualComparison = computed<FilterComparison | FilterNegation | null>(() => {
-        const node = this.node();
-        if (!isLogical(node)) {
-            return node as FilterComparison | FilterNegation;
-        }
+    actualComparison = computed<FilterComparison | FilterNegation | null>(
+        () => {
+            const node = this.node();
+            if (!isLogical(node)) {
+                return node as FilterComparison | FilterNegation;
+            }
 
-        return null;
-    });
+            return null;
+        },
+    );
 
     elementComparison = viewChild<any>('comparison');
     elementGroup = viewChild<any>('group');

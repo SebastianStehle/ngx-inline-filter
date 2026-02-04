@@ -1,5 +1,14 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, viewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    input,
+    output,
+    signal,
+    viewChild,
+} from '@angular/core';
 import { FilterOptions } from '../options';
 import { FormsModule } from '@angular/forms';
 import { DropdownOption } from '../_internal';
@@ -41,12 +50,12 @@ export class Dropdown {
      * Shows the option descriptions.
      */
     showDescription = input(false);
-    
+
     /**
      * The class name.
      */
     class = input<string>('');
-                
+
     /**
      * The options.
      */
@@ -63,7 +72,7 @@ export class Dropdown {
         const items = this.items();
         const value = this.valueSource();
 
-        return value ? items.find(x => x.value === value) : undefined;
+        return value ? items.find((x) => x.value === value) : undefined;
     });
 
     constructor() {
@@ -71,7 +80,7 @@ export class Dropdown {
             this.valueSource.set(this.value());
         });
     }
-    
+
     _handleValue(option: DropdownOption) {
         this.valueSource.set(option.value);
         this.valueChange.emit(option.value);

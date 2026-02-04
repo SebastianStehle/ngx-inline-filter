@@ -1,5 +1,17 @@
 import { CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    ElementRef,
+    input,
+    model,
+    output,
+    signal,
+    untracked,
+    viewChild,
+} from '@angular/core';
 import { FilterOptions } from '../options';
 import { FormsModule } from '@angular/forms';
 import { CustomMenu, DropdownOption } from '../_internal';
@@ -35,7 +47,7 @@ export class Menu {
      * Shows the option descriptions.
      */
     showDescription = input(false);
-                
+
     /**
      * The options.
      */
@@ -91,14 +103,13 @@ export class Menu {
     }
 }
 
-
 const EMPTY_ITEMS: DropdownOption[] = [];
 function filterItems(items: ReadonlyArray<DropdownOption>, query: string) {
     if (query.length === 0) {
         return items;
     }
 
-    const result = items.filter(x => x.searchText.indexOf(query) >= 0);
+    const result = items.filter((x) => x.searchText.indexOf(query) >= 0);
     if (result.length === 0) {
         return EMPTY_ITEMS;
     }

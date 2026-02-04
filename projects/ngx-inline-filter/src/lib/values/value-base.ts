@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, inject, signal } from "@angular/core";
-import { FieldComponent } from "../model";
-import { DefaultOptions, FilterOptions } from "../options";
+import { ChangeDetectorRef, inject, signal } from '@angular/core';
+import { FieldComponent } from '../model';
+import { DefaultOptions, FilterOptions } from '../options';
 
-export abstract class ValueBase<TValue, TArgs = any> implements FieldComponent<TValue, TArgs> {
+export abstract class ValueBase<TValue, TArgs = any>
+    implements FieldComponent<TValue, TArgs>
+{
     args = signal<TArgs | undefined>(undefined);
     disabled = signal(false);
     onChange: (value: TValue) => void = () => {};
@@ -24,10 +26,9 @@ export abstract class ValueBase<TValue, TArgs = any> implements FieldComponent<T
 
     registerOnChange(fn: ((value: TValue) => void) | null | undefined) {
         this.onChange = fn || (() => {});
-
     }
-    registerOnTouched(fn:(() => void) | null | undefined) {
-        this.onTouched = fn || (() => {})
+    registerOnTouched(fn: (() => void) | null | undefined) {
+        this.onTouched = fn || (() => {});
     }
 
     setDisabledState?(isDisabled: boolean): void {

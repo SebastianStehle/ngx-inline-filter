@@ -1,153 +1,192 @@
-import { componentWrapperDecorator, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+    componentWrapperDecorator,
+    moduleMetadata,
+    type Meta,
+    type StoryObj,
+} from '@storybook/angular';
 import { Input } from './input';
 import { StringValue } from '../values/string-value/string-value';
 import { NumberValue } from '../values/number-value/number-value';
 import { BooleanValue } from '../values/boolean-value/boolean-value';
 import { DateValue } from '../values/date-value/date-value';
 import { SelectValue } from '../values/select-value/select-value';
-import { BootstrapClasses as BootstrapClasses, DefaultOptions, NoopClasses } from '../options';
+import {
+    BootstrapClasses as BootstrapClasses,
+    DefaultOptions,
+    NoopClasses,
+} from '../options';
 import { ComplexQuery, FilterModel } from '../model';
 import { FormsModule } from '@angular/forms';
 
-const Operators = [
-    'eq',
-    'ne',
-    'lt'
-];
+const Operators = ['eq', 'ne', 'lt'];
 
 const complexQuery: ComplexQuery = {
     fullText: 'My Query',
     filter: {
-        and: [{
-            path: 'string1',
-            op: 'eq',
-            value: 'Value1',
-        }, {
-            path: 'string2',
-            op: 'eq',
-            value: 'Value2',
-        }, {
-            path: 'number1',
-            op: 'eq',
-            value: 42,
-        }, {
-            path: 'number2',
-            op: 'eq',
-            value: 42,
-        }, {
-            path: 'enum',
-            op: 'eq',
-            value: 'Option1'
-        }, {
-            path: 'enum',
-            op: 'eq',
-            value: 'Option2'
-        }, {
-            or: [{
+        and: [
+            {
                 path: 'string1',
                 op: 'eq',
                 value: 'Value1',
-            }, {
+            },
+            {
+                path: 'string2',
+                op: 'eq',
+                value: 'Value2',
+            },
+            {
                 path: 'number1',
                 op: 'eq',
                 value: 42,
-            }, {
+            },
+            {
+                path: 'number2',
+                op: 'eq',
+                value: 42,
+            },
+            {
                 path: 'enum',
                 op: 'eq',
-                value: 'Option1'
-            }]
-        }],
+                value: 'Option1',
+            },
+            {
+                path: 'enum',
+                op: 'eq',
+                value: 'Option2',
+            },
+            {
+                or: [
+                    {
+                        path: 'string1',
+                        op: 'eq',
+                        value: 'Value1',
+                    },
+                    {
+                        path: 'number1',
+                        op: 'eq',
+                        value: 42,
+                    },
+                    {
+                        path: 'enum',
+                        op: 'eq',
+                        value: 'Option1',
+                    },
+                ],
+            },
+        ],
     },
-    sort: [{
-        path: 'string1',
-        order: 'ascending',
-    }, {
-        path: 'string2',
-        order: 'descending',
-    }],
+    sort: [
+        {
+            path: 'string1',
+            order: 'ascending',
+        },
+        {
+            path: 'string2',
+            order: 'descending',
+        },
+    ],
 };
 
 const model: FilterModel = {
-    operators: [{
-        value: 'eq',
-        label: 'equal'
-    }, {
-        value: 'eq',
-        label: 'not equal'
-    }],
-    fields: [{
-        path: 'string1',
-        label: 'String1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: StringValue
-    }, {
-        path: 'string2',
-        label: 'String2',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: StringValue
-    }, {
-        path: 'number1',
-        label: 'Number1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: NumberValue
-    }, {
-        path: 'number2',
-        label: 'Number2',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: NumberValue
-    }, {
-        path: 'date1',
-        label: 'Date1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: DateValue
-    }, {
-        path: 'date2',
-        label: 'Date1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: DateValue
-    }, {
-        path: 'boolean1',
-        label: 'Boolean1',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: BooleanValue
-    }, {
-        path: 'boolean2',
-        label: 'Boolean2',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: BooleanValue
-    }, {
-        path: 'enum',
-        label: 'Enum',
-        description: 'Lorem ipsum dolor sit amet',
-        operators: Operators,
-        component: SelectValue,
-        args: [{
-            value: 'Option1',
-            label: 'Option1'
-        }, {
-            value: 'Option2',
-            label: 'Option2'
-        }, {
-            value: 'Option3',
-            label: 'Option3'
-        }, {
-            value: 'OptionG_1',
-            label: 'OptionG_1',
-            group: 'G'
-        },  {
-            value: 'OptionG_2',
-            label: 'OptionG_2',
-            group: 'G'
-        }]
-    }]
+    operators: [
+        {
+            value: 'eq',
+            label: 'equal',
+        },
+        {
+            value: 'eq',
+            label: 'not equal',
+        },
+    ],
+    fields: [
+        {
+            path: 'string1',
+            label: 'String1',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: StringValue,
+        },
+        {
+            path: 'string2',
+            label: 'String2',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: StringValue,
+        },
+        {
+            path: 'number1',
+            label: 'Number1',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: NumberValue,
+        },
+        {
+            path: 'number2',
+            label: 'Number2',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: NumberValue,
+        },
+        {
+            path: 'date1',
+            label: 'Date1',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: DateValue,
+        },
+        {
+            path: 'date2',
+            label: 'Date1',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: DateValue,
+        },
+        {
+            path: 'boolean1',
+            label: 'Boolean1',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: BooleanValue,
+        },
+        {
+            path: 'boolean2',
+            label: 'Boolean2',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: BooleanValue,
+        },
+        {
+            path: 'enum',
+            label: 'Enum',
+            description: 'Lorem ipsum dolor sit amet',
+            operators: Operators,
+            component: SelectValue,
+            args: [
+                {
+                    value: 'Option1',
+                    label: 'Option1',
+                },
+                {
+                    value: 'Option2',
+                    label: 'Option2',
+                },
+                {
+                    value: 'Option3',
+                    label: 'Option3',
+                },
+                {
+                    value: 'OptionG_1',
+                    label: 'OptionG_1',
+                    group: 'G',
+                },
+                {
+                    value: 'OptionG_2',
+                    label: 'OptionG_2',
+                    group: 'G',
+                },
+            ],
+        },
+    ],
 };
 
 const meta: Meta<Input> = {
@@ -155,17 +194,17 @@ const meta: Meta<Input> = {
     component: Input,
     argTypes: {
         disabled: {
-            control: 'boolean'
+            control: 'boolean',
         },
         isBookmarked: {
-            control: 'boolean'
+            control: 'boolean',
         },
         isExpanded: {
-            control: 'boolean'
+            control: 'boolean',
         },
         logicalSwitchPosition: {
             control: 'inline-radio',
-            options: ['start', 'end', 'none']
+            options: ['start', 'end', 'none'],
         },
         isBookmarkedChange: {
             action: 'isBookmarkedChange',
@@ -175,7 +214,7 @@ const meta: Meta<Input> = {
         },
         queryChange: {
             action: 'queryChange',
-        }
+        },
     },
     args: {
         disabled: false,
@@ -188,7 +227,7 @@ const meta: Meta<Input> = {
     },
     decorators: [
         moduleMetadata({
-            imports: [FormsModule]
+            imports: [FormsModule],
         }),
     ],
 };
@@ -201,17 +240,17 @@ export const Primary: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: []
+                and: [],
             },
             sort: [],
-        }
-    }
+        },
+    },
 };
 
 export const Empty: Story = {
     args: {
         model: { fields: [], operators: [] },
-    }
+    },
 };
 
 export const LogicalAtStart: Story = {
@@ -219,12 +258,12 @@ export const LogicalAtStart: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: []
+                and: [],
             },
             sort: [],
         },
-        logicalSwitchPosition: 'start'
-    }
+        logicalSwitchPosition: 'start',
+    },
 };
 
 export const LogicalHidden: Story = {
@@ -232,12 +271,12 @@ export const LogicalHidden: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: []
+                and: [],
             },
             sort: [],
         },
-        logicalSwitchPosition: 'none'
-    }
+        logicalSwitchPosition: 'none',
+    },
 };
 
 export const Bookmarked: Story = {
@@ -245,12 +284,12 @@ export const Bookmarked: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: []
+                and: [],
             },
             sort: [],
         },
         isBookmarked: true,
-    }
+    },
 };
 
 export const NoBookmark: Story = {
@@ -258,12 +297,12 @@ export const NoBookmark: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: []
+                and: [],
             },
             sort: [],
         },
         isBookmarked: null,
-    }
+    },
 };
 
 export const Complex: Story = {
@@ -271,44 +310,48 @@ export const Complex: Story = {
         query: {
             fullText: 'My Query',
             filter: {
-                and: [{
-                    path: 'string1',
-                    op: 'eq',
-                    value: 'Value1',
-                }, {
-                    path: 'number1',
-                    op: 'eq',
-                    value: 42,
-                }, {
-                    path: 'enum',
-                    op: 'eq',
-                    value: 'Option1'
-                }]
+                and: [
+                    {
+                        path: 'string1',
+                        op: 'eq',
+                        value: 'Value1',
+                    },
+                    {
+                        path: 'number1',
+                        op: 'eq',
+                        value: 42,
+                    },
+                    {
+                        path: 'enum',
+                        op: 'eq',
+                        value: 'Option1',
+                    },
+                ],
             },
             sort: [],
-        }
-    }
+        },
+    },
 };
 
 export const VeryLong: Story = {
     args: {
         query: complexQuery,
         scrollable: true,
-    }
+    },
 };
 
 export const NotScrollable: Story = {
     args: {
         query: complexQuery,
         scrollable: false,
-    }
+    },
 };
 
 export const Expanded: Story = {
     args: {
         query: complexQuery,
         isExpanded: true,
-    }
+    },
 };
 
 export const ExpandedScrolled: Story = {
@@ -318,10 +361,10 @@ export const ExpandedScrolled: Story = {
     },
     decorators: [
         componentWrapperDecorator(
-            story => `
+            (story) => `
                 <div style="width: 400px">
                     ${story}
-                </div>`
+                </div>`,
         ),
     ],
 };
@@ -348,9 +391,9 @@ export const Bootstrap: Story = {
     },
     decorators: [
         componentWrapperDecorator(
-            story => `
+            (story) => `
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-                ${story}`
+                ${story}`,
         ),
     ],
 };
@@ -363,7 +406,7 @@ export const Template: Story = {
                 and: [
                     { path: 'custom1', op: 'eq', value: 42 },
                     { path: 'number1', op: 'eq', value: 42 },
-                ]
+                ],
             },
             sort: [],
         },
@@ -377,11 +420,11 @@ export const Template: Story = {
                     label: 'Custom1',
                     description: 'Lorem ipsum dolor sit amet',
                     operators: Operators,
-                }
-            ]
-        }
+                },
+            ],
+        },
     },
-    render: args => ({
+    render: (args) => ({
         props: args,
         template: `
             <filter-input
@@ -396,5 +439,5 @@ export const Template: Story = {
                 <input type="text" [ngModel]="value" (ngModelChange)="valueChange" />
             </ng-template>
         `,
-    })
+    }),
 };

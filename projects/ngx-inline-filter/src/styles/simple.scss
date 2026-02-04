@@ -1,5 +1,5 @@
-@use 'sass:color';
-@import 'vars';
+@use "sass:color";
+@import "vars";
 
 //
 // BUTTON
@@ -9,7 +9,7 @@
         border-radius: $nf-border-radius;
         border: 0;
         color: $nf-color-text;
-        padding: .5rem .75rem;
+        padding: 0.5rem 0.75rem;
     }
 
     &:focus {
@@ -21,7 +21,7 @@
         border: 1px solid $nf-color-add-background;
         border-radius: $nf-border-radius;
         color: $nf-color-add-background;
-        
+
         svg {
             fill: $nf-color-add-foreground;
         }
@@ -35,20 +35,23 @@
 
     &.nf-simple-button-add {
         background-color: $nf-color-add-background;
-        
+
         svg {
             fill: $nf-color-add-foreground;
         }
 
         &:hover {
-            background-color: color.adjust($nf-color-add-background, $lightness: -10%);
+            background-color: color.adjust(
+                $nf-color-add-background,
+                $lightness: -10%
+            );
         }
     }
 
     &.nf-simple-button-delete,
     &.nf-simple-button-default {
         background-color: transparent;
-        
+
         svg {
             fill: $nf-color-icon;
         }
@@ -76,8 +79,8 @@
     display: flex;
     flex-direction: row;
     flex-grow: 0;
-    gap: .5rem;
-    margin-top: .5rem;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 //
@@ -92,7 +95,7 @@
         background-color: #fff;
         border: 1px solid $nf-color-border;
         border-radius: $nf-border-radius;
-        padding: .5rem .75rem;
+        padding: 0.5rem 0.75rem;
     }
 
     &:focus {
@@ -120,25 +123,28 @@
     &-search {
         border-top: 0;
         border-bottom: 1px solid $nf-color-border;
-        padding: .5rem;
+        padding: 0.5rem;
     }
 
     &-item {
-        padding: .5rem .5rem;
+        padding: 0.5rem 0.5rem;
 
-        &:hover, &.hover {
+        &:hover,
+        &.hover {
             background: $nf-color-border;
             color: inherit;
             outline: none;
         }
 
-        &:focus, &.focus {
+        &:focus,
+        &.focus {
             background: $nf-color-primary;
             color: #fff;
             outline: none;
         }
 
-        &:active, &.active {
+        &:active,
+        &.active {
             background: $nf-color-primary-dark;
             color: #fff;
             outline: none;

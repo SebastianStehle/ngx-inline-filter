@@ -8,7 +8,8 @@
     "publish": "ng build ngx-inline-filter && cd dist/ngx-inline-filter && npm publish && cd ../..",
     "sb": "ng run ngx-inline-filter:storybook",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "format": "prettier --write \"projects/**/*.{ts,scss,html}\""
   },
   "private": true,
   "dependencies": {
