@@ -15,7 +15,7 @@ export class SameSize implements OnDestroy {
     private readonly observer: ResizeObserver;
     private width = signal(0);
 
-    public target = input.required<HTMLElement>({ alias: 'filterSameSize' });
+    readonly target = input.required<HTMLElement>({ alias: 'filterSameSize' });
 
     constructor(element: ElementRef<HTMLElement>, renderer: Renderer2) {
         renderer.setStyle(element.nativeElement, 'display', 'none');

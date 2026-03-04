@@ -17,9 +17,9 @@ type Option = { value: any; label: string; group: string };
     imports: [FormsModule],
 })
 export class SelectValue extends ValueBase<number, Option[]> {
-    input = viewChild<ElementRef<HTMLInputElement>>('input');
+    readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
-    tree = computed(() => {
+    readonly tree = computed(() => {
         const options = this.args() || [];
 
         const treeGroups: { name?: string; children: Option[] }[] = [];

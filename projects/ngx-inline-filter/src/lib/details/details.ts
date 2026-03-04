@@ -23,32 +23,32 @@ export class Details {
     /**
      * The full model context.
      */
-    context = input.required<ModelContext>();
+    readonly context = input.required<ModelContext>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input.required<boolean>();
+    readonly disabled = input.required<boolean>();
 
     /**
      * The options
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The logical filter.
      */
-    node = model.required<FilterLogical>();
+    readonly node = model.required<FilterLogical>();
 
     /**
      * The sorting.
      */
-    sort = model.required<SortField[]>();
+    readonly sort = model.required<SortField[]>();
 
     /**
      * The template for value editors.
      */
-    valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
+    readonly valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
 
     _changeField(index: number, path: string) {
         this._updateSorting((sorting) => {

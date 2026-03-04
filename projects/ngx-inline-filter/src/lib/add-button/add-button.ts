@@ -22,24 +22,24 @@ export class AddButton {
     /**
      * The items.
      */
-    items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
+    readonly items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
 
     /**
      * Whenever a value has been selected.
      */
-    selected = output<string>();
+    readonly selected = output<string>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input(false);
+    readonly disabled = input(false);
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
-    viewButton = viewChild<ElementRef<HTMLButtonElement>>('button');
+    readonly viewButton = viewChild<ElementRef<HTMLButtonElement>>('button');
 
     focus() {
         this.viewButton()?.nativeElement?.focus();

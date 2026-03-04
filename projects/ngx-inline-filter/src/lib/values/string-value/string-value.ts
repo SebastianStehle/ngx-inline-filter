@@ -14,7 +14,7 @@ import { ValueBase } from '../value-base';
     imports: [FormsModule],
 })
 export class StringValue extends ValueBase<string> {
-    input = viewChild<ElementRef<HTMLInputElement>>('input');
+    readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
     focus() {
         this.input()?.nativeElement.focus();

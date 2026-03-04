@@ -14,9 +14,6 @@ import {
     FilterNode,
     FilterComparison,
     FilterNegation,
-    FilterField,
-    FilterOperator,
-    FilterModel,
 } from '../model';
 import { FilterOptions } from '../options';
 import { Comparison } from '../comparison/comparison';
@@ -34,54 +31,54 @@ export class Node {
     /**
      * The full model context.
      */
-    context = input.required<ModelContext>();
+    readonly context = input.required<ModelContext>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input.required<boolean>();
+    readonly disabled = input.required<boolean>();
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The level.
      */
-    level = input.required<number>();
+    readonly level = input.required<number>();
 
     /**
      * The logical filter.
      */
-    node = input.required<FilterNode>();
+    readonly node = input.required<FilterNode>();
 
     /**
      * The logical filter.
      */
-    nodeChange = output<FilterNode>();
+    readonly nodeChange = output<FilterNode>();
 
     /**
      * Whenever the node is removed.
      */
-    nodeRemove = output<{ byButton: boolean }>();
+    readonly nodeRemove = output<{ byButton: boolean }>();
 
     /**
      * The template for value editors.
      */
-    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
+    readonly valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
     /**
      * The container element.
      */
-    container = input<any>();
+    readonly container = input<any>();
 
     /**
      * To use a grid view.
      */
-    grid = input(false);
+    readonly grid = input(false);
 
-    actualGroup = computed<FilterLogical | null>(() => {
+    readonly actualGroup = computed<FilterLogical | null>(() => {
         const node = this.node();
         if (isLogical(node)) {
             return node;
@@ -90,7 +87,7 @@ export class Node {
         return null;
     });
 
-    actualComparison = computed<FilterComparison | FilterNegation | null>(
+    readonly actualComparison = computed<FilterComparison | FilterNegation | null>(
         () => {
             const node = this.node();
             if (!isLogical(node)) {
@@ -101,8 +98,8 @@ export class Node {
         },
     );
 
-    elementComparison = viewChild<any>('comparison');
-    elementGroup = viewChild<any>('group');
+    readonly elementComparison = viewChild<any>('comparison');
+    readonly elementGroup = viewChild<any>('group');
 
     focusValue() {
         this.elementComparison()?.focusValue();

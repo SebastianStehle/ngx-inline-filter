@@ -20,7 +20,7 @@
             (valueChange)="_changePath($event!)" />
     </div>
     <div class="nf-comparison-operator">
-        <filter-dropdown [items]="context().operators" [options]="options()" [value]="comparison().op" (valueChange)="_changeOperator($event!)" />
+        <filter-dropdown [items]="operators()" [options]="options()" [value]="comparison().op" (valueChange)="_changeOperator($event!)" />
     </div>
 
     @if (!isEmpty()) {

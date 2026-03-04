@@ -14,7 +14,7 @@ import { ValueBase } from '../value-base';
     imports: [FormsModule],
 })
 export class BooleanValue extends ValueBase<boolean> {
-    input = viewChild<ElementRef<HTMLInputElement>>('input');
+    readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
     focus() {
         this.input()?.nativeElement.focus();

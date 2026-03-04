@@ -31,54 +31,54 @@ export class Group {
     /**
      * The full model context.
      */
-    context = input.required<ModelContext>();
+    readonly context = input.required<ModelContext>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input.required<boolean>();
+    readonly disabled = input.required<boolean>();
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The level.
      */
-    level = input.required<number>();
+    readonly level = input.required<number>();
 
     /**
      * The logical filter.
      */
-    node = model.required<FilterLogical>();
+    readonly node = model.required<FilterLogical>();
 
     /**
      * Whenever the node is removed.
      */
-    nodeRemove = output<{ byButton: boolean }>();
+    readonly nodeRemove = output<{ byButton: boolean }>();
 
     /**
      * The container element.
      */
-    container = input<HTMLDivElement | null>();
+    readonly container = input<HTMLDivElement | null>();
 
     /**
      * To use a grid view.
      */
-    grid = input(false);
+    readonly grid = input(false);
 
     /**
      * The template for value editors.
      */
-    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
+    readonly valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
-    removeButton = viewChild<ElementRef<HTMLButtonElement>>('remove');
+    readonly removeButton = viewChild<ElementRef<HTMLButtonElement>>('remove');
 
-    isLogicalAnd = computed(() => isLogicalAnd(this.node()));
-    isLogicalOr = computed(() => isLogicalOr(this.node()));
+    readonly isLogicalAnd = computed(() => isLogicalAnd(this.node()));
+    readonly isLogicalOr = computed(() => isLogicalOr(this.node()));
 
-    children = computed(() => {
+    readonly children = computed(() => {
         const node = this.node();
         if (isLogicalAnd(node)) {
             return node.and;

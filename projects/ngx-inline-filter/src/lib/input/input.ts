@@ -63,64 +63,64 @@ export class Input {
     /**
      * The model which defines the available operators and fields.
      */
-    model = input.required<FilterModel>();
+    readonly model = input.required<FilterModel>();
 
     /**
      * The options
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The actual query to edit.
      */
-    query = input<ComplexQuery | undefined | null>();
+    readonly query = input<ComplexQuery | undefined | null>();
 
     /**
      * Whenever the query has been changed..
      */
-    queryChange = output<ComplexQuery>();
+    readonly queryChange = output<ComplexQuery>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input(false);
+    readonly disabled = input(false);
 
     /**
      * Whether the details are expanded.
      */
-    isExpanded = input(false);
+    readonly isExpanded = input(false);
 
     /**
      * Indicates if horizontal scrolling should be enabled.
      */
-    scrollable = input(true);
+    readonly scrollable = input(true);
 
     /**
      * Indicates if the current query is bookmarked.
      */
-    isBookmarked = input<boolean | null | undefined>();
+    readonly isBookmarked = input<boolean | null | undefined>();
 
     /**
      * Whenever the bookmark value has changed.
      */
-    isBookmarkedChange = output<boolean>();
+    readonly isBookmarkedChange = output<boolean>();
 
     /**
      * Where to show the button to switch the logical positon.
      */
-    logicalSwitchPosition = input<'start' | 'end' | 'none'>('end');
+    readonly logicalSwitchPosition = input<'start' | 'end' | 'none'>('end');
 
     /**
      * A search is triggered.
      */
-    search = output<ComplexQuery>();
+    readonly search = output<ComplexQuery>();
 
     /**
      * The template for value editors.
      */
-    valueTemplate = input<TemplateRef<TemplateContext>>();
+    readonly valueTemplate = input<TemplateRef<TemplateContext>>();
 
-    context = computed(() => {
+    readonly context = computed(() => {
         const model = this.model();
         return {
             fields: getFieldOptions(model),
@@ -132,16 +132,16 @@ export class Input {
     querySource = signal<Required<ComplexQuery>>(DEFAULT_QUERY);
 
     isMenuOpen = signal(false);
-    isLogicalAnd = computed(() => isLogicalAnd(this.querySource().filter));
-    isLogicalOr = computed(() => isLogicalOr(this.querySource().filter));
+    readonly isLogicalAnd = computed(() => isLogicalAnd(this.querySource().filter));
+    readonly isLogicalOr = computed(() => isLogicalOr(this.querySource().filter));
 
-    hasSorting = computed(() => this.querySource().sort.length > 0);
-    hasLogical = computed(() =>
+    readonly hasSorting = computed(() => this.querySource().sort.length > 0);
+    readonly hasLogical = computed(() =>
         this.filterItems().find((x) => isLogical(x) || isNegation(x)),
     );
 
-    filterNodes = viewChildren(Node);
-    filterItems = computed(() => {
+    readonly filterNodes = viewChildren(Node);
+    readonly filterItems = computed(() => {
         const filter = this.querySource().filter;
         if (isLogicalAnd(filter)) {
             return filter.and;
@@ -150,8 +150,8 @@ export class Input {
         }
     });
 
-    viewInput = viewChild(Autocomplete);
-    viewButton = viewChild(Dropdown);
+    readonly viewInput = viewChild(Autocomplete);
+    readonly viewButton = viewChild(Dropdown);
 
     constructor() {
         effect(() => {

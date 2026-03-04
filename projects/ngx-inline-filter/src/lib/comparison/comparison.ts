@@ -18,10 +18,7 @@ import {
     FieldComponent,
     FilterComparison,
     FilterField,
-    FilterModel,
     FilterNegation,
-    FilterNode,
-    FilterOperator,
     isEmptyOperator,
     isNegation,
 } from '../model';
@@ -44,44 +41,44 @@ export class Comparison {
     /**
      * The full model context.
      */
-    context = input.required<ModelContext>();
+    readonly context = input.required<ModelContext>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input.required<boolean>();
+    readonly disabled = input.required<boolean>();
 
     /**
      * The actual description of the filter.
      */
-    node = model.required<Node>();
+    readonly node = model.required<Node>();
 
     /**
      * Whenever the node is removed.
      */
-    nodeRemove = output<{ byButton: boolean }>();
+    readonly nodeRemove = output<{ byButton: boolean }>();
 
     /**
      * The container element.
      */
-    container = input<HTMLDivElement | null>();
+    readonly container = input<HTMLDivElement | null>();
 
     /**
      * To use a grid view.
      */
-    grid = input(false);
+    readonly grid = input(false);
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The template for value editors.
      */
-    valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
+    readonly valueTemplate = input<TemplateRef<TemplateContext> | undefined>();
 
-    comparison = computed(() => {
+    readonly comparison = computed(() => {
         const node = this.node();
         if (isNegation(node)) {
             return node.not;
@@ -90,31 +87,42 @@ export class Comparison {
         }
     });
 
-    field = computed(() => {
+    readonly field = computed(() => {
         const path = this.comparison().path;
         return this.context().model.fields.find((x) => x.path === path) as
             | FilterField
             | undefined;
     });
 
-    fieldArguments = computed(() => this.field()?.args);
-    fieldComponent = computed(() => this.field()?.component);
+    readonly fieldArguments = computed(() => this.field()?.args);
+    readonly fieldComponent = computed(() => this.field()?.component);
 
-    viewRemove = viewChild<ElementRef<HTMLButtonElement>>('remove');
-    viewValueColumn = viewChild<ElementRef<HTMLDivElement>>('valueColumn');
-    viewCalueContainer = viewChild<ViewContainerRef, ViewContainerRef>(
+    readonly operators = computed(() => {
+        const field = this.field();
+        if (!field) {
+            return [];
+        }
+
+        return this.context().operators.filter((x) =>
+            field.operators.includes(x.value),
+        );
+    })
+
+    readonly viewRemove = viewChild<ElementRef<HTMLButtonElement>>('remove');
+    readonly viewValueColumn = viewChild<ElementRef<HTMLDivElement>>('valueColumn');
+    readonly viewCalueContainer = viewChild<ViewContainerRef, ViewContainerRef>(
         'value',
         { read: ViewContainerRef },
     );
 
     valueComponent = signal<FieldComponent | null>(null);
 
-    isNegated = computed(() => isNegation(this.node()));
-    isEmpty = computed(() =>
+    readonly isNegated = computed(() => isNegation(this.node()));
+    readonly isEmpty = computed(() =>
         isEmptyOperator(this.comparison().op, this.context().model),
     );
 
-    viewContext = computed(() => {
+    readonly viewContext = computed(() => {
         const comparison = this.comparison();
         const grid = this.grid();
         const field = this.field();

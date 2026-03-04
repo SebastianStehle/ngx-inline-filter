@@ -18,7 +18,8 @@ import {
 import { ComplexQuery, FilterModel } from '../model';
 import { FormsModule } from '@angular/forms';
 
-const Operators = ['eq', 'ne', 'lt'];
+const Operators = ['eq', 'ne'];
+const AllOperators = ['eq', 'ne', 'lt', 'gt'];
 
 const complexQuery: ComplexQuery = {
     fullText: 'My Query',
@@ -97,6 +98,14 @@ const model: FilterModel = {
             value: 'eq',
             label: 'not equal',
         },
+        {
+            value: 'lt',
+            label: '<',
+        },
+        {
+            value: 'gt',
+            label: '>',
+        },
     ],
     fields: [
         {
@@ -117,14 +126,14 @@ const model: FilterModel = {
             path: 'number1',
             label: 'Number1',
             description: 'Lorem ipsum dolor sit amet',
-            operators: Operators,
+            operators: AllOperators,
             component: NumberValue,
         },
         {
             path: 'number2',
             label: 'Number2',
             description: 'Lorem ipsum dolor sit amet',
-            operators: Operators,
+            operators: AllOperators,
             component: NumberValue,
         },
         {

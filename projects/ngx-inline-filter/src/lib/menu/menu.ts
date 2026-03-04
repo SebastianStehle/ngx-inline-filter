@@ -26,44 +26,44 @@ export class Menu {
     /**
      * The items.
      */
-    items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
+    readonly items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
 
     /**
      * The selected item.
      */
-    selectedItem = input<DropdownOption | null | undefined>();
+    readonly selectedItem = input<DropdownOption | null | undefined>();
 
     /**
      * Whenever a value has been selected.
      */
-    selected = output<DropdownOption>();
+    readonly selected = output<DropdownOption>();
 
     /**
      * Indicates if a search input is shown.
      */
-    showSearch = input(false);
+    readonly showSearch = input(false);
 
     /**
      * Shows the option descriptions.
      */
-    showDescription = input(false);
+    readonly showDescription = input(false);
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The label that is used for type-ahead search.
      */
-    typeaheadLabel = input('label');
+    readonly typeaheadLabel = input('label');
 
-    viewMenu = viewChild(CustomMenu);
+    readonly viewMenu = viewChild(CustomMenu);
 
-    searchInput = viewChild<ElementRef<HTMLInputElement>>('search');
+    readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('search');
     searchText = signal('');
-    searchUpper = computed(() => this.searchText().toUpperCase());
-    searchItems = computed(() => filterItems(this.items(), this.searchUpper()));
+    readonly searchUpper = computed(() => this.searchText().toUpperCase());
+    readonly searchItems = computed(() => filterItems(this.items(), this.searchUpper()));
 
     constructor() {
         effect(() => {

@@ -24,51 +24,51 @@ export class Dropdown {
     /**
      * The items.
      */
-    items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
+    readonly items = input.required<ReadonlyArray<Readonly<DropdownOption>>>();
 
     /**
      * The selected value.
      */
-    value = input<string | undefined | null>();
+    readonly value = input<string | undefined | null>();
 
     /**
      * Whenever the value has changed.
      */
-    valueChange = output<string>();
+    readonly valueChange = output<string>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input(false);
+    readonly disabled = input(false);
 
     /**
      * Indicates if a search input is shown.
      */
-    showSearch = input(false);
+    readonly showSearch = input(false);
 
     /**
      * Shows the option descriptions.
      */
-    showDescription = input(false);
+    readonly showDescription = input(false);
 
     /**
      * The class name.
      */
-    class = input<string>('');
+    readonly class = input<string>('');
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     /**
      * The label that is used for type-ahead search.
      */
-    typeaheadLabel = input('label');
+    readonly typeaheadLabel = input('label');
 
     valueSource = signal<string | null | undefined>(null);
 
-    selectedItem = computed(() => {
+    readonly selectedItem = computed(() => {
         const items = this.items();
         const value = this.valueSource();
 

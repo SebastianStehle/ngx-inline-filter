@@ -26,50 +26,50 @@ export class Autocomplete {
     /**
      * The items.
      */
-    items = input<ReadonlyArray<DropdownOption>>([]);
+    readonly items = input<ReadonlyArray<DropdownOption>>([]);
 
     /**
      * Whenever an item has been selected selected.
      */
-    itemSelect = output<string>();
+    readonly itemSelect = output<string>();
 
     /**
      * The value.
      */
-    value = input<string | undefined | null>();
+    readonly value = input<string | undefined | null>();
 
     /**
      * Whenever the value has been changed.
      */
-    valueChange = output<string>();
+    readonly valueChange = output<string>();
 
     /**
      * Whether the autocomplete input is disabled.
      */
-    disabled = input(false);
+    readonly disabled = input(false);
 
     /**
      * When the delete button is pressed, but there is nothing to delete anymore.
      */
-    delete = output();
+    readonly delete = output();
 
     /**
      * The container element.
      */
-    container = input.required<any>();
+    readonly container = input.required<any>();
 
     /**
      * The options.
      */
-    options = input.required<FilterOptions>();
+    readonly options = input.required<FilterOptions>();
 
     valueSource = signal('');
 
-    viewInput = viewChild<ElementRef<HTMLInputElement>>('input');
-    viewMenu = viewChild(ManualMenuTrigger);
+    readonly viewInput = viewChild<ElementRef<HTMLInputElement>>('input');
+    readonly viewMenu = viewChild(ManualMenuTrigger);
 
-    searchText = computed(() => this.valueSource().toUpperCase());
-    searchItems = computed(() => filterItems(this.items(), this.searchText()));
+    readonly searchText = computed(() => this.valueSource().toUpperCase());
+    readonly searchItems = computed(() => filterItems(this.items(), this.searchText()));
     searchResult = debounce(this.searchItems);
 
     constructor() {
