@@ -1,4 +1,4 @@
-import { CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { CdkMenuItem } from '@angular/cdk/menu';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -6,21 +6,22 @@ import {
     effect,
     ElementRef,
     input,
-    model,
     output,
     signal,
     untracked,
     viewChild,
+    viewChildren,
 } from '@angular/core';
 import { FilterOptions } from '../options';
 import { FormsModule } from '@angular/forms';
 import { CustomMenu, DropdownOption } from '../_internal';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 @Component({
     selector: 'filter-menu',
     templateUrl: './menu.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CdkMenuItem, CustomMenu, FormsModule],
+    imports: [CdkTrapFocus, CdkMenuItem, CustomMenu, FormsModule],
 })
 export class Menu {
     /**
@@ -60,10 +61,13 @@ export class Menu {
 
     readonly viewMenu = viewChild(CustomMenu);
 
-    readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('search');
-    searchText = signal('');
+    readonly searchText = signal('');
     readonly searchUpper = computed(() => this.searchText().toUpperCase());
-    readonly searchItems = computed(() => filterItems(this.items(), this.searchUpper()));
+    readonly searchItems = computed(() =>
+        filterItems(this.items(), this.searchUpper()),
+    );
+
+    readonly menuItems = viewChildren<ElementRef>('menuItem');
 
     constructor() {
         effect(() => {
@@ -83,23 +87,17 @@ export class Menu {
                 menu.focusItem(index, 'keyboard');
             });
         });
-
-        effect(() => {
-            const search = this.searchInput();
-            if (!search) {
-                return;
-            }
-
-            untracked(() => {
-                setTimeout(() => {
-                    search.nativeElement.focus();
-                });
-            });
-        });
     }
 
     _handleValue(option: DropdownOption) {
         this.selected.emit(option);
+    }
+
+    _stopEnter(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 }
 

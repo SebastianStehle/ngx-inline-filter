@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, inject, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { FieldComponent } from '../model';
 import { DefaultOptions, FilterOptions } from '../options';
 
@@ -27,6 +27,7 @@ export abstract class ValueBase<TValue, TArgs = any>
     registerOnChange(fn: ((value: TValue) => void) | null | undefined) {
         this.onChange = fn || (() => {});
     }
+
     registerOnTouched(fn: (() => void) | null | undefined) {
         this.onTouched = fn || (() => {});
     }

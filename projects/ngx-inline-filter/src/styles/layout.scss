@@ -523,6 +523,17 @@ button.nf-input-dropdown {
             opacity: 0.7;
             text-align: right;
         }
+
+        &:hover,
+        &.hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            .nf-dropdown-description {
+                opacity: 1;
+            }
+        }
     }
 }
 

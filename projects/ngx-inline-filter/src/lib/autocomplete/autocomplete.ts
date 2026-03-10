@@ -134,8 +134,6 @@ export class Autocomplete {
             this.focus();
             this.viewMenu()?.close();
         }
-
-        return true;
     }
 
     _handleClosed() {

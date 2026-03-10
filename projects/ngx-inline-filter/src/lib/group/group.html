@@ -2,17 +2,17 @@
     <div class="nf-group-grid">
         <div class="nf-group-header">
             <div class="{{ options().cssClasses.buttonGroup }} nf-group-types">
-                <button class="{{ options().cssClasses.buttonLogical(isLogicalAnd()) }} nf-button nf-code" (click)="_toggleType()">
+                <button type="button"class="{{ options().cssClasses.buttonLogical(isLogicalAnd()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.and }}
                 </button>
 
-                <button class="{{ options().cssClasses.buttonLogical(isLogicalOr()) }} nf-button nf-code" (click)="_toggleType()">
+                <button type="button"class="{{ options().cssClasses.buttonLogical(isLogicalOr()) }} nf-button nf-code" (click)="_toggleType()">
                     {{ options().texts.or }}
                 </button>
             </div>
 
             @if (level() > 0) {
-                <button [class]="options().cssClasses.buttonDefault(false)">
+                <button type="button"[class]="options().cssClasses.buttonDefault(false)">
                     <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
@@ -39,12 +39,12 @@
             }
 
             <div class="nf-group-add">
-                <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addComparison()">
+                <button type="button"class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addComparison()">
                     {{ options().texts.addComparison }}
                 </button>
 
                 @if (level() < 2) {
-                    <button class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addGroup()">
+                    <button type="button"class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addGroup()">
                         {{ options().texts.addGroup }}
                     </button>
                 }

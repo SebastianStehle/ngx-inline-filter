@@ -38,6 +38,7 @@ import { Dropdown } from '../dropdown/dropdown';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TemplateContext } from '../template';
 import { AddButton } from '../add-button/add-button';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 const DEFAULT_QUERY: Required<ComplexQuery> = {
     filter: { and: [] },
@@ -52,6 +53,7 @@ const DEFAULT_QUERY: Required<ComplexQuery> = {
     imports: [
         AddButton,
         Autocomplete,
+        CdkTrapFocus,
         Details,
         Node,
         OverlayModule,
@@ -132,8 +134,12 @@ export class Input {
     querySource = signal<Required<ComplexQuery>>(DEFAULT_QUERY);
 
     isMenuOpen = signal(false);
-    readonly isLogicalAnd = computed(() => isLogicalAnd(this.querySource().filter));
-    readonly isLogicalOr = computed(() => isLogicalOr(this.querySource().filter));
+    readonly isLogicalAnd = computed(() =>
+        isLogicalAnd(this.querySource().filter),
+    );
+    readonly isLogicalOr = computed(() =>
+        isLogicalOr(this.querySource().filter),
+    );
 
     readonly hasSorting = computed(() => this.querySource().sort.length > 0);
     readonly hasLogical = computed(() =>
@@ -287,7 +293,13 @@ export class Input {
 
     _handleKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-            this.search.emit(this.querySource());
+        this.search.emit(this.querySource());
         }
+    }
+
+    _search(event: Event) {
+        this.search.emit(this.querySource());
+        event.preventDefault();
+        event.stopPropagation();
     }
 }

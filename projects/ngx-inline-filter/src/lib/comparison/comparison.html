@@ -1,6 +1,6 @@
 <div class="nf nf-comparison" [class.nf-comparison-grid]="grid()" [class.nf-comparison-inline]="!grid()" (click)="$event.stopPropagation()">
     @if (grid()) {
-        <button class="{{ options().cssClasses.buttonDefault(isNegated()) }} nf-button nf-code" (click)="_toggleType()">
+        <button class="{{ options().cssClasses.buttonDefault(isNegated()) }} nf-button nf-code" (click)="_toggleType()" type="button">
             {{ options().texts.not }}
         </button>
     } @else if (isNegated()) {
@@ -34,14 +34,24 @@
     }
 
     @if (grid()) {
-        <button class="{{ options().cssClasses.buttonDelete }} nf-button" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
+        <button
+            class="{{ options().cssClasses.buttonDelete }} nf-button"
+            #remove
+            (click)="_handleRemove()"
+            (keydown)="_handleRemoveKeyDown($event)"
+            type="button">
             <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>
             </svg>
         </button>
     } @else {
-        <button class="nf-button nf-button-default nf-comparison-delete" #remove (click)="_handleRemove()" (keydown)="_handleRemoveKeyDown($event)">
+        <button
+            class="nf-button nf-button-default nf-comparison-delete"
+            #remove
+            (click)="_handleRemove()"
+            (keydown)="_handleRemoveKeyDown($event)"
+            type="button">
             <svg class="nf-icon" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M10 8.586l-7.071-7.071-1.414 1.414 7.071 7.071-7.071 7.071 1.414 1.414 7.071-7.071 7.071 7.071 1.414-1.414-7.071-7.071 7.071-7.071-1.414-1.414-7.071 7.071z"></path>

@@ -1,14 +1,18 @@
-<div
+<form
     class="{{ options().cssClasses.root }} nf nf-complex-filter"
     #root
     [class.nf-open]="isMenuOpen()"
     [class.nf-scrollable]="scrollable()"
     (click)="autocomplete.focus()"
-    (keydown)="_handleKeyDown($event)">
+    novalidate
+    (submit)="_search($event)">
     <div class="nf-inner">
         @if (context().fields.length > 0 && logicalSwitchPosition() === "start") {
             <div class="nf-complex-filter-buttons-start">
-                <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
+                <button
+                    class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code"
+                    (click)="_changeLogic()"
+                    type="button">
                     @if (isLogicalAnd()) {
                         {{ options().texts.and }}
                     } @else {
@@ -53,7 +57,10 @@
         @if (context().fields.length > 0 || isBookmarked() === true || isBookmarked() === false) {
             <div class="nf-complex-filter-buttons-end" (click)="$event.stopPropagation()">
                 @if (context().fields.length > 0 && logicalSwitchPosition() === "end") {
-                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code" (click)="_changeLogic()">
+                    <button
+                        class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button nf-menu-button-logical nf-code"
+                        (click)="_changeLogic()"
+                        type="button">
                         @if (isLogicalAnd()) {
                             {{ options().texts.and }}
                         } @else {
@@ -63,7 +70,7 @@
                 }
 
                 @if (isBookmarked() === true || isBookmarked() === false) {
-                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button" (click)="_toggleBookmark()">
+                    <button class="{{ options().cssClasses.buttonDefault(false) }} nf-menu-button" (click)="_toggleBookmark()" type="button">
                         @if (isBookmarked() === true) {
                             <svg class="nf-icon" viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
                                 <path d="m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z" />
@@ -78,7 +85,7 @@
                 }
 
                 @if (context().fields.length > 0) {
-                    <button class="{{ options().cssClasses.buttonDefault(true) }} nf-menu-button nf-expand" (click)="_toggleMenu()">
+                    <button class="{{ options().cssClasses.buttonDefault(true) }} nf-menu-button nf-expand" (click)="_toggleMenu()" type="button">
                         @if (hasSorting() || hasLogical()) {
                             <div class="nf-extended-indicator"></div>
                         }
@@ -96,10 +103,10 @@
             </div>
         }
     </div>
-</div>
+</form>
 
 <ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOffsetY]="-1" [cdkConnectedOverlayOpen]="isMenuOpen()" [cdkConnectedOverlayOrigin]="root">
-    <div [filterSameSize]="root">
+    <form [cdkTrapFocus]="true" cdkTrapFocusAutoCapture="true"  [filterSameSize]="root" (submit)="_search($event)">
         <filter-details
             [context]="context()"
             [disabled]="disabled()"
@@ -109,5 +116,5 @@
             [sort]="querySource().sort"
             (sortChange)="_changeSort($event)"
             [valueTemplate]="valueTemplate()" />
-    </div>
+    </form>
 </ng-template>
