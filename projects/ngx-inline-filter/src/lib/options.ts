@@ -4,9 +4,11 @@ export const DefaultOptions = {
         addGroup: 'Add Group',
         addSorting: 'Add Sorting',
         and: 'And',
-        not: 'Not',
+        apply: 'Apply',
         noResults: '- no results -',
+        not: 'Not',
         or: 'Or',
+        reset: 'Reset',
         save: 'Save',
         searchPlaceholder: 'Search',
         searchShortcut: "Search ('q')",
@@ -19,6 +21,8 @@ export const DefaultOptions = {
         buttonAddOutline: 'nf-simple-button nf-simple-button-add-outline',
         buttonDefault: (active: boolean) =>
             `nf-simple-button nf-simple-button-default ${active ? 'active' : ''}`,
+        buttonSubmit: 'nf-simple-button nf-simple-button-default',
+        buttonCancel: 'nf-simple-button nf-simple-button-default',
         buttonDelete: 'nf-simple-button nf-simple-button-delete',
         buttonGroup: 'nf-simple-button-group',
         buttonLogical: (active: boolean) =>
@@ -44,6 +48,8 @@ export const BootstrapClasses: (typeof DefaultOptions)['cssClasses'] = {
     buttonAdd: 'btn',
     buttonAddOutline: 'btn btn-outline-success',
     buttonDefault: (active: boolean) => `btn ${active ? 'fw-bolder' : ''}`,
+    buttonSubmit: 'btn btn-primary',
+    buttonCancel: 'btn btn-text',
     buttonDelete: 'btn text-muted',
     buttonGroup: 'btn-group',
     buttonLogical: (active: boolean) =>
@@ -66,6 +72,8 @@ export const BootstrapClasses: (typeof DefaultOptions)['cssClasses'] = {
 export const NoopClasses: (typeof DefaultOptions)['cssClasses'] = {
     buttonAdd: '',
     buttonAddOutline: '',
+    buttonSubmit: '',
+    buttonCancel: '',
     buttonDefault: () => '',
     buttonDelete: '',
     buttonGroup: '',

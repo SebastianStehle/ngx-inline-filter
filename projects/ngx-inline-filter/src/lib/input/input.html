@@ -108,11 +108,13 @@
 <ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOffsetY]="-1" [cdkConnectedOverlayOpen]="isMenuOpen()" [cdkConnectedOverlayOrigin]="root">
     <form [cdkTrapFocus]="true" cdkTrapFocusAutoCapture="true"  [filterSameSize]="root" (submit)="_search($event)">
         <filter-details
+            (apply)="_search()"
             [context]="context()"
             [disabled]="disabled()"
             [node]="querySource().filter"
             (nodeChange)="_changeFilter($event)"
             [options]="options()"
+            (reset)="_reset()"
             [sort]="querySource().sort"
             (sortChange)="_changeSort($event)"
             [valueTemplate]="valueTemplate()" />

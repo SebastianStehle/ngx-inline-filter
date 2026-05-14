@@ -283,6 +283,16 @@ export class Input {
         }
     }
 
+    _reset() {
+        this._updateQuery(query => {
+            query.filter = { and: [] };
+            query.fullText = '';
+            query.sort = [];
+        });
+
+        this.search.emit(this.querySource());
+    }
+
     _updateQuery(update: (query: Required<ComplexQuery>) => void) {
         const query = clone(this.querySource());
 
@@ -293,13 +303,13 @@ export class Input {
 
     _handleKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-        this.search.emit(this.querySource());
+            this.search.emit(this.querySource());
         }
     }
 
-    _search(event: Event) {
+    _search(event?: Event) {
         this.search.emit(this.querySource());
-        event.preventDefault();
-        event.stopPropagation();
+        event?.preventDefault();
+        event?.stopPropagation();
     }
 }

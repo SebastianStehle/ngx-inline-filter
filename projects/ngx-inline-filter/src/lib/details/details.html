@@ -1,4 +1,4 @@
-<div class="{{ options().cssClasses.dropdown }} nf nf-details">
+<form class="{{ options().cssClasses.dropdown }} nf nf-details" (submit)="_apply($event)">
     <div class="nf-details-content">
         <filter-group
             [container]="null"
@@ -48,11 +48,20 @@
 
             @if (context().fields.length > 0) {
                 <div class="nf-sorting-add">
-                    <button type="button"class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addSorting()">
+                    <button type="button" class="{{ options().cssClasses.buttonAddOutline }} nf-button" (click)="_addSorting()">
                         {{ options().texts.addSorting }}
                     </button>
                 </div>
             }
         </div>
+        
+        <div class="nf-apply">
+            <button type="button" class="{{ options().cssClasses.buttonCancel }} nf-button" (click)="_reset()">
+                {{ options().texts.reset }}
+            </button>
+            <button type="submit" class="{{ options().cssClasses.buttonAddOutline }} nf-button">
+                {{ options().texts.apply }}
+            </button>
+        </div>
     </div>
-</div>
+</form>

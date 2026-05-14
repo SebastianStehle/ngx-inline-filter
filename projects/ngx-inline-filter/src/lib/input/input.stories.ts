@@ -4,6 +4,7 @@ import {
     type Meta,
     type StoryObj,
 } from '@storybook/angular';
+import { fn } from 'storybook/test';
 import { Input } from './input';
 import { StringValue } from '../values/string-value/string-value';
 import { NumberValue } from '../values/number-value/number-value';
@@ -233,6 +234,8 @@ const meta: Meta<Input> = {
         model,
         options: DefaultOptions,
         query: undefined,
+        queryChange: fn(),
+        search: fn()
     },
     decorators: [
         moduleMetadata({

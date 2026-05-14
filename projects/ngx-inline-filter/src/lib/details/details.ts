@@ -3,6 +3,7 @@ import {
     Component,
     input,
     model,
+    output,
     TemplateRef,
 } from '@angular/core';
 import { FilterLogical, SortField, SortOrder } from '../model';
@@ -49,6 +50,26 @@ export class Details {
      * The template for value editors.
      */
     readonly valueTemplate = input.required<TemplateRef<TemplateContext> | undefined>();
+
+    /**
+     * When applied.
+     */
+    readonly apply = output();
+
+    /**
+     * When reset.
+     */
+    readonly reset = output();
+
+    _reset() {
+        this.reset.emit();
+    }
+
+    _apply(event?: Event) {
+        this.apply.emit();
+        event?.preventDefault();
+        event?.stopPropagation();
+    }
 
     _changeField(index: number, path: string) {
         this._updateSorting((sorting) => {
